@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">Bebe Agua</string>
+
+    <!-- Navegación -->
+    <string name="nav_home">Casa</string>
+    <string name="nav_history">Historial</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Home -->
+    <string name="home_daily_goal_label">objetivo diario</string>
+    <string name="home_goal_format">/ %1$d ml</string>
+    <string name="home_next_reminder">Próximo recordatorio</string>
+    <string name="home_no_reminder">—</string>
+    <string name="home_today_intakes">Registros de hoy</string>
+    <string name="home_no_intakes">Sin registros aún</string>
+    <string name="home_upcoming_reminder">próximo recordatorio</string>
+    <string name="home_measure">medida</string>
+    <string name="home_select_size">Seleccionar cantidad</string>
+    <string name="home_add_custom">Otra cantidad…</string>
+    <string name="home_custom_amount_title">Cantidad personalizada</string>
+    <string name="home_custom_amount_hint">Cantidad en ml</string>
+    <string name="home_delete">Eliminar</string>
+    <string name="home_intake_label">vaso de agua</string>
+    <string name="home_ml_format">%1$d ml</string>
+
+    <!-- Historial -->
+    <string name="history_title">Historial</string>
+    <string name="history_no_data">Sin datos para este período</string>
+    <string name="history_average_label">Media diaria</string>
+    <string name="history_best_label">Mejor día</string>
+    <string name="history_streak_label">Racha actual</string>
+    <string name="history_days_suffix">días</string>
+    <string name="history_goal_reached">Objetivo alcanzado</string>
+
+    <!-- Ajustes -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_section_goal">Objetivo</string>
+    <string name="settings_section_reminders">Recordatorios</string>
+    <string name="settings_section_sizes">Tamaños de ingesta</string>
+    <string name="settings_section_appearance">Apariencia</string>
+    <string name="settings_section_permissions">Permisos</string>
+    <string name="settings_daily_goal">Objetivo diario</string>
+    <string name="settings_daily_goal_subtitle">ml al día</string>
+    <string name="settings_start_time">Hora de inicio</string>
+    <string name="settings_end_time">Hora de fin</string>
+    <string name="settings_reminders_per_day">Recordatorios al día</string>
+    <string name="settings_reminders_less">menos</string>
+    <string name="settings_reminders_more">más</string>
+    <string name="settings_schedule_preview">Horarios calculados</string>
+    <string name="settings_intake_sizes">Tamaños de ingesta</string>
+    <string name="settings_add_size">+ Añadir tamaño</string>
+    <string name="settings_add_size_title">Añadir tamaño</string>
+    <string name="settings_edit_size_title">Editar tamaño</string>
+    <string name="settings_delete_size">Eliminar</string>
+    <string name="settings_language">Idioma</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_exact_alarms">Alarmas exactas</string>
+    <string name="settings_exact_alarms_subtitle">Necesario para recordatorios puntuales</string>
+    <string name="settings_permission_granted">Concedido</string>
+    <string name="settings_permission_denied">Denegado — toca para activar</string>
+    <string name="settings_ml_format">%1$d ml</string>
+    <string name="settings_time_format">%1$02d:%2$02d</string>
+    <string name="settings_reminder_at_format">%1$s · %2$d ml</string>
+
+    <!-- Opciones de idioma -->
+    <string name="language_auto">Predeterminado del sistema</string>
+    <string name="language_es">Español</string>
+    <string name="language_en">English</string>
+
+    <!-- Opciones de tema -->
+    <string name="theme_auto">Predeterminado del sistema</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="theme_light">Claro</string>
+
+    <!-- Notificaciones -->
+    <string name="notification_channel_name">Recordatorios de agua</string>
+    <string name="notification_channel_desc">Recordatorios periódicos de hidratación</string>
+    <string name="notification_title">¿Has bebido agua?</string>
+    <string name="notification_text">Llevas %1$d ml de %2$d ml hoy</string>
+    <string name="notification_action_drink">Beber %1$d ml</string>
+    <string name="notification_action_snooze">Posponer 15 min</string>
+
+    <!-- Permisos -->
+    <string name="permission_alarm_warning">Las alarmas exactas están desactivadas. Los recordatorios pueden retrasarse.</string>
+    <string name="permission_notification_warning">Las notificaciones están desactivadas.</string>
+
+    <!-- Comunes -->
+    <string name="ok">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guardar</string>
+    <string name="add">Añadir</string>
+    <string name="delete">Eliminar</string>
+</resources>

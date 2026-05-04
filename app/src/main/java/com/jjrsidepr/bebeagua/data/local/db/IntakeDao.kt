@@ -29,4 +29,7 @@ interface IntakeDao {
 
     @Query("DELETE FROM intake WHERE id = :id")
     suspend fun delete(id: Long)
+
+    @Query("SELECT amount_ml FROM intake ORDER BY timestamp_epoch_ms DESC LIMIT 1")
+    suspend fun getLastIntakeSizeMl(): Int?
 }

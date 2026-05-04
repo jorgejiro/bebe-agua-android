@@ -6,29 +6,57 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+// TODO: Bundle DM Sans + DM Mono TTF in res/font/ and replace these with proper FontFamily
+val DmSansFontFamily = FontFamily.SansSerif
+val DmMonoFontFamily = FontFamily.Monospace
+
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+    displayLarge = TextStyle(
+        fontFamily = DmMonoFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 32.sp,
+        lineHeight = 36.sp
+    ),
+    headlineMedium = TextStyle(
+        fontFamily = DmSansFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 20.sp,
+        lineHeight = 24.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = DmSansFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 13.sp,
+        lineHeight = 18.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = DmSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontSize = 13.sp,
+        lineHeight = 18.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = DmSansFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+        fontSize = 11.sp,
+        lineHeight = 16.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = DmSansFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 16.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = DmMonoFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 13.sp,
+        lineHeight = 18.sp
     ),
     labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontFamily = DmMonoFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        lineHeight = 16.sp
     )
-    */
 )

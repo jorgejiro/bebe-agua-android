@@ -1,3 +1,94 @@
 <resources>
-    <string name="app_name">Bebe Agua</string>
+    <string name="app_name">Drink Water</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_daily_goal_label">daily goal</string>
+    <string name="home_goal_format">/ %1$d ml</string>
+    <string name="home_next_reminder">Next reminder</string>
+    <string name="home_no_reminder">—</string>
+    <string name="home_today_intakes">Today\'s records</string>
+    <string name="home_no_intakes">No records yet</string>
+    <string name="home_upcoming_reminder">next reminder</string>
+    <string name="home_measure">measure</string>
+    <string name="home_select_size">Select amount</string>
+    <string name="home_add_custom">Other amount…</string>
+    <string name="home_custom_amount_title">Custom amount</string>
+    <string name="home_custom_amount_hint">Amount in ml</string>
+    <string name="home_delete">Delete</string>
+    <string name="home_intake_label">glass of water</string>
+    <string name="home_ml_format">%1$d ml</string>
+
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="history_no_data">No data for this period</string>
+    <string name="history_average_label">Daily average</string>
+    <string name="history_best_label">Best day</string>
+    <string name="history_streak_label">Current streak</string>
+    <string name="history_days_suffix">days</string>
+    <string name="history_goal_reached">Goal reached</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_goal">Goal</string>
+    <string name="settings_section_reminders">Reminders</string>
+    <string name="settings_section_sizes">Intake sizes</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_section_permissions">Permissions</string>
+    <string name="settings_daily_goal">Daily goal</string>
+    <string name="settings_daily_goal_subtitle">ml per day</string>
+    <string name="settings_start_time">Start time</string>
+    <string name="settings_end_time">End time</string>
+    <string name="settings_reminders_per_day">Reminders per day</string>
+    <string name="settings_reminders_less">less</string>
+    <string name="settings_reminders_more">more</string>
+    <string name="settings_schedule_preview">Calculated schedule</string>
+    <string name="settings_intake_sizes">Intake sizes</string>
+    <string name="settings_add_size">+ Add size</string>
+    <string name="settings_add_size_title">Add intake size</string>
+    <string name="settings_edit_size_title">Edit size</string>
+    <string name="settings_delete_size">Delete</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_exact_alarms">Exact alarms</string>
+    <string name="settings_exact_alarms_subtitle">Required for on-time reminders</string>
+    <string name="settings_permission_granted">Granted</string>
+    <string name="settings_permission_denied">Denied — tap to enable</string>
+    <string name="settings_ml_format">%1$d ml</string>
+    <string name="settings_time_format">%1$02d:%2$02d</string>
+    <string name="settings_reminder_at_format">%1$s · %2$d ml</string>
+
+    <!-- Language options -->
+    <string name="language_auto">System default</string>
+    <string name="language_es">Español</string>
+    <string name="language_en">English</string>
+
+    <!-- Theme options -->
+    <string name="theme_auto">System default</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Water reminders</string>
+    <string name="notification_channel_desc">Periodic hydration reminders</string>
+    <string name="notification_title">Time to drink water!</string>
+    <string name="notification_text">You\'ve had %1$d ml of %2$d ml today</string>
+    <string name="notification_action_drink">Drink %1$d ml</string>
+    <string name="notification_action_snooze">Snooze 15 min</string>
+
+    <!-- Permissions warning -->
+    <string name="permission_alarm_warning">Exact alarms are disabled. Reminders may be delayed.</string>
+    <string name="permission_notification_warning">Notifications are disabled.</string>
+
+    <!-- Common -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
 </resources>

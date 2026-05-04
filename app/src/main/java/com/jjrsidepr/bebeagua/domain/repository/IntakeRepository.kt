@@ -10,4 +10,5 @@ interface IntakeRepository {
     suspend fun addIntake(amountMl: Int): Long
     suspend fun deleteIntake(id: Long)
     suspend fun getDailyTotals(from: LocalDate, to: LocalDate): Map<LocalDate, Int>
+    suspend fun getLastIntakeSizeMl(): Int?
 }
