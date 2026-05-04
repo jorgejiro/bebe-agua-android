@@ -58,6 +58,32 @@ class SettingsDataSource @Inject constructor(
     val theme: Flow<String> =
         dataStore.data.map { it[KEY_THEME] ?: DEFAULT_THEME }
 
+    val snapshot: Flow<SettingsSnapshot> = dataStore.data.map { prefs ->
+        SettingsSnapshot(
+            dailyGoalMl = prefs[KEY_DAILY_GOAL_ML] ?: DEFAULT_DAILY_GOAL_ML,
+            dayStartMinutes = prefs[KEY_DAY_START_MINUTES] ?: DEFAULT_DAY_START_MINUTES,
+            dayEndMinutes = prefs[KEY_DAY_END_MINUTES] ?: DEFAULT_DAY_END_MINUTES,
+            remindersPerDay = prefs[KEY_REMINDERS_PER_DAY] ?: DEFAULT_REMINDERS_PER_DAY,
+            intakeSizesMl = prefs[KEY_INTAKE_SIZES_ML]
+                ?.split(",")
+                ?.mapNotNull(String::toIntOrNull)
+                ?.takeIf { it.isNotEmpty() }
+                ?: DEFAULT_INTAKE_SIZES_ML,
+            language = prefs[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE,
+            theme = prefs[KEY_THEME] ?: DEFAULT_THEME
+        )
+    }
+
+    data class SettingsSnapshot(
+        val dailyGoalMl: Int,
+        val dayStartMinutes: Int,
+        val dayEndMinutes: Int,
+        val remindersPerDay: Int,
+        val intakeSizesMl: List<Int>,
+        val language: String,
+        val theme: String
+    )
+
     suspend fun setDailyGoalMl(value: Int) {
         dataStore.edit { it[KEY_DAILY_GOAL_ML] = value }
     }
