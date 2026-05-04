@@ -1,0 +1,412 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  .phone-shell3 {
+    width: 340px;
+    margin: 0 auto;
+    background: #0B1829;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 1.5px solid #1e3554;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .status-bar3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px 6px;
+    background: #0B1829;
+  }
+  .status-time3 { font-size: 13px; font-weight: 600; color: #cee8ff; }
+  .status-icons3 { font-size: 11px; color: #7aadcf; }
+
+  .nav-tabs3 {
+    display: flex;
+    background: #0d1f38;
+    border-bottom: 0.5px solid #1e3554;
+  }
+  .nav-tab3 {
+    flex: 1;
+    text-align: center;
+    padding: 11px 0 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4a7ca0;
+    position: relative;
+  }
+  .nav-tab3.active { color: #60c8f5; }
+  .nav-tab3.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 20%; right: 20%;
+    height: 2px;
+    background: #60c8f5;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .screen-body3 {
+    background: #0f2440;
+    padding: 16px 16px 24px;
+  }
+
+  .settings-section { margin-bottom: 16px; }
+  .settings-section-label {
+    font-size: 9px;
+    color: #2a5070;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+    padding-left: 2px;
+  }
+  .settings-group {
+    background: #0a1d35;
+    border: 0.5px solid #1a3550;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .settings-row {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    border-bottom: 0.5px solid #1a3550;
+    gap: 10px;
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row-icon {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: #0d2e52;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .settings-row-icon svg { width: 14px; height: 14px; }
+  .settings-row-info { flex: 1; min-width: 0; }
+  .settings-row-label { font-size: 13px; font-weight: 500; color: #c8e8f8; }
+  .settings-row-sub { font-size: 10px; color: #3c6e96; }
+  .settings-row-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #60c8f5;
+    background: #0d2e52;
+    border: 0.5px solid #1e4a72;
+    border-radius: 8px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+  .settings-row-arrow { color: #1e4a72; font-size: 14px; }
+
+  .toggle-track {
+    width: 36px; height: 20px;
+    background: #1570b0;
+    border-radius: 10px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .toggle-thumb {
+    width: 14px; height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px; right: 3px;
+  }
+  .toggle-track.off { background: #1a3554; }
+  .toggle-track.off .toggle-thumb { right: auto; left: 3px; }
+
+  .sizes-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 14px 12px;
+  }
+  .chip {
+    background: #0d2e52;
+    border: 0.5px solid #1e4a72;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #a5daf5;
+  }
+  .chip.active {
+    background: #1570b0;
+    border-color: #1570b0;
+    color: #ffffff;
+  }
+  .chip.add-chip {
+    background: transparent;
+    border: 0.5px dashed #1e4a72;
+    color: #2a5070;
+  }
+
+  .reminders-section {
+    background: #0a1d35;
+    border: 0.5px solid #1a3550;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .reminders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #1a3550;
+  }
+  .reminders-header-left { display: flex; align-items: center; gap: 8px; }
+  .reminders-count {
+    background: #0d2e52;
+    border: 0.5px solid #1e4a72;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #60c8f5;
+  }
+  .reminders-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px 12px;
+    border-bottom: 0.5px solid #1a3550;
+  }
+  .reminders-slider-label { font-size: 10px; color: #3c6e96; white-space: nowrap; }
+  .slider-track {
+    flex: 1;
+    height: 4px;
+    background: #0d2e52;
+    border-radius: 2px;
+    position: relative;
+  }
+  .slider-fill { width: 50%; height: 100%; background: #1570b0; border-radius: 2px; }
+  .slider-thumb {
+    width: 14px; height: 14px;
+    background: #60c8f5;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px; left: 50%;
+    transform: translateX(-50%);
+    border: 1.5px solid #0f2440;
+  }
+
+  .reminder-times { display: flex; flex-direction: column; }
+  .reminder-time-row {
+    display: flex;
+    align-items: center;
+    padding: 9px 14px;
+    border-bottom: 0.5px solid #0d2344;
+    gap: 10px;
+  }
+  .reminder-time-row:last-child { border-bottom: none; }
+  .reminder-time-num {
+    font-size: 10px;
+    color: #2a5070;
+    min-width: 16px;
+  }
+  .reminder-time-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: #a5daf5;
+    flex: 1;
+  }
+  .reminder-time-ml { font-size: 11px; color: #3c6e96; }
+  .reminder-time-edit { font-size: 10px; color: #1e4a72; }
+
+  .perms-row-warn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1a2800;
+    border: 0.5px solid #3a5500;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 4px;
+  }
+  .perm-warn-dot { width: 6px; height: 6px; background: #8fbf00; border-radius: 50%; flex-shrink: 0; }
+  .perm-warn-text { font-size: 11px; color: #8fbf00; flex: 1; }
+  .perm-warn-btn {
+    font-size: 10px;
+    color: #b8e000;
+    background: #2a3e00;
+    border: 0.5px solid #4a6a00;
+    border-radius: 6px;
+    padding: 3px 8px;
+  }
+</style>
+
+<div class="phone-shell3">
+  <div class="status-bar3">
+    <span class="status-time3">08:19</span>
+    <span class="status-icons3">WiFi · 98%</span>
+  </div>
+
+  <div class="nav-tabs3">
+    <div class="nav-tab3">Casa</div>
+    <div class="nav-tab3">Historial</div>
+    <div class="nav-tab3 active">Ajustes</div>
+  </div>
+
+  <div class="screen-body3">
+
+    <div class="settings-section">
+      <div class="settings-section-label">Objetivo e hidratación</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M7 1C7 1 3 5.5 3 8.5C3 10.9 4.8 13 7 13C9.2 13 11 10.9 11 8.5C11 5.5 7 1 7 1Z" stroke="#60c8f5" stroke-width="1.1"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Objetivo diario</div>
+            <div class="settings-row-sub">cantidad total a beber</div>
+          </div>
+          <div class="settings-row-value">1500 ml</div>
+          <span class="settings-row-arrow">›</span>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#3c6e96" stroke-width="1.1"/><path d="M7 4V7L9.5 9" stroke="#3c6e96" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Horario del día</div>
+            <div class="settings-row-sub">ventana de recordatorios</div>
+          </div>
+          <div class="settings-row-value">08:00 – 23:00</div>
+          <span class="settings-row-arrow">›</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">Tamaños de ingesta</div>
+      <div class="settings-group">
+        <div class="sizes-chips">
+          <div class="chip">100 ml</div>
+          <div class="chip active">200 ml</div>
+          <div class="chip">330 ml</div>
+          <div class="chip">500 ml</div>
+          <div class="chip add-chip">+ añadir</div>
+        </div>
+        <div class="settings-row" style="border-top: 0.5px solid #1a3550;">
+          <div class="settings-row-info">
+            <div class="settings-row-label" style="font-size: 12px;">Permitir cantidad personalizada</div>
+          </div>
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">Recordatorios</div>
+      <div class="reminders-section">
+        <div class="reminders-header">
+          <div class="reminders-header-left">
+            <div class="settings-row-icon" style="width:24px;height:24px;border-radius:6px;">
+              <svg viewBox="0 0 14 14" fill="none" style="width:12px;height:12px;"><path d="M7 2V7L10 9" stroke="#60c8f5" stroke-width="1.1" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#60c8f5" stroke-width="1.1"/></svg>
+            </div>
+            <span style="font-size:13px;font-weight:500;color:#c8e8f8;">Recordatorios al día</span>
+          </div>
+          <div class="reminders-count">5</div>
+        </div>
+        <div class="reminders-slider-row">
+          <span class="reminders-slider-label">menos</span>
+          <div class="slider-track">
+            <div class="slider-fill"></div>
+            <div class="slider-thumb"></div>
+          </div>
+          <span class="reminders-slider-label">más</span>
+        </div>
+        <div class="reminder-times">
+          <div class="reminder-time-row">
+            <span class="reminder-time-num">1</span>
+            <span class="reminder-time-val">09:00</span>
+            <span class="reminder-time-ml">300 ml</span>
+            <span class="reminder-time-edit">editar</span>
+          </div>
+          <div class="reminder-time-row">
+            <span class="reminder-time-num">2</span>
+            <span class="reminder-time-val">11:15</span>
+            <span class="reminder-time-ml">300 ml</span>
+            <span class="reminder-time-edit">editar</span>
+          </div>
+          <div class="reminder-time-row">
+            <span class="reminder-time-num">3</span>
+            <span class="reminder-time-val">13:30</span>
+            <span class="reminder-time-ml">300 ml</span>
+            <span class="reminder-time-edit">editar</span>
+          </div>
+          <div class="reminder-time-row" style="opacity:0.4;">
+            <span class="reminder-time-num">4</span>
+            <span class="reminder-time-val">17:00</span>
+            <span class="reminder-time-ml">300 ml</span>
+            <span class="reminder-time-edit">editar</span>
+          </div>
+          <div class="reminder-time-row" style="opacity:0.4;">
+            <span class="reminder-time-num">5</span>
+            <span class="reminder-time-val">20:00</span>
+            <span class="reminder-time-ml">300 ml</span>
+            <span class="reminder-time-edit">editar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">Apariencia e idioma</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" stroke="#7aadcf" stroke-width="1.1"/><line x1="7" y1="1" x2="7" y2="2.5" stroke="#7aadcf" stroke-width="1.1" stroke-linecap="round"/><line x1="7" y1="11.5" x2="7" y2="13" stroke="#7aadcf" stroke-width="1.1" stroke-linecap="round"/><line x1="1" y1="7" x2="2.5" y2="7" stroke="#7aadcf" stroke-width="1.1" stroke-linecap="round"/><line x1="11.5" y1="7" x2="13" y2="7" stroke="#7aadcf" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Tema</div>
+          </div>
+          <div class="settings-row-value">Auto</div>
+          <span class="settings-row-arrow">›</span>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><rect x="2" y="3" width="10" height="8" rx="1.5" stroke="#7aadcf" stroke-width="1.1"/><line x1="4.5" y1="6" x2="7" y2="6" stroke="#7aadcf" stroke-width="1" stroke-linecap="round"/><line x1="4.5" y1="8" x2="9.5" y2="8" stroke="#7aadcf" stroke-width="1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Idioma</div>
+          </div>
+          <div class="settings-row-value">Español</div>
+          <span class="settings-row-arrow">›</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-section" style="margin-bottom:0;">
+      <div class="settings-section-label">Permisos del sistema</div>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><path d="M7 2L2 4V7C2 10 4.5 12.5 7 13C9.5 12.5 12 10 12 7V4L7 2Z" stroke="#3c6e96" stroke-width="1.1"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Notificaciones</div>
+            <div class="settings-row-sub">mostrar recordatorios</div>
+          </div>
+          <div class="toggle-track"><div class="toggle-thumb"></div></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-icon">
+            <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="#3c6e96" stroke-width="1.1"/><path d="M7 4V7L9 9" stroke="#3c6e96" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div class="settings-row-info">
+            <div class="settings-row-label">Alarmas exactas</div>
+            <div class="settings-row-sub">SCHEDULE_EXACT_ALARM</div>
+          </div>
+          <div class="toggle-track off"><div class="toggle-thumb"></div></div>
+        </div>
+      </div>
+      <div class="perms-warn-row">
+        <div class="perms-row-warn">
+          <div class="perm-warn-dot"></div>
+          <span class="perm-warn-text">Sin permiso de alarma exacta los recordatorios pueden retrasarse</span>
+          <span class="perm-warn-btn">Activar</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

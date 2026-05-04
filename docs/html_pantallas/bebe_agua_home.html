@@ -1,0 +1,182 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+  .ps{width:340px;margin:0 auto;background:#0B1829;border-radius:40px;overflow:hidden;border:1.5px solid #1e3554;font-family:'DM Sans',sans-serif;}
+  .sb{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 6px;background:#0B1829;}
+  .st{font-size:13px;font-weight:600;color:#cee8ff;letter-spacing:.5px;}
+  .si{font-size:11px;color:#7aadcf;}
+  .nt{display:flex;background:#0d1f38;border-bottom:.5px solid #1e3554;}
+  .ntb{flex:1;text-align:center;padding:11px 0 10px;font-size:12px;font-weight:500;color:#4a7ca0;letter-spacing:.3px;position:relative;}
+  .ntb.active{color:#60c8f5;}
+  .ntb.active::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2px;background:#60c8f5;border-radius:2px 2px 0 0;}
+  .nd{display:inline-block;width:5px;height:5px;background:#60c8f5;border-radius:50%;margin-right:5px;vertical-align:middle;position:relative;top:-1px;}
+  .body{background:#0f2440;padding:20px 20px 24px;}
+
+  .progress-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:14px;}
+  .ring-wrap{position:relative;width:210px;height:210px;}
+  .ring-wrap svg{position:absolute;top:0;left:0;width:100%;height:100%;}
+  .ring-center{position:absolute;inset:22px;border-radius:50%;background:#0a1d35;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+  .rc-consumed{font-family:'DM Mono',monospace;font-size:32px;font-weight:500;color:#60c8f5;line-height:1;letter-spacing:-1px;}
+  .rc-total{font-size:12px;color:#3c6e96;font-weight:400;}
+  .rc-label{font-size:9px;color:#2a5070;text-transform:uppercase;letter-spacing:1.2px;margin-top:2px;}
+
+  .next-pill{margin-top:10px;display:flex;align-items:center;gap:6px;background:#0d2e52;border:.5px solid #1e4a72;border-radius:20px;padding:5px 14px;}
+  .np-dot{width:6px;height:6px;background:#38bdf8;border-radius:50%;}
+  .np-text{font-size:11px;color:#6aaed4;}
+  .np-time{font-size:11px;color:#a5daf5;font-weight:500;}
+
+  .fab-area{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;padding:0 16px;}
+
+  .fab-change{width:52px;height:52px;background:#0d2e52;border:.5px solid #1e4a72;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;flex-shrink:0;}
+  .fab-change svg{width:20px;height:20px;}
+  .fab-change-label{font-size:9px;color:#3c6e96;letter-spacing:.3px;}
+
+  .fab-main{position:relative;width:104px;height:104px;cursor:pointer;flex-shrink:0;}
+  .fab-main-ring{position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,#1a7fd4 0%,#0e4a8a 100%);box-shadow:0 0 0 4px #0f2440,0 0 0 6px #1570b0;}
+  .fab-main-inner{position:absolute;inset:0;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
+  .fab-plus{font-size:38px;font-weight:300;color:#ffffff;line-height:1;margin-top:-2px;}
+  .fab-amount{font-family:'DM Mono',monospace;font-size:12px;color:#a8d8f0;font-weight:500;letter-spacing:.5px;}
+
+  .fab-spacer{width:52px;flex-shrink:0;}
+
+  .rl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 2px;}
+  .rl-title{font-size:13px;font-weight:500;color:#7aadcf;letter-spacing:.3px;}
+  .rl-add{width:22px;height:22px;background:#0d2e52;border:.5px solid #1e4a72;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+  .rl-add svg{width:12px;height:12px;}
+
+  .records{background:#0a1d35;border-radius:16px;overflow:hidden;border:.5px solid #1a3550;}
+  .ri{display:flex;align-items:center;padding:11px 16px;border-bottom:.5px solid #1a3550;gap:12px;}
+  .ri:last-child{border-bottom:none;}
+  .ri-icon{width:30px;height:30px;border-radius:9px;background:#0d2e52;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .ri-icon svg{width:14px;height:14px;}
+  .ri-info{flex:1;}
+  .ri-time{font-size:13px;font-weight:500;color:#c8e8f8;}
+  .ri-sub{font-size:11px;color:#3c6e96;}
+  .ri-amount{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#60c8f5;}
+  .ri-more{color:#2a5070;font-size:16px;line-height:1;padding-left:4px;}
+  .ri.upcoming{background:#0b2540;}
+  .ri-time.upt{color:#3c6e96;}
+  .ri-icon.upi{background:#0a1d35;}
+</style>
+
+<div class="ps">
+  <div class="sb">
+    <span class="st">08:19</span>
+    <span class="si">WiFi · 98%</span>
+  </div>
+  <div class="nt">
+    <div class="ntb active"><span class="nd"></span>Casa</div>
+    <div class="ntb">Historial</div>
+    <div class="ntb">Ajustes</div>
+  </div>
+  <div class="body">
+
+    <div class="progress-wrap">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="105" cy="105" r="91" stroke="#1a3554" stroke-width="9"/>
+          <circle cx="105" cy="105" r="91" stroke="#1570b0" stroke-width="9" stroke-linecap="round"
+            stroke-dasharray="571.8" stroke-dashoffset="419"
+            transform="rotate(-90 105 105)" opacity="0.3"/>
+          <circle cx="105" cy="105" r="91" stroke="url(#ag3)" stroke-width="9" stroke-linecap="round"
+            stroke-dasharray="571.8" stroke-dashoffset="419"
+            transform="rotate(-90 105 105)"/>
+          <defs>
+            <linearGradient id="ag3" x1="14" y1="105" x2="196" y2="105" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1570b0"/>
+              <stop offset="100%" stop-color="#60c8f5"/>
+            </linearGradient>
+          </defs>
+          <circle cx="14" cy="105" r="5.5" fill="#1570b0" opacity="0.5"/>
+          <circle cx="122" cy="15" r="5.5" fill="#60c8f5"/>
+        </svg>
+        <div class="ring-center">
+          <div class="rc-consumed">400</div>
+          <div class="rc-total">/ 1500 ml</div>
+          <div class="rc-label">objetivo diario</div>
+        </div>
+      </div>
+      <div class="next-pill">
+        <div class="np-dot"></div>
+        <span class="np-text">Próximo recordatorio</span>
+        <span class="np-time">09:30</span>
+      </div>
+    </div>
+
+    <div class="fab-area">
+      <div class="fab-spacer"></div>
+
+      <div class="fab-main">
+        <div class="fab-main-ring"></div>
+        <div class="fab-main-inner">
+          <span class="fab-plus">+</span>
+          <span class="fab-amount">200 ml</span>
+        </div>
+      </div>
+
+      <div class="fab-change">
+        <svg viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="5" r="2.5" stroke="#60c8f5" stroke-width="1.2"/>
+          <circle cx="9" cy="13" r="2.5" stroke="#3c6e96" stroke-width="1.2"/>
+          <line x1="9" y1="7.5" x2="9" y2="10.5" stroke="#3c6e96" stroke-width="1.2"/>
+          <path d="M6.5 12L9 15L11.5 12" stroke="#60c8f5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M11.5 6L9 3L6.5 6" stroke="#3c6e96" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="fab-change-label">medida</span>
+      </div>
+    </div>
+
+    <div class="rl-header">
+      <span class="rl-title">Registros de hoy</span>
+      <div class="rl-add">
+        <svg viewBox="0 0 12 12" fill="none">
+          <line x1="6" y1="2" x2="6" y2="10" stroke="#4a7ca0" stroke-width="1.2" stroke-linecap="round"/>
+          <line x1="2" y1="6" x2="10" y2="6" stroke="#4a7ca0" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="records">
+      <div class="ri upcoming">
+        <div class="ri-icon upi">
+          <svg viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="#2a5070" stroke-width="1.1"/>
+            <path d="M7 4V7L9 9" stroke="#2a5070" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="ri-info">
+          <div class="ri-time upt">09:30</div>
+          <div class="ri-sub">próximo recordatorio</div>
+        </div>
+        <span class="ri-amount" style="color:#2a5070;">— ml</span>
+      </div>
+      <div class="ri">
+        <div class="ri-icon">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M7 2C7 2 3 6 3 9C3 11.2 4.8 13 7 13C9.2 13 11 11.2 11 9C11 6 7 2 7 2Z" stroke="#60c8f5" stroke-width="1.1" fill="#60c8f5" fill-opacity="0.15"/>
+          </svg>
+        </div>
+        <div class="ri-info">
+          <div class="ri-time">08:03</div>
+          <div class="ri-sub">vaso de agua</div>
+        </div>
+        <span class="ri-amount">200 ml</span>
+        <span class="ri-more">⋮</span>
+      </div>
+      <div class="ri">
+        <div class="ri-icon">
+          <svg viewBox="0 0 14 14" fill="none">
+            <path d="M7 2C7 2 3 6 3 9C3 11.2 4.8 13 7 13C9.2 13 11 11.2 11 9C11 6 7 2 7 2Z" stroke="#60c8f5" stroke-width="1.1" fill="#60c8f5" fill-opacity="0.15"/>
+          </svg>
+        </div>
+        <div class="ri-info">
+          <div class="ri-time">08:03</div>
+          <div class="ri-sub">vaso de agua</div>
+        </div>
+        <span class="ri-amount">200 ml</span>
+        <span class="ri-more">⋮</span>
+      </div>
+    </div>
+
+  </div>
+</div>

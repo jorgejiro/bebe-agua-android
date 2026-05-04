@@ -1,0 +1,286 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+  .phone-shell2 {
+    width: 340px;
+    margin: 0 auto;
+    background: #0B1829;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 1.5px solid #1e3554;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .status-bar2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px 6px;
+    background: #0B1829;
+  }
+  .status-time2 { font-size: 13px; font-weight: 600; color: #cee8ff; letter-spacing: 0.5px; }
+  .status-icons2 { display: flex; gap: 5px; align-items: center; }
+  .status-icons2 span { font-size: 11px; color: #7aadcf; }
+
+  .nav-tabs2 {
+    display: flex;
+    background: #0d1f38;
+    border-bottom: 0.5px solid #1e3554;
+  }
+  .nav-tab2 {
+    flex: 1;
+    text-align: center;
+    padding: 11px 0 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #4a7ca0;
+    letter-spacing: 0.3px;
+    position: relative;
+  }
+  .nav-tab2.active { color: #60c8f5; }
+  .nav-tab2.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 20%; right: 20%;
+    height: 2px;
+    background: #60c8f5;
+    border-radius: 2px 2px 0 0;
+  }
+
+  .screen-body2 {
+    background: #0f2440;
+    padding: 20px 18px 24px;
+  }
+
+  .hist-month-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .hist-month-label { font-size: 14px; font-weight: 500; color: #a5daf5; }
+  .hist-nav-btn {
+    width: 28px; height: 28px;
+    background: #0d2e52;
+    border: 0.5px solid #1e4a72;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .hist-nav-btn svg { width: 12px; height: 12px; }
+
+  .hist-week-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 6px;
+  }
+  .hist-week-label {
+    text-align: center;
+    font-size: 9px;
+    color: #2a5070;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .hist-bar-chart {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    align-items: end;
+    height: 72px;
+    margin-bottom: 16px;
+  }
+  .hist-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 72px;
+  }
+  .hist-bar-day {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+    position: relative;
+  }
+  .hist-bar-day.reached { background: #1570b0; }
+  .hist-bar-day.partial { background: #0d2e52; }
+  .hist-bar-day.today { background: #60c8f5; }
+  .hist-bar-day.empty { background: #0d2e52; opacity: 0.4; }
+  .hist-bar-num {
+    font-size: 9px;
+    color: #3c6e96;
+    margin-top: 3px;
+  }
+  .hist-bar-num.today-num { color: #60c8f5; }
+
+  .hist-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .hist-card {
+    background: #0a1d35;
+    border: 0.5px solid #1a3550;
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .hist-card-label { font-size: 10px; color: #3c6e96; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
+  .hist-card-value { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: #60c8f5; }
+  .hist-card-sub { font-size: 10px; color: #2a5070; margin-top: 1px; }
+
+  .hist-days-list { display: flex; flex-direction: column; gap: 6px; }
+  .hist-day-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0a1d35;
+    border: 0.5px solid #1a3550;
+    border-radius: 12px;
+    padding: 10px 14px;
+  }
+  .hist-day-row.today-row { border-color: #1570b0; }
+  .hist-day-date { min-width: 44px; }
+  .hist-day-label { font-size: 11px; color: #3c6e96; }
+  .hist-day-num { font-size: 13px; font-weight: 500; color: #c8e8f8; }
+  .hist-day-bar-wrap { flex: 1; height: 6px; background: #0d2e52; border-radius: 3px; overflow: hidden; }
+  .hist-day-bar-fill { height: 100%; border-radius: 3px; background: #1570b0; }
+  .hist-day-bar-fill.today-fill { background: #60c8f5; }
+  .hist-day-amount { font-family: 'DM Mono', monospace; font-size: 12px; color: #60c8f5; min-width: 52px; text-align: right; }
+  .hist-day-check {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #0e4a2a;
+    border: 0.5px solid #1a8a50;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .hist-day-check svg { width: 8px; height: 8px; }
+  .hist-day-partial {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #0d2e52;
+    border: 0.5px solid #1e4a72;
+    flex-shrink: 0;
+  }
+</style>
+
+<div class="phone-shell2">
+  <div class="status-bar2">
+    <span class="status-time2">08:19</span>
+    <div class="status-icons2"><span>WiFi</span><span>98%</span></div>
+  </div>
+
+  <div class="nav-tabs2">
+    <div class="nav-tab2">Casa</div>
+    <div class="nav-tab2 active">Historial</div>
+    <div class="nav-tab2">Ajustes</div>
+  </div>
+
+  <div class="screen-body2">
+
+    <div class="hist-month-nav">
+      <div class="hist-nav-btn">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M7.5 3L4.5 6L7.5 9" stroke="#4a7ca0" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <span class="hist-month-label">abril 2026</span>
+      <div class="hist-nav-btn" style="opacity:0.3;">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M4.5 3L7.5 6L4.5 9" stroke="#4a7ca0" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+
+    <div class="hist-week-labels">
+      <div class="hist-week-label">L</div>
+      <div class="hist-week-label">M</div>
+      <div class="hist-week-label">X</div>
+      <div class="hist-week-label">J</div>
+      <div class="hist-week-label">V</div>
+      <div class="hist-week-label">S</div>
+      <div class="hist-week-label">D</div>
+    </div>
+
+    <div class="hist-bar-chart">
+      <div class="hist-bar-col">
+        <div class="hist-bar-day reached" style="height: 62px;"></div>
+        <div class="hist-bar-num">28</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day partial" style="height: 40px;"></div>
+        <div class="hist-bar-num">29</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day reached" style="height: 62px;"></div>
+        <div class="hist-bar-num">30</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day reached" style="height: 62px;"></div>
+        <div class="hist-bar-num">1</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day partial" style="height: 50px;"></div>
+        <div class="hist-bar-num">2</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day reached" style="height: 62px;"></div>
+        <div class="hist-bar-num">3</div>
+      </div>
+      <div class="hist-bar-col">
+        <div class="hist-bar-day today" style="height: 28px;"></div>
+        <div class="hist-bar-num today-num">4</div>
+      </div>
+    </div>
+
+    <div class="hist-summary-cards">
+      <div class="hist-card">
+        <div class="hist-card-label">Racha actual</div>
+        <div class="hist-card-value">4 <span style="font-size:13px;color:#3c6e96;">días</span></div>
+        <div class="hist-card-sub">objetivo alcanzado</div>
+      </div>
+      <div class="hist-card">
+        <div class="hist-card-label">Promedio 7 días</div>
+        <div class="hist-card-value">1.4 <span style="font-size:13px;color:#3c6e96;">L</span></div>
+        <div class="hist-card-sub">/ 1.5 L objetivo</div>
+      </div>
+    </div>
+
+    <div class="hist-days-list">
+      <div class="hist-day-row today-row">
+        <div class="hist-day-date">
+          <div class="hist-day-label">hoy</div>
+          <div class="hist-day-num">4 may</div>
+        </div>
+        <div class="hist-day-bar-wrap"><div class="hist-day-bar-fill today-fill" style="width: 27%;"></div></div>
+        <div class="hist-day-amount">400 ml</div>
+        <div class="hist-day-partial"></div>
+      </div>
+      <div class="hist-day-row">
+        <div class="hist-day-date">
+          <div class="hist-day-label">sáb</div>
+          <div class="hist-day-num">3 may</div>
+        </div>
+        <div class="hist-day-bar-wrap"><div class="hist-day-bar-fill" style="width: 100%;"></div></div>
+        <div class="hist-day-amount">1500 ml</div>
+        <div class="hist-day-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#3acf7a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="hist-day-row">
+        <div class="hist-day-date">
+          <div class="hist-day-label">vie</div>
+          <div class="hist-day-num">2 may</div>
+        </div>
+        <div class="hist-day-bar-wrap"><div class="hist-day-bar-fill" style="width: 83%;"></div></div>
+        <div class="hist-day-amount">1250 ml</div>
+        <div class="hist-day-partial"></div>
+      </div>
+      <div class="hist-day-row">
+        <div class="hist-day-date">
+          <div class="hist-day-label">jue</div>
+          <div class="hist-day-num">1 may</div>
+        </div>
+        <div class="hist-day-bar-wrap"><div class="hist-day-bar-fill" style="width: 100%;"></div></div>
+        <div class="hist-day-amount">1600 ml</div>
+        <div class="hist-day-check"><svg viewBox="0 0 8 8" fill="none"><path d="M1.5 4L3.5 6L6.5 2" stroke="#3acf7a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+</div>
