@@ -5,7 +5,7 @@ import com.jjrsidepr.bebeagua.data.repository.SettingsRepositoryImpl
 import com.jjrsidepr.bebeagua.domain.repository.IntakeRepository
 import com.jjrsidepr.bebeagua.domain.repository.ReminderScheduler
 import com.jjrsidepr.bebeagua.domain.repository.SettingsRepository
-import com.jjrsidepr.bebeagua.reminder.NoOpReminderScheduler
+import com.jjrsidepr.bebeagua.reminder.AlarmManagerReminderScheduler
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -24,8 +24,7 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindSettingsRepository(impl: SettingsRepositoryImpl): SettingsRepository
 
-    // Replaced by AlarmManagerReminderScheduler when the reminder layer is implemented.
     @Binds
     @Singleton
-    abstract fun bindReminderScheduler(impl: NoOpReminderScheduler): ReminderScheduler
+    abstract fun bindReminderScheduler(impl: AlarmManagerReminderScheduler): ReminderScheduler
 }
