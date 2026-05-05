@@ -107,8 +107,7 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
                 onUpdateWindow = viewModel::updateDayWindow,
                 onUpdateReminders = viewModel::updateRemindersPerDay,
                 onUpdateSizes = viewModel::updateIntakeSizes,
-                onUpdateLanguage = viewModel::updateLanguage,
-                onUpdateTheme = viewModel::updateTheme
+                onUpdateLanguage = viewModel::updateLanguage
             )
         }
         SnackbarHost(
@@ -126,8 +125,7 @@ private fun SettingsContent(
     onUpdateWindow: (Int, Int) -> Unit,
     onUpdateReminders: (Int) -> Unit,
     onUpdateSizes: (List<Int>) -> Unit,
-    onUpdateLanguage: (String) -> Unit,
-    onUpdateTheme: (String) -> Unit
+    onUpdateLanguage: (String) -> Unit
 ) {
     val context = LocalContext.current
     val settings = state.settings
@@ -137,7 +135,6 @@ private fun SettingsContent(
     var showEndTimePicker by rememberSaveable { mutableStateOf(false) }
     var showAddSizeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
-    var showThemeDialog by rememberSaveable { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -231,12 +228,6 @@ private fun SettingsContent(
                     label = stringResource(R.string.settings_language),
                     value = languageLabel(settings.language),
                     onClick = { showLanguageDialog = true }
-                )
-                HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
-                SettingRow(
-                    label = stringResource(R.string.settings_theme),
-                    value = themeLabel(settings.theme),
-                    onClick = { showThemeDialog = true }
                 )
             }
         }
@@ -338,27 +329,12 @@ private fun SettingsContent(
         ChoiceDialog(
             title = stringResource(R.string.settings_language),
             options = listOf(
-                "auto" to stringResource(R.string.language_auto),
                 "es" to stringResource(R.string.language_es),
                 "en" to stringResource(R.string.language_en)
             ),
             selected = settings.language,
             onSelect = { onUpdateLanguage(it); showLanguageDialog = false },
             onDismiss = { showLanguageDialog = false }
-        )
-    }
-
-    if (showThemeDialog) {
-        ChoiceDialog(
-            title = stringResource(R.string.settings_theme),
-            options = listOf(
-                "auto" to stringResource(R.string.theme_auto),
-                "dark" to stringResource(R.string.theme_dark),
-                "light" to stringResource(R.string.theme_light)
-            ),
-            selected = settings.theme,
-            onSelect = { onUpdateTheme(it); showThemeDialog = false },
-            onDismiss = { showThemeDialog = false }
         )
     }
 }
@@ -544,6 +520,7 @@ private fun GoalDialog(current: Int, onConfirm: (Int) -> Unit, onDismiss: () -> 
     var input by rememberSaveable { mutableStateOf(current.toString()) }
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(16.dp),
         title = { Text(stringResource(R.string.settings_daily_goal)) },
         text = {
             OutlinedTextField(
@@ -573,6 +550,7 @@ private fun SizeInputDialog(title: String, onConfirm: (Int) -> Unit, onDismiss: 
     var input by rememberSaveable { mutableStateOf("") }
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(16.dp),
         title = { Text(title) },
         text = {
             OutlinedTextField(
@@ -606,6 +584,7 @@ private fun ChoiceDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(16.dp),
         title = { Text(title) },
         text = {
             Column {
@@ -679,12 +658,8 @@ private fun LocalTime.toHhMm(): String =
 private fun languageLabel(language: String) = when (language) {
     "es" -> stringResource(R.string.language_es)
     "en" -> stringResource(R.string.language_en)
-    else -> stringResource(R.string.language_auto)
-}
-
-@Composable
-private fun themeLabel(theme: String) = when (theme) {
-    "dark" -> stringResource(R.string.theme_dark)
-    "light" -> stringResource(R.string.theme_light)
-    else -> stringResource(R.string.theme_auto)
+    else -> when (java.util.Locale.getDefault().language) {
+        "es" -> stringResource(R.string.language_es)
+        else -> stringResource(R.string.language_en)
+    }
 }

@@ -290,6 +290,7 @@ private fun HomeContent(
         var input by rememberSaveable { mutableStateOf("") }
         AlertDialog(
             onDismissRequest = { showCustomDialog = false },
+            shape = RoundedCornerShape(16.dp),
             title = { Text(stringResource(R.string.home_custom_amount_title)) },
             text = {
                 OutlinedTextField(

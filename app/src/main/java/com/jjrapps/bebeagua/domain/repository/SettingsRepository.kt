@@ -10,5 +10,4 @@ interface SettingsRepository {
     suspend fun updateRemindersPerDay(count: Int)
     suspend fun updateIntakeSizes(sizes: List<Int>)
     suspend fun updateLanguage(language: String)
-    suspend fun updateTheme(theme: String)
 }

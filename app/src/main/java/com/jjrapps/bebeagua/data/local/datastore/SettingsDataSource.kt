@@ -21,7 +21,6 @@ class SettingsDataSource @Inject constructor(
         private val KEY_REMINDERS_PER_DAY = intPreferencesKey("reminders_per_day")
         private val KEY_INTAKE_SIZES_ML = stringPreferencesKey("intake_sizes_ml")
         private val KEY_LANGUAGE = stringPreferencesKey("language")
-        private val KEY_THEME = stringPreferencesKey("theme")
 
         const val DEFAULT_DAILY_GOAL_ML = 1500
         const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
@@ -29,7 +28,6 @@ class SettingsDataSource @Inject constructor(
         const val DEFAULT_REMINDERS_PER_DAY = 6
         val DEFAULT_INTAKE_SIZES_ML = listOf(200)
         const val DEFAULT_LANGUAGE = "auto"
-        const val DEFAULT_THEME = "auto"
     }
 
     val dailyGoalMl: Flow<Int> =
@@ -55,9 +53,6 @@ class SettingsDataSource @Inject constructor(
     val language: Flow<String> =
         dataStore.data.map { it[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE }
 
-    val theme: Flow<String> =
-        dataStore.data.map { it[KEY_THEME] ?: DEFAULT_THEME }
-
     val snapshot: Flow<SettingsSnapshot> = dataStore.data.map { prefs ->
         SettingsSnapshot(
             dailyGoalMl = prefs[KEY_DAILY_GOAL_ML] ?: DEFAULT_DAILY_GOAL_ML,
@@ -69,8 +64,7 @@ class SettingsDataSource @Inject constructor(
                 ?.mapNotNull(String::toIntOrNull)
                 ?.takeIf { it.isNotEmpty() }
                 ?: DEFAULT_INTAKE_SIZES_ML,
-            language = prefs[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE,
-            theme = prefs[KEY_THEME] ?: DEFAULT_THEME
+            language = prefs[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE
         )
     }
 
@@ -80,8 +74,7 @@ class SettingsDataSource @Inject constructor(
         val dayEndMinutes: Int,
         val remindersPerDay: Int,
         val intakeSizesMl: List<Int>,
-        val language: String,
-        val theme: String
+        val language: String
     )
 
     suspend fun setDailyGoalMl(value: Int) {
@@ -106,9 +99,5 @@ class SettingsDataSource @Inject constructor(
 
     suspend fun setLanguage(language: String) {
         dataStore.edit { it[KEY_LANGUAGE] = language }
-    }
-
-    suspend fun setTheme(theme: String) {
-        dataStore.edit { it[KEY_THEME] = theme }
     }
 }

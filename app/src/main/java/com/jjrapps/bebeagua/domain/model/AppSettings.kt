@@ -8,8 +8,7 @@ data class AppSettings(
     val dayEndMinutes: Int,
     val remindersPerDay: Int,
     val intakeSizesMl: List<Int>,
-    val language: String,
-    val theme: String
+    val language: String
 ) {
     val dayStart: LocalTime get() = LocalTime.of(dayStartMinutes / 60, dayStartMinutes % 60)
     val dayEnd: LocalTime get() = LocalTime.of(dayEndMinutes / 60, dayEndMinutes % 60)

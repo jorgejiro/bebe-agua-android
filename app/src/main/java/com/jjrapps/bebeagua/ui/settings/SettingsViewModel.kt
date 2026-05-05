@@ -64,8 +64,6 @@ class SettingsViewModel @Inject constructor(
 
     fun updateLanguage(language: String) = update { settingsRepository.updateLanguage(language) }
 
-    fun updateTheme(theme: String) = update { settingsRepository.updateTheme(theme) }
-
     private fun update(block: suspend () -> Unit) {
         viewModelScope.launch {
             runCatching { block() }

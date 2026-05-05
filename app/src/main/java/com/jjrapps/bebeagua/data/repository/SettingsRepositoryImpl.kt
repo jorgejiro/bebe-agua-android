@@ -21,8 +21,7 @@ class SettingsRepositoryImpl @Inject constructor(
                 dayEndMinutes = s.dayEndMinutes,
                 remindersPerDay = s.remindersPerDay,
                 intakeSizesMl = s.intakeSizesMl,
-                language = s.language,
-                theme = s.theme
+                language = s.language
             )
         }
 
@@ -38,6 +37,4 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun updateIntakeSizes(sizes: List<Int>) = dataSource.setIntakeSizesMl(sizes)
 
     override suspend fun updateLanguage(language: String) = dataSource.setLanguage(language)
-
-    override suspend fun updateTheme(theme: String) = dataSource.setTheme(theme)
 }
