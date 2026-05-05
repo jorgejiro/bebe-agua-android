@@ -521,19 +521,43 @@ private fun PermissionRow(
 @Composable
 private fun GoalDialog(current: Int, onConfirm: (Int) -> Unit, onDismiss: () -> Unit) {
     var input by rememberSaveable { mutableStateOf(current.toString()) }
+
+    fun step(delta: Int) {
+        val next = ((input.toIntOrNull() ?: current) + delta).coerceIn(100, 10000)
+        input = next.toString()
+    }
+
     AlertDialog(
         onDismissRequest = onDismiss,
         shape = RoundedCornerShape(16.dp),
         title = { Text(stringResource(R.string.settings_daily_goal)) },
         text = {
-            OutlinedTextField(
-                value = input,
-                onValueChange = { input = it.filter(Char::isDigit) },
-                label = { Text(stringResource(R.string.settings_daily_goal_subtitle)) },
-                singleLine = true,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                suffix = { Text("ml") }
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                IconButton(
+                    onClick = { step(-100) },
+                    enabled = (input.toIntOrNull() ?: current) > 100
+                ) {
+                    Icon(Icons.Outlined.Remove, contentDescription = null, tint = AccentLight)
+                }
+                OutlinedTextField(
+                    value = input,
+                    onValueChange = { input = it.filter(Char::isDigit) },
+                    label = { Text(stringResource(R.string.settings_daily_goal_subtitle)) },
+                    singleLine = true,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    suffix = { Text("ml") },
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(
+                    onClick = { step(100) },
+                    enabled = (input.toIntOrNull() ?: current) < 10000
+                ) {
+                    Icon(Icons.Outlined.Add, contentDescription = null, tint = AccentLight)
+                }
+            }
         },
         confirmButton = {
             TextButton(onClick = {
