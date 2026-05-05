@@ -333,7 +333,9 @@ private fun SettingsContent(
                 "es" to stringResource(R.string.language_es),
                 "en" to stringResource(R.string.language_en)
             ),
-            selected = settings.language,
+            selected = if (settings.language == "auto")
+                if (java.util.Locale.getDefault().language == "es") "es" else "en"
+            else settings.language,
             onSelect = { onUpdateLanguage(it); showLanguageDialog = false },
             onDismiss = { showLanguageDialog = false }
         )
