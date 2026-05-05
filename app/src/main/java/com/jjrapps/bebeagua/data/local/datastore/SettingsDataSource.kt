@@ -3,6 +3,7 @@ package com.jjrapps.bebeagua.data.local.datastore
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,7 @@ class SettingsDataSource @Inject constructor(
         private val KEY_REMINDERS_PER_DAY = intPreferencesKey("reminders_per_day")
         private val KEY_INTAKE_SIZES_ML = stringPreferencesKey("intake_sizes_ml")
         private val KEY_LANGUAGE = stringPreferencesKey("language")
+        private val KEY_ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
 
         const val DEFAULT_DAILY_GOAL_ML = 1500
         const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
@@ -99,5 +101,12 @@ class SettingsDataSource @Inject constructor(
 
     suspend fun setLanguage(language: String) {
         dataStore.edit { it[KEY_LANGUAGE] = language }
+    }
+
+    val isOnboardingDone: Flow<Boolean> =
+        dataStore.data.map { it[KEY_ONBOARDING_DONE] ?: false }
+
+    suspend fun setOnboardingDone() {
+        dataStore.edit { it[KEY_ONBOARDING_DONE] = true }
     }
 }

@@ -85,6 +85,19 @@
     <string name="permission_alarm_warning">Las alarmas exactas están desactivadas. Los recordatorios pueden retrasarse.</string>
     <string name="permission_notification_warning">Las notificaciones están desactivadas.</string>
 
+    <!-- Incorporación -->
+    <string name="onboarding_welcome_title">Mantente hidratado</string>
+    <string name="onboarding_welcome_body">Registra tu ingesta diaria de agua y recibe recordatorios puntuales para no olvidar beber.</string>
+    <string name="onboarding_setup_title">Configura tu objetivo</string>
+    <string name="onboarding_setup_subtitle">Elige cuánta agua quieres beber cada día y en qué franja horaria deben activarse los recordatorios.</string>
+    <string name="onboarding_goal_label">OBJETIVO DIARIO</string>
+    <string name="onboarding_time_label">FRANJA HORARIA</string>
+    <string name="onboarding_permissions_title">Activa los recordatorios</string>
+    <string name="onboarding_permissions_subtitle">Concede estos permisos para que la app pueda enviarte recordatorios puntuales.</string>
+    <string name="onboarding_grant">Activar</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_finish">Empezar</string>
+
     <!-- Comunes -->
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>

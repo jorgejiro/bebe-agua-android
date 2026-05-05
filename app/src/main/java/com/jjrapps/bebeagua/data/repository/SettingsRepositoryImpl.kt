@@ -37,4 +37,8 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun updateIntakeSizes(sizes: List<Int>) = dataSource.setIntakeSizesMl(sizes)
 
     override suspend fun updateLanguage(language: String) = dataSource.setLanguage(language)
+
+    override fun isOnboardingDone(): Flow<Boolean> = dataSource.isOnboardingDone
+
+    override suspend fun completeOnboarding() = dataSource.setOnboardingDone()
 }

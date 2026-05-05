@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,6 +33,8 @@ import androidx.navigation.compose.rememberNavController
 import com.jjrapps.bebeagua.R
 import com.jjrapps.bebeagua.ui.history.HistoryScreen
 import com.jjrapps.bebeagua.ui.home.HomeScreen
+import com.jjrapps.bebeagua.ui.main.MainViewModel
+import com.jjrapps.bebeagua.ui.onboarding.OnboardingScreen
 import com.jjrapps.bebeagua.ui.settings.SettingsScreen
 import com.jjrapps.bebeagua.ui.theme.AccentLight
 import com.jjrapps.bebeagua.ui.theme.BackgroundMain
@@ -41,7 +44,22 @@ import com.jjrapps.bebeagua.ui.theme.DmSansFontFamily
 import com.jjrapps.bebeagua.ui.theme.TextMuted
 
 @Composable
-fun BebeAguaNavGraph() {
+fun BebeAguaNavGraph(mainViewModel: MainViewModel = hiltViewModel()) {
+    val isOnboardingDone by mainViewModel.isOnboardingDone.collectAsStateWithLifecycle()
+
+    when (isOnboardingDone) {
+        null -> Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(BackgroundMain)
+        )
+        false -> OnboardingScreen(onFinished = {})
+        true -> MainScaffold()
+    }
+}
+
+@Composable
+private fun MainScaffold() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route

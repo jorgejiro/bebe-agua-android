@@ -10,4 +10,6 @@ interface SettingsRepository {
     suspend fun updateRemindersPerDay(count: Int)
     suspend fun updateIntakeSizes(sizes: List<Int>)
     suspend fun updateLanguage(language: String)
+    fun isOnboardingDone(): Flow<Boolean>
+    suspend fun completeOnboarding()
 }
