@@ -4,6 +4,8 @@ import android.app.AlarmManager
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jjrapps.bebeagua.domain.repository.SettingsRepository
@@ -62,7 +64,15 @@ class SettingsViewModel @Inject constructor(
 
     fun updateIntakeSizes(sizes: List<Int>) = update { settingsRepository.updateIntakeSizes(sizes) }
 
-    fun updateLanguage(language: String) = update { settingsRepository.updateLanguage(language) }
+    fun updateLanguage(language: String) = update {
+        settingsRepository.updateLanguage(language)
+        val localeList = if (language == "auto") {
+            LocaleListCompat.getEmptyLocaleList()
+        } else {
+            LocaleListCompat.forLanguageTags(language)
+        }
+        AppCompatDelegate.setApplicationLocales(localeList)
+    }
 
     private fun update(block: suspend () -> Unit) {
         viewModelScope.launch {
