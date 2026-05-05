@@ -469,7 +469,9 @@ private fun PermissionsPage() {
             granted = exactAlarmsGranted,
             onRequest = {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                    val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                        data = android.net.Uri.fromParts("package", context.packageName, null)
+                    }
                     context.startActivity(intent)
                 }
             }

@@ -260,6 +260,7 @@ private fun SettingsContent(
                         if (!state.exactAlarmsGranted && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                             context.startActivity(
                                 Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                                    data = android.net.Uri.fromParts("package", context.packageName, null)
                                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 }
                             )
