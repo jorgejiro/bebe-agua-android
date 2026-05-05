@@ -32,7 +32,7 @@
             android:name=".reminder.ReminderReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.jjrsidepr.bebeagua.ACTION_REMINDER_ALARM" />
+                <action android:name="com.jjrapps.bebeagua.ACTION_REMINDER_ALARM" />
             </intent-filter>
         </receiver>
 

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.jjrsidepr.bebeagua"
+    namespace = "com.jjrapps.bebeagua"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -14,7 +14,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.jjrsidepr.bebeagua"
+        applicationId = "com.jjrapps.bebeagua"
         minSdk = 31
         targetSdk = 36
         versionCode = 1
