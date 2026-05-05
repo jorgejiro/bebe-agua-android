@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(./gradlew assembleDebug)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:mvnrepository.com)",
+      "WebFetch(domain:plugins.gradle.org)",
+      "Bash(curl -s \"https://dl.google.com/dl/android/maven2/com/google/devtools/ksp/com.google.devtools.ksp.gradle.plugin/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/com/google/devtools/ksp/com.google.devtools.ksp.gradle.plugin/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-gradle-plugin/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/androidx/compose/compose-bom/maven-metadata.xml\")",
+      "Bash(curl -s \"https://repo1.maven.org/maven2/com/google/dagger/hilt-android/maven-metadata.xml\")"
     ]
   }
 }
