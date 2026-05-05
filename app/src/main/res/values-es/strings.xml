@@ -2,7 +2,7 @@
     <string name="app_name">Bebe Agua</string>
 
     <!-- Navegación -->
-    <string name="nav_home">Casa</string>
+    <string name="nav_home">Inicio</string>
     <string name="nav_history">Historial</string>
     <string name="nav_settings">Ajustes</string>
 
