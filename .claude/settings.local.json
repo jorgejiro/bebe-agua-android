@@ -10,7 +10,12 @@
       "Bash(curl -s \"https://repo1.maven.org/maven2/com/google/devtools/ksp/com.google.devtools.ksp.gradle.plugin/maven-metadata.xml\")",
       "Bash(curl -s \"https://repo1.maven.org/maven2/org/jetbrains/kotlin/kotlin-gradle-plugin/maven-metadata.xml\")",
       "Bash(curl -s \"https://repo1.maven.org/maven2/androidx/compose/compose-bom/maven-metadata.xml\")",
-      "Bash(curl -s \"https://repo1.maven.org/maven2/com/google/dagger/hilt-android/maven-metadata.xml\")"
+      "Bash(curl -s \"https://repo1.maven.org/maven2/com/google/dagger/hilt-android/maven-metadata.xml\")",
+      "Bash(./gradlew app:dependencies --configuration debugRuntimeClasspath)",
+      "Bash(wait)",
+      "Bash(find /Users/jorge/dev/bebe-agua-android/app/src/main/res/values* -name \"themes.xml\")",
+      "Bash(xargs cat)",
+      "Bash(./gradlew assembleRelease)"
     ]
   }
 }
