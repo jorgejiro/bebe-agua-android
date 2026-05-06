@@ -14,9 +14,10 @@ import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -33,20 +34,27 @@ class SettingsViewModel @Inject constructor(
     private val _events = Channel<SettingsEvent>(Channel.BUFFERED)
     val events = _events.receiveAsFlow()
 
-    val uiState = settingsRepository.observeSettings()
-        .map { settings ->
-            val times = calculateReminderTimesUseCase(
-                settings.dayStartMinutes,
-                settings.dayEndMinutes,
-                settings.remindersPerDay
-            )
-            SettingsUiState.Success(
-                settings = settings,
-                calculatedTimes = times,
-                notificationsGranted = areNotificationsGranted(),
-                exactAlarmsGranted = canScheduleExactAlarms()
-            )
-        }
+    private val permissionsFlow = MutableStateFlow(
+        areNotificationsGranted() to canScheduleExactAlarms()
+    )
+
+    fun refreshPermissions() {
+        permissionsFlow.value = areNotificationsGranted() to canScheduleExactAlarms()
+    }
+
+    val uiState = combine(settingsRepository.observeSettings(), permissionsFlow) { settings, (notifGranted, alarmGranted) ->
+        val times = calculateReminderTimesUseCase(
+            settings.dayStartMinutes,
+            settings.dayEndMinutes,
+            settings.remindersPerDay
+        )
+        SettingsUiState.Success(
+            settings = settings,
+            calculatedTimes = times,
+            notificationsGranted = notifGranted,
+            exactAlarmsGranted = alarmGranted
+        )
+    }
         .catch<SettingsUiState> { emit(SettingsUiState.Error(it.message ?: "Error")) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState.Loading)
 
