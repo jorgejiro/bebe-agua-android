@@ -26,46 +26,50 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 
 ---
 
-## 2. Funcionalidad (alcance v1)
+## 2. Funcionalidad (estado actual v1.0.1)
 
-### 2.1 Pantalla principal (Casa)
+### 2.1 Pantalla principal (Casa) ✅ Implementada
 - Círculo de progreso central mostrando `consumido / objetivo` en ml.
 - Botón grande central: **registrar ingesta con la cantidad por defecto** (la última usada). Un solo toque.
 - Botón secundario adyacente: **cambiar la cantidad por defecto** (abre selector con todas las medidas configuradas).
-- Sección "Registros de hoy" con lista de ingestas (hora + cantidad), ordenadas descendente. Cada item permite eliminar (long-press o menú overflow).
+- Sección "Registros de hoy" con lista de ingestas (hora + cantidad), ordenadas descendente. Cada item permite eliminar.
 - Indicador de la próxima notificación programada ("Próximo recordatorio: 09:30").
 
-### 2.2 Pantalla Historial
-- Vista por días con total diario y barra de progreso vs objetivo.
-- Posibilidad de ver el detalle de un día (lista de ingestas).
+### 2.2 Pantalla Historial ✅ Implementada
+- Vista por días (últimos 30) con total diario y barra de progreso vs objetivo.
+- Streaks y estadísticas básicas.
 - (v1.1, no v1) Gráfico semanal/mensual.
 
-### 2.3 Pantalla Configuración
+### 2.3 Pantalla Configuración ✅ Implementada
 - **Objetivo diario** (ml). Por defecto: 1500 ml.
 - **Hora de inicio del día**. Por defecto: 08:00.
 - **Hora de fin del día**. Por defecto: 23:00.
-- **Número de recordatorios al día** (slider entre N_min y N_max calculados según ventana horaria). El usuario decide más recordatorios = ingestas más pequeñas, o menos = más grandes.
+- **Número de recordatorios al día** (slider entre N_min y N_max calculados según ventana horaria).
 - **Lista editable de tamaños de ingesta**. Por defecto: `[200 ml]`. El usuario puede añadir, editar y eliminar (mínimo siempre debe quedar uno).
 - **Tamaño por defecto al iniciar**: el último usado (no se configura, se infiere).
 - **Idioma**: Auto / Español / English.
 - **Tema**: Auto / Claro / Oscuro.
-- **Vista previa de horarios de recordatorio calculados** con posibilidad de ajustar la hora de cada uno individualmente.
-- **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados.
+- **Vista previa de horarios de recordatorio calculados**.
+- **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados. El estado de `canScheduleExactAlarms()` se refresca en `onResume`.
 
-### 2.4 Notificaciones
-- Tap en la notificación → abre la app en la pantalla principal (deep link, no relanzar).
-- Acción rápida en la notificación: "He bebido 200 ml" (o lo que sea la medida por defecto actual) que registra sin abrir la app.
+### 2.4 Pantalla Onboarding ✅ Implementada
+- Flujo de bienvenida al primer arranque.
+- Configura objetivo diario y ventana horaria.
+- Solicita permisos (notificaciones, alarmas exactas).
+
+### 2.5 Notificaciones ✅ Implementadas
+- Tap en la notificación → abre la app en la pantalla principal.
+- Acción rápida en la notificación: "He bebido X ml" (medida por defecto actual) que registra sin abrir la app.
 - Acción rápida: "Posponer 15 min".
 - Solo se envían entre `horaInicio` y `horaFin`.
 - Dejan de enviarse al alcanzar el objetivo diario.
-- Al registrar manualmente una ingesta, se reprograma el siguiente recordatorio desde ese momento (no se acumulan).
-- A medianoche (en zona horaria local) se reinician contadores y se reprograman los recordatorios del día siguiente.
+- Al registrar manualmente una ingesta, se reprograma el siguiente recordatorio desde ese momento.
+- `BootReceiver` reprograma los recordatorios tras reinicio del dispositivo.
 
-### 2.5 Cálculo de recordatorios
+### 2.6 Cálculo de recordatorios
 Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usuario:
 - Distribuir `N` puntos uniformemente en la ventana.
 - Cantidad sugerida por recordatorio = `objetivoDiario / N` (redondeado a la medida disponible más cercana, solo informativo en la notificación).
-- El usuario puede sobrescribir manualmente cada hora individual desde Configuración.
 - Si el usuario registra manualmente, el "próximo recordatorio" se desplaza para que no salga inmediatamente después.
 
 ---
@@ -76,25 +80,40 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 
 | Capa | Decisión |
 |---|---|
-| Lenguaje | Kotlin 2.3.10+ |
-| UI | Jetpack Compose con BOM `2026.04.01` o superior estable |
+| Lenguaje | Kotlin **2.3.21** |
+| UI | Jetpack Compose con BOM **`2026.04.01`** |
 | Material | Material 3 (`androidx.compose.material3`) |
 | `minSdk` | 31 (Android 12) |
-| `targetSdk` | 36 (Android 16, último estable en build) |
-| `compileSdk` | igual a `targetSdk` |
+| `targetSdk` | 36 (Android 16) |
+| `compileSdk` | 36 |
 | Build | Gradle Kotlin DSL + Version Catalog (`libs.versions.toml`) |
-| AGP | última estable compatible con la BOM elegida |
+| AGP | **9.2.1** |
+| KSP | **2.3.7** (para Hilt y Room; no usar kapt) |
 | Arquitectura | MVVM + UDF (Unidirectional Data Flow), capas: `ui` / `domain` / `data` |
-| DI | Hilt |
-| Persistencia | **Room** para registros de ingesta (consultas por día, agregaciones); **DataStore (Preferences)** para ajustes |
-| Navegación | Navigation 3 (Nav3) si está estable en el momento del setup; si no, Navigation Compose 2.x |
-| Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver` para los recordatorios. **No usar WorkManager** para los recordatorios (granularidad mínima de 15 min, no garantiza hora exacta). Sí usar WorkManager si aparece alguna tarea de mantenimiento periódica no crítica. |
-| Notificaciones | `NotificationManagerCompat` + canal dedicado `reminders` con importancia `IMPORTANCE_DEFAULT` |
-| Concurrencia | Coroutines + Flow |
-| i18n | Recursos `strings.xml` (`values/`, `values-es/`); cambio de idioma en runtime con `AppCompatDelegate.setApplicationLocales` (App Locales API, Android 13+) |
-| Tests | JUnit5 + Turbine para Flows + Compose UI Test |
-| Logs | `Timber` (solo en debug) |
-| Backup | `android:allowBackup="false"` en v1 (decisión del usuario: solo local, sin nube) |
+| DI | Hilt **2.59.2** |
+| Persistencia | **Room 2.7.1** para registros de ingesta; **DataStore Preferences 1.1.4** para ajustes |
+| Navegación | **Navigation Compose 2.9.0** (Nav3 no estaba maduro; se descartó) |
+| Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver`. **No usar WorkManager** para recordatorios. |
+| Notificaciones | `NotificationManagerCompat` + canal `reminders` con `IMPORTANCE_DEFAULT` |
+| Concurrencia | Coroutines **1.10.2** + Flow |
+| i18n | Recursos `strings.xml` (`values/`, `values-es/`); cambio de idioma en runtime con `AppCompatDelegate.setApplicationLocales` |
+| Tests | **JUnit 4** + MockK **1.13.9** + Turbine **1.2.0** + Compose UI Test |
+| Logs | `Timber 5.0.1` (solo en debug) |
+| Backup | `android:allowBackup="false"` |
+
+### Versiones de librerías clave (ver `gradle/libs.versions.toml` para la lista completa)
+| Librería | Versión |
+|---|---|
+| Compose BOM | 2026.04.01 |
+| Hilt | 2.59.2 |
+| Room | 2.7.1 |
+| DataStore | 1.1.4 |
+| Navigation Compose | 2.9.0 |
+| Hilt Navigation Compose | 1.2.0 |
+| Coroutines | 1.10.2 |
+| Timber | 5.0.1 |
+| MockK | 1.13.9 |
+| Turbine | 1.2.0 |
 
 ### Permisos requeridos
 ```xml
@@ -103,9 +122,9 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 ```
 
-> **Importante sobre alarmas exactas:** desde Android 14 `SCHEDULE_EXACT_ALARM` está denegada por defecto para apps que no son de tipo reloj/calendario. Hay que solicitarla al usuario en el primer arranque con `Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM` y comprobar `AlarmManager.canScheduleExactAlarms()` antes de programar. **No declarar `USE_EXACT_ALARM`**: Google Play la rechazaría para una app de hidratación (está restringida a alarm clock / calendar genuinos).
+> **Importante sobre alarmas exactas:** desde Android 14 `SCHEDULE_EXACT_ALARM` está denegada por defecto. Se solicita al usuario en onboarding con `Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM` y se comprueba `AlarmManager.canScheduleExactAlarms()` antes de programar. El estado se refresca en `onResume` de Settings. **No declarar `USE_EXACT_ALARM`**: Google Play la rechazaría para una app de hidratación.
 
-> **Boot persistence:** al recibir `ACTION_BOOT_COMPLETED` hay que reprogramar los recordatorios del día.
+> **Boot persistence:** al recibir `ACTION_BOOT_COMPLETED` y `ACTION_LOCKED_BOOT_COMPLETED` el `BootReceiver` reprograma el siguiente recordatorio.
 
 ---
 
@@ -116,44 +135,94 @@ app/
   build.gradle.kts
   src/main/
     AndroidManifest.xml
-    kotlin/com/jorgejiro/bebeagua/
+    java/com/jjrapps/bebeagua/
       BebeAguaApplication.kt
       MainActivity.kt
-      di/                        # módulos Hilt
+      di/
+        DatabaseModule.kt
+        DataStoreModule.kt
+        RepositoryModule.kt
       data/
         local/
-          db/                    # Room: AppDatabase, DAOs, entidades
-          datastore/             # DataStore: SettingsDataSource
-        repository/              # Implementaciones de los repositorios
+          db/
+            AppDatabase.kt         # Room v1, entidad única intake
+            IntakeDao.kt
+            IntakeEntity.kt
+            LocalDateConverter.kt
+            DayTotal.kt
+          datastore/
+            SettingsDataSource.kt
+        repository/
+          IntakeRepositoryImpl.kt
+          SettingsRepositoryImpl.kt
       domain/
-        model/                   # Modelos de dominio puros (Intake, DaySummary, ReminderConfig...)
-        repository/              # Interfaces
-        usecase/                 # AddIntakeUseCase, GetTodaySummaryUseCase, ScheduleRemindersUseCase...
+        model/
+          Intake.kt
+          AppSettings.kt
+          DaySummary.kt
+          DayHistory.kt
+        repository/
+          IntakeRepository.kt
+          SettingsRepository.kt
+          ReminderScheduler.kt    # interfaz
+        usecase/
+          AddIntakeUseCase.kt
+          DeleteIntakeUseCase.kt
+          GetTodaySummaryUseCase.kt
+          GetDailyHistoryUseCase.kt
+          CalculateReminderTimesUseCase.kt
+          ScheduleRemindersUseCase.kt
+          ObserveSettingsUseCase.kt
       ui/
-        theme/                   # Color.kt, Type.kt, Theme.kt (Material 3, dynamic color)
-        common/                  # Composables reutilizables
-        home/                    # HomeScreen + HomeViewModel
+        theme/
+          Color.kt
+          Type.kt
+          Shape.kt
+          Theme.kt
+        common/
+          IntakeRecordItem.kt
+          ProgressRing.kt
+        home/
+          HomeScreen.kt
+          HomeViewModel.kt
+          HomeUiState.kt
         history/
+          HistoryScreen.kt
+          HistoryViewModel.kt
+          HistoryUiState.kt
         settings/
-        navigation/              # NavGraph
+          SettingsScreen.kt
+          SettingsViewModel.kt
+          SettingsUiState.kt
+        onboarding/
+          OnboardingScreen.kt
+          OnboardingViewModel.kt
+        main/
+          MainViewModel.kt        # gestiona el estado de onboarding completado
+        navigation/
+          NavGraph.kt
+          Screen.kt               # sealed class con rutas Home / History / Settings
       reminder/
-        ReminderScheduler.kt     # Encapsula AlarmManager
-        ReminderReceiver.kt      # BroadcastReceiver
+        AlarmManagerReminderScheduler.kt   # implementación producción
+        NoOpReminderScheduler.kt           # stub para tests
+        ReminderReceiver.kt
+        NotificationActionReceiver.kt      # maneja acciones de notificación
         BootReceiver.kt
         NotificationFactory.kt
-      util/
     res/
       values/strings.xml
       values-es/strings.xml
-      mipmap-*/                  # Iconos adaptativos
+      mipmap-*/
       drawable/
 gradle/
-  libs.versions.toml             # Catálogo de versiones
+  libs.versions.toml
 ```
 
 ---
 
 ## 5. Base de datos (Room)
+
+**Versión actual de la base de datos: 1**
 
 ### Tabla `intake`
 | Columna | Tipo | Notas |
@@ -161,7 +230,7 @@ gradle/
 | `id` | INTEGER PK autogen | |
 | `amount_ml` | INTEGER NOT NULL | |
 | `timestamp_epoch_ms` | INTEGER NOT NULL | UTC |
-| `timezone_id` | TEXT NOT NULL | p.ej. `Europe/Madrid`, para reagrupar correctamente por día local |
+| `timezone_id` | TEXT NOT NULL | p.ej. `Europe/Madrid` |
 | `local_date` | TEXT NOT NULL | `YYYY-MM-DD` derivado, indexado |
 
 Index: `local_date`.
@@ -172,26 +241,29 @@ DAO con queries:
 - `getDailyTotalsBetween(start: LocalDate, end: LocalDate): List<DayTotal>`
 - `insert(intake)`, `delete(id)`
 
-Migrations: documentadas y testeadas en `androidTest/`.
+Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 ---
 
 ## 6. Flujo de notificaciones (resumen técnico)
 
-1. Al cambiar settings o registrar ingesta → `ScheduleRemindersUseCase` recalcula los próximos recordatorios del día actual.
-2. Solo se programa **el siguiente** recordatorio (no la lista entera) usando `setExactAndAllowWhileIdle`. Cuando se dispara, el receiver:
+1. Al cambiar settings o registrar ingesta → `ScheduleRemindersUseCase` recalcula y programa solo **el siguiente** recordatorio con `setExactAndAllowWhileIdle`.
+2. Cuando se dispara `ReminderReceiver`:
    - Comprueba si hoy ya se alcanzó el objetivo → si sí, no notifica y programa el de mañana.
    - Comprueba si estamos en ventana horaria → si no, programa el siguiente válido.
-   - Lanza notificación.
+   - Lanza notificación vía `NotificationFactory`.
    - Programa el siguiente recordatorio.
-3. `BootReceiver` reprograma el siguiente recordatorio al arrancar el dispositivo.
-4. Acción "He bebido X ml" en la notificación → registra ingesta vía repositorio y reprograma.
+3. `BootReceiver` (escucha `BOOT_COMPLETED` y `LOCKED_BOOT_COMPLETED`) reprograma el siguiente recordatorio al arrancar.
+4. `NotificationActionReceiver` gestiona:
+   - Acción "beber X ml" → llama al repositorio + reprograma.
+   - Acción "posponer 15 min" → reprograma con offset.
 
 ---
 
 ## 7. Convenciones de código
 
 - **Idioma del código y comentarios técnicos**: inglés. Strings de UI: recursos i18n.
+- **Package raíz**: `com.jjrapps.bebeagua`.
 - **Nomenclatura de archivos Compose**: `HomeScreen.kt`, `HomeViewModel.kt`, `HomeUiState.kt`. Una pantalla = un archivo de screen + un archivo de viewmodel + un archivo de state.
 - **Estado de pantalla**: `sealed interface XxxUiState` con `Loading`, `Success(data)`, `Error`. Eventos de una vez (snackbars, navegación) vía `Channel<UiEvent>`.
 - **Inyección**: constructor injection siempre. Nada de `@Inject lateinit`.
@@ -206,17 +278,17 @@ Migrations: documentadas y testeadas en `androidTest/`.
 ### Antes de cada tarea
 1. Lee este archivo entero. Si la tarea contradice algo aquí, pregunta antes de tirar adelante.
 2. Mira el último commit y el estado de `git status` para no pisar cambios.
-3. Si se va a tocar UI, abre `Theme.kt`, `Color.kt`, `Type.kt` antes de inventarte estilos.
+3. Si se va a tocar UI, abre `Theme.kt`, `Color.kt`, `Type.kt`, `Shape.kt` antes de inventarte estilos.
 
 ### Al hacer cambios
 - Los strings van en `strings.xml`. **Nunca hardcodees strings en Composables.**
 - Si añades un string, añade también la traducción en `values-es/strings.xml` (o EN si el base es ES).
-- Si tocas el schema de Room → escribe la migration y el test de migration.
+- Si tocas el schema de Room → escribe la migration y el test de migration. Incrementa `AppDatabase.VERSION`.
 - Si tocas algo de notificaciones → manualmente prueba en emulador con Android 12, 14 y 16 (la lógica de permisos cambia).
 - No añadas dependencias sin justificar y sin actualizar `libs.versions.toml`.
 
 ### Al terminar una tarea
-- Ejecuta `./gradlew lint detekt test` y deja todo en verde.
+- Ejecuta `./gradlew lint test` y deja todo en verde.
 - Resume en un commit con [Conventional Commits](https://www.conventionalcommits.org/): `feat(home): ...`, `fix(reminder): ...`, `refactor(data): ...`.
 - Si has tomado decisiones técnicas no triviales (cambio de stack, librería nueva, workaround), añade una entrada en `docs/decisions/NNN-titulo.md` (ADR ligero).
 
@@ -233,33 +305,37 @@ Migrations: documentadas y testeadas en `androidTest/`.
 
 ## 9. Roadmap
 
-**v1.0 (MVP, Play Store)**
-- Pantalla principal con registro de ingesta y progreso.
-- Tamaños de ingesta personalizables.
-- Configuración (objetivo, ventana horaria, número de recordatorios, idioma, tema).
-- Recordatorios con `setExactAndAllowWhileIdle`.
-- Acciones rápidas en notificación (registrar / posponer).
-- Persistencia con Room.
-- i18n ES/EN.
-- Material 3 con dynamic color.
+**v1.0 — MVP ✅ Publicado** (`versionCode 2`, `versionName 1.0.1`)
+- [x] Pantalla principal con registro de ingesta y progreso.
+- [x] Pantalla historial (últimos 30 días, streaks).
+- [x] Pantalla configuración (objetivo, ventana horaria, recordatorios, idioma, tema, permisos).
+- [x] Onboarding en primer arranque.
+- [x] Recordatorios exactos con `setExactAndAllowWhileIdle`.
+- [x] Acciones rápidas en notificación (registrar / posponer).
+- [x] Boot persistence.
+- [x] Persistencia con Room + DataStore.
+- [x] i18n ES/EN.
+- [x] Material 3 con dynamic color.
+- [x] Suite de tests (40 tests: unitarios + instrumentados).
+- [x] Release signing + R8 minification.
 
 **v1.1**
-- Historial visual (gráficos semanal/mensual).
-- Widget de pantalla principal con botón rápido de registro.
-- Export/import de datos en JSON.
+- [ ] Gráfico semanal/mensual en historial.
+- [ ] Widget de pantalla principal con botón rápido de registro.
+- [ ] Export/import de datos en JSON.
 
 **v1.2 (eventual)**
-- Wear OS companion.
-- Recordatorios "inteligentes" (saltarse el siguiente si has bebido más de la cuota esperada).
+- [ ] Wear OS companion.
+- [ ] Recordatorios "inteligentes" (saltarse el siguiente si has bebido más de la cuota esperada).
 
 ---
 
 ## 10. Branding y assets
 
 - **Nombre**: Bebe Agua (ES) / Drink Water (EN).
-- **Package**: `com.jorgejiro.bebeagua` (ajustar si Jorge prefiere otro dominio).
-- **Paleta base**: azules acuáticos. Definir colores semilla en `Theme.kt` y dejar que Material 3 dynamic color tome el control en Android 12+.
-- **Icono adaptativo**: gota estilizada sobre fondo claro. Pendiente de generar con el flujo de Claude Design.
+- **Package**: `com.jjrapps.bebeagua`.
+- **Paleta base**: azules acuáticos. Colores semilla en `Theme.kt`; Material 3 dynamic color en Android 12+.
+- **Icono adaptativo**: gota estilizada sobre fondo claro.
 - **Capturas para Play**: 5 capturas (Home, Home con muchas ingestas, Historial, Settings, Notificación).
 
 ---
@@ -268,7 +344,7 @@ Migrations: documentadas y testeadas en `androidTest/`.
 
 Cosas a decidir antes/durante el desarrollo (Claude Code: si te topas con una de estas, **pregunta a Jorge** antes de inventar una respuesta):
 
-1. ¿Acción de eliminar registro reduce el contador del día (sí, asumido) o lo deja como "histórico"?
+1. ~~¿Acción de eliminar registro reduce el contador del día?~~ **Resuelto: sí, reduce el contador.**
 2. ¿Los recordatorios deben silenciarse si el dispositivo está en modo "No molestar"? (Por defecto sí, no hacer override del DND.)
-3. ¿Qué pasa si el usuario registra ingesta a las 03:00 fuera de la ventana? Se acepta y suma al día anterior si todavía no ha pasado la hora final del día anterior; si no, suma al día actual. **Por simplicidad v1: siempre suma al día local del timestamp.**
-4. ¿Permitir registros con cantidades arbitrarias además de las medidas predefinidas? Recomendado: sí, vía un campo "Otra cantidad…" en el selector.
+3. ~~¿Qué pasa si el usuario registra ingesta fuera de la ventana horaria?~~ **Resuelto: siempre suma al día local del timestamp.**
+4. ¿Permitir registros con cantidades arbitrarias además de las medidas predefinidas? Recomendado: sí, vía un campo "Otra cantidad…" en el selector. Pendiente de implementar.
