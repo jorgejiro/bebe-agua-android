@@ -20,25 +20,34 @@ class ScheduleRemindersUseCase @Inject constructor(
         val today = LocalDate.now()
         val consumedMl = intakeRepository.observeTotalForDate(today).first()
 
-        if (consumedMl >= settings.dailyGoalMl) {
-            reminderScheduler.cancel()
-            return
-        }
-
-        val now = LocalTime.now().plusMinutes(postponeMinutes)
-
-        if (now >= settings.dayEnd) {
-            reminderScheduler.cancel()
-            return
-        }
-
         val reminderTimes = calculateReminderTimes(
             settings.dayStartMinutes,
             settings.dayEndMinutes,
             settings.remindersPerDay
         )
 
-        val nextTime = reminderTimes.firstOrNull { it > now } ?: return
+        if (reminderTimes.isEmpty()) {
+            reminderScheduler.cancel()
+            return
+        }
+
+        val suggestedAmount = settings.intakeSizesMl
+            .minByOrNull { Math.abs(it - settings.dailyGoalMl / settings.remindersPerDay) }
+            ?: settings.intakeSizesMl.first()
+
+        if (consumedMl >= settings.dailyGoalMl) {
+            scheduleTomorrow(today, reminderTimes, suggestedAmount)
+            return
+        }
+
+        val now = LocalTime.now().plusMinutes(postponeMinutes)
+        val nextTime = reminderTimes.firstOrNull { it > now }
+
+        if (nextTime == null) {
+            // No more slots today: keep the chain alive for tomorrow
+            scheduleTomorrow(today, reminderTimes, suggestedAmount)
+            return
+        }
 
         val triggerMs = today
             .atTime(nextTime)
@@ -46,10 +55,15 @@ class ScheduleRemindersUseCase @Inject constructor(
             .toInstant()
             .toEpochMilli()
 
-        val suggestedAmount = settings.intakeSizesMl
-            .minByOrNull { Math.abs(it - settings.dailyGoalMl / settings.remindersPerDay) }
-            ?: settings.intakeSizesMl.first()
-
         reminderScheduler.scheduleNext(triggerMs, suggestedAmount)
+    }
+
+    private fun scheduleTomorrow(today: LocalDate, reminderTimes: List<LocalTime>, suggestedAmountMl: Int) {
+        val triggerMs = today.plusDays(1)
+            .atTime(reminderTimes.first())
+            .atZone(ZoneId.systemDefault())
+            .toInstant()
+            .toEpochMilli()
+        reminderScheduler.scheduleNext(triggerMs, suggestedAmountMl)
     }
 }
