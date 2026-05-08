@@ -23,39 +23,39 @@ class ScheduleRemindersUseCaseTest {
     )
 
     @Test
-    fun `cancels reminder when daily goal is already reached`() = runTest {
+    fun `schedules tomorrow when daily goal is already reached`() = runTest {
         val today = LocalDate.now()
         every { settingsRepository.observeSettings() } returns flowOf(defaultSettings(goal = 1500))
         every { intakeRepository.observeTotalForDate(today) } returns flowOf(1500)
 
         useCase()
 
-        verify(exactly = 1) { reminderScheduler.cancel() }
-        verify(exactly = 0) { reminderScheduler.scheduleNext(any(), any()) }
+        verify(exactly = 0) { reminderScheduler.cancel() }
+        verify(exactly = 1) { reminderScheduler.scheduleNext(any(), any()) }
     }
 
     @Test
-    fun `cancels reminder when consumed exceeds goal`() = runTest {
+    fun `schedules tomorrow when consumed exceeds goal`() = runTest {
         val today = LocalDate.now()
         every { settingsRepository.observeSettings() } returns flowOf(defaultSettings(goal = 1500))
         every { intakeRepository.observeTotalForDate(today) } returns flowOf(2000)
 
         useCase()
 
-        verify(exactly = 1) { reminderScheduler.cancel() }
+        verify(exactly = 0) { reminderScheduler.cancel() }
+        verify(exactly = 1) { reminderScheduler.scheduleNext(any(), any()) }
     }
 
     @Test
-    fun `does not schedule when reminders count is zero`() = runTest {
+    fun `cancels when reminders count is zero`() = runTest {
         val today = LocalDate.now()
-        // reminders = 0 → CalculateReminderTimesUseCase returns empty list →
-        // firstOrNull returns null → function returns early without calling either method
+        // reminders = 0 → CalculateReminderTimesUseCase returns empty list → cancel
         every { settingsRepository.observeSettings() } returns flowOf(defaultSettings(reminders = 0))
         every { intakeRepository.observeTotalForDate(today) } returns flowOf(0)
 
         useCase()
 
-        verify(exactly = 0) { reminderScheduler.cancel() }
+        verify(exactly = 1) { reminderScheduler.cancel() }
         verify(exactly = 0) { reminderScheduler.scheduleNext(any(), any()) }
     }
 
