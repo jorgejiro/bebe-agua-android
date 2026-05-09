@@ -17,7 +17,7 @@ class OnboardingViewModel @Inject constructor(
     private val scheduleRemindersUseCase: ScheduleRemindersUseCase
 ) : ViewModel() {
 
-    var goalMl by mutableIntStateOf(1500)
+    var goalMl by mutableIntStateOf(2100)
         private set
     var dayStartMinutes by mutableIntStateOf(480)
         private set
