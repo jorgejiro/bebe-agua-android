@@ -25,25 +25,24 @@ class CalculateReminderTimesUseCaseTest {
     }
 
     @Test
-    fun `distributes 6 reminders uniformly in 08-23 window`() {
-        // window 480..1380 (900 min), interval = 150, midpoint offset = 75
-        // → 555 (09:15), 705 (11:45), 855 (14:15), 1005 (16:45), 1155 (19:15), 1305 (21:45)
+    fun `first reminder anchored at window start, rest evenly spaced`() {
+        // window 480..1380 (900 min), 6 reminders → interval = 900/5 = 180 min
+        // → 480 (08:00), 660 (11:00), 840 (14:00), 1020 (17:00), 1200 (20:00), 1380 (23:00)
         val result = useCase(480, 1380, 6)
         assertEquals(6, result.size)
-        assertEquals(LocalTime.of(9, 15), result[0])
-        assertEquals(LocalTime.of(11, 45), result[1])
-        assertEquals(LocalTime.of(14, 15), result[2])
-        assertEquals(LocalTime.of(16, 45), result[3])
-        assertEquals(LocalTime.of(19, 15), result[4])
-        assertEquals(LocalTime.of(21, 45), result[5])
+        assertEquals(LocalTime.of(8, 0), result[0])
+        assertEquals(LocalTime.of(11, 0), result[1])
+        assertEquals(LocalTime.of(14, 0), result[2])
+        assertEquals(LocalTime.of(17, 0), result[3])
+        assertEquals(LocalTime.of(20, 0), result[4])
+        assertEquals(LocalTime.of(23, 0), result[5])
     }
 
     @Test
-    fun `single reminder is placed at midpoint of window`() {
-        // window 480..1380 (900 min), interval = 900, midpoint offset = 450 → 930 (15:30)
+    fun `single reminder is placed at start of window`() {
         val result = useCase(480, 1380, 1)
         assertEquals(1, result.size)
-        assertEquals(LocalTime.of(15, 30), result[0])
+        assertEquals(LocalTime.of(8, 0), result[0])
     }
 
     @Test
@@ -58,7 +57,7 @@ class CalculateReminderTimesUseCaseTest {
         val windowEnd = LocalTime.of(23, 0)
         useCase(480, 1380, 8).forEach { time ->
             assertTrue("$time should be >= windowStart", !time.isBefore(windowStart))
-            assertTrue("$time should be < windowEnd", time.isBefore(windowEnd))
+            assertTrue("$time should be <= windowEnd", !time.isAfter(windowEnd))
         }
     }
 
