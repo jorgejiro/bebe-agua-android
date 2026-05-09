@@ -24,7 +24,7 @@ class SettingsDataSource @Inject constructor(
         private val KEY_LANGUAGE = stringPreferencesKey("language")
         private val KEY_ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
 
-        const val DEFAULT_DAILY_GOAL_ML = 1500
+        const val DEFAULT_DAILY_GOAL_ML = 2100
         const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
         const val DEFAULT_DAY_END_MINUTES = 1380    // 23:00
         const val DEFAULT_REMINDERS_PER_DAY = 10
