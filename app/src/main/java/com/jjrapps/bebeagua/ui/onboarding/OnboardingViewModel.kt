@@ -23,15 +23,19 @@ class OnboardingViewModel @Inject constructor(
         private set
     var dayEndMinutes by mutableIntStateOf(1380)
         private set
+    var remindersPerDay by mutableIntStateOf(10)
+        private set
 
     fun setGoal(ml: Int) { goalMl = ml.coerceIn(100, 10000) }
     fun setStartMinutes(minutes: Int) { dayStartMinutes = minutes }
     fun setEndMinutes(minutes: Int) { dayEndMinutes = minutes }
+    fun changeRemindersPerDay(count: Int) { remindersPerDay = count.coerceIn(1, 20) }
 
     fun finish() {
         viewModelScope.launch {
             settingsRepository.updateDailyGoal(goalMl)
             settingsRepository.updateDayWindow(dayStartMinutes, dayEndMinutes)
+            settingsRepository.updateRemindersPerDay(remindersPerDay)
             settingsRepository.completeOnboarding()
             runCatching { scheduleRemindersUseCase() }
         }

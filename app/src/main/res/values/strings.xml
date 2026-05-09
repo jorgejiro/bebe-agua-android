@@ -92,6 +92,7 @@
     <string name="onboarding_setup_subtitle">Choose how much water you want to drink each day and when reminders should be active.</string>
     <string name="onboarding_goal_label">DAILY GOAL</string>
     <string name="onboarding_time_label">REMINDER WINDOW</string>
+    <string name="onboarding_reminders_label">REMINDERS PER DAY</string>
     <string name="onboarding_permissions_title">Enable reminders</string>
     <string name="onboarding_permissions_subtitle">Grant these permissions so the app can send you on-time reminders.</string>
     <string name="onboarding_grant">Enable</string>

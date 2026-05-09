@@ -92,6 +92,7 @@
     <string name="onboarding_setup_subtitle">Elige cuánta agua quieres beber cada día y en qué franja horaria deben activarse los recordatorios.</string>
     <string name="onboarding_goal_label">OBJETIVO DIARIO</string>
     <string name="onboarding_time_label">FRANJA HORARIA</string>
+    <string name="onboarding_reminders_label">RECORDATORIOS AL DÍA</string>
     <string name="onboarding_permissions_title">Activa los recordatorios</string>
     <string name="onboarding_permissions_subtitle">Concede estos permisos para que la app pueda enviarte recordatorios puntuales.</string>
     <string name="onboarding_grant">Activar</string>

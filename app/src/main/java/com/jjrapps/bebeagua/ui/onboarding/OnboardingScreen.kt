@@ -305,6 +305,38 @@ private fun SetupPage(viewModel: OnboardingViewModel) {
                 onClick = { showEndPicker = true }
             )
         }
+
+        Text(
+            text = stringResource(R.string.onboarding_reminders_label),
+            fontFamily = DmSansFontFamily,
+            fontWeight = FontWeight.Medium,
+            fontSize = 13.sp,
+            color = TextMuted
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(BackgroundCard, RoundedCornerShape(12.dp))
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { viewModel.changeRemindersPerDay(viewModel.remindersPerDay - 1) }) {
+                Icon(Icons.Outlined.Remove, contentDescription = null, tint = AccentLight)
+            }
+            Text(
+                text = "${viewModel.remindersPerDay}",
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center,
+                fontFamily = DmMonoFontFamily,
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp,
+                color = TextPrimary
+            )
+            IconButton(onClick = { viewModel.changeRemindersPerDay(viewModel.remindersPerDay + 1) }) {
+                Icon(Icons.Outlined.Add, contentDescription = null, tint = AccentLight)
+            }
+        }
     }
 
     if (showStartPicker) {

@@ -27,7 +27,7 @@ class SettingsDataSource @Inject constructor(
         const val DEFAULT_DAILY_GOAL_ML = 1500
         const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
         const val DEFAULT_DAY_END_MINUTES = 1380    // 23:00
-        const val DEFAULT_REMINDERS_PER_DAY = 6
+        const val DEFAULT_REMINDERS_PER_DAY = 10
         val DEFAULT_INTAKE_SIZES_ML = listOf(200)
         const val DEFAULT_LANGUAGE = "auto"
     }
