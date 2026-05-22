@@ -6,6 +6,7 @@ import com.jjrapps.bebeagua.domain.usecase.AddIntakeUseCase
 import com.jjrapps.bebeagua.domain.usecase.CalculateReminderTimesUseCase
 import com.jjrapps.bebeagua.domain.usecase.DeleteIntakeUseCase
 import com.jjrapps.bebeagua.domain.usecase.GetTodaySummaryUseCase
+import com.jjrapps.bebeagua.domain.usecase.ObserveLastIntakeSizeUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     getTodaySummaryUseCase: GetTodaySummaryUseCase,
     observeSettingsUseCase: ObserveSettingsUseCase,
+    observeLastIntakeSizeUseCase: ObserveLastIntakeSizeUseCase,
     private val addIntakeUseCase: AddIntakeUseCase,
     private val deleteIntakeUseCase: DeleteIntakeUseCase,
     private val scheduleRemindersUseCase: ScheduleRemindersUseCase,
@@ -34,8 +36,9 @@ class HomeViewModel @Inject constructor(
 
     val uiState = combine(
         getTodaySummaryUseCase(),
-        observeSettingsUseCase()
-    ) { summary, settings ->
+        observeSettingsUseCase(),
+        observeLastIntakeSizeUseCase()
+    ) { summary, settings, lastIntakeSizeMl ->
         val now = LocalTime.now()
         val reminderTimes = calculateReminderTimesUseCase(
             settings.dayStartMinutes,
@@ -43,7 +46,7 @@ class HomeViewModel @Inject constructor(
             settings.remindersPerDay
         )
         val nextReminder = reminderTimes.firstOrNull { it > now }
-        val defaultSize = summary.intakes.firstOrNull()?.amountMl
+        val defaultSize = lastIntakeSizeMl
             ?: settings.intakeSizesMl.firstOrNull()
             ?: 200
         HomeUiState.Success(

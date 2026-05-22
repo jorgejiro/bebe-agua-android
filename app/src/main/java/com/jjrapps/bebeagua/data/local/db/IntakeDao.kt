@@ -32,4 +32,7 @@ interface IntakeDao {
 
     @Query("SELECT amount_ml FROM intake ORDER BY timestamp_epoch_ms DESC LIMIT 1")
     suspend fun getLastIntakeSizeMl(): Int?
+
+    @Query("SELECT amount_ml FROM intake ORDER BY timestamp_epoch_ms DESC LIMIT 1")
+    fun observeLastIntakeSizeMl(): Flow<Int?>
 }

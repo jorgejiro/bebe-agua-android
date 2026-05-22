@@ -44,6 +44,8 @@ class IntakeRepositoryImpl @Inject constructor(
             .associate { LocalDate.parse(it.localDate) to it.totalMl }
 
     override suspend fun getLastIntakeSizeMl(): Int? = intakeDao.getLastIntakeSizeMl()
+
+    override fun observeLastIntakeSizeMl(): Flow<Int?> = intakeDao.observeLastIntakeSizeMl()
 }
 
 private fun IntakeEntity.toDomain() = Intake(
