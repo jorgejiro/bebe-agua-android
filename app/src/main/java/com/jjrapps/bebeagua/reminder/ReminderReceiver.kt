@@ -1,9 +1,13 @@
 package com.jjrapps.bebeagua.reminder
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.jjrapps.bebeagua.domain.usecase.GetTodaySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
@@ -41,15 +45,19 @@ class ReminderReceiver : BroadcastReceiver() {
                 val summary = getTodaySummaryUseCase().first()
                 val consumedMl = summary.consumedMl
 
-                if (consumedMl < settings.dailyGoalMl) {
+                if (consumedMl < settings.dailyGoalMl && canPostNotifications(context)) {
                     val notification = NotificationFactory.build(
                         context = context,
                         consumedMl = consumedMl,
                         goalMl = settings.dailyGoalMl,
                         suggestedAmountMl = suggestedAmountMl
                     )
-                    NotificationManagerCompat.from(context)
-                        .notify(NotificationFactory.NOTIFICATION_ID, notification)
+                    try {
+                        NotificationManagerCompat.from(context)
+                            .notify(NotificationFactory.NOTIFICATION_ID, notification)
+                    } catch (e: SecurityException) {
+                        Timber.w(e, "Notification permission was revoked before posting")
+                    }
                 }
 
                 scheduleRemindersUseCase()
@@ -58,6 +66,20 @@ class ReminderReceiver : BroadcastReceiver() {
             } finally {
                 pendingResult.finish()
             }
+        }
+    }
+
+    private fun canPostNotifications(context: Context): Boolean {
+        val notificationsEnabled = NotificationManagerCompat.from(context).areNotificationsEnabled()
+        if (!notificationsEnabled) return false
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
         }
     }
 }

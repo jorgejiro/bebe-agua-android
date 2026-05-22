@@ -54,6 +54,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -78,6 +79,7 @@ import com.jjrapps.bebeagua.ui.theme.TextPrimary
 import com.jjrapps.bebeagua.ui.theme.TextSecondary
 import com.jjrapps.bebeagua.ui.theme.WarnYellow
 import java.time.LocalTime
+import java.util.Locale
 
 @Composable
 fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
@@ -142,6 +144,7 @@ private fun SettingsContent(
 ) {
     val context = LocalContext.current
     val settings = state.settings
+    val currentLanguage = LocalLocale.current.platformLocale.language
 
     var showGoalDialog by rememberSaveable { mutableStateOf(false) }
     var showStartTimePicker by rememberSaveable { mutableStateOf(false) }
@@ -347,7 +350,7 @@ private fun SettingsContent(
                 "en" to stringResource(R.string.language_en)
             ),
             selected = if (settings.language == "auto")
-                if (java.util.Locale.getDefault().language == "es") "es" else "en"
+                if (currentLanguage == "es") "es" else "en"
             else settings.language,
             onSelect = { onUpdateLanguage(it); showLanguageDialog = false },
             onDismiss = { showLanguageDialog = false }
@@ -692,14 +695,17 @@ private fun TimePickerDialog(
 }
 
 private fun LocalTime.toHhMm(): String =
-    String.format("%02d:%02d", hour, minute)
+    String.format(Locale.ROOT, "%02d:%02d", hour, minute)
 
 @Composable
-private fun languageLabel(language: String) = when (language) {
-    "es" -> stringResource(R.string.language_es)
-    "en" -> stringResource(R.string.language_en)
-    else -> when (java.util.Locale.getDefault().language) {
+private fun languageLabel(language: String): String {
+    val currentLanguage = LocalLocale.current.platformLocale.language
+    return when (language) {
         "es" -> stringResource(R.string.language_es)
-        else -> stringResource(R.string.language_en)
+        "en" -> stringResource(R.string.language_en)
+        else -> when (currentLanguage) {
+            "es" -> stringResource(R.string.language_es)
+            else -> stringResource(R.string.language_en)
+        }
     }
 }
