@@ -14,3 +14,7 @@
 .cxx
 local.properties
 keystore.properties
+*.jks
+*.aab
+*.pwd.txt
+/app/release/

@@ -121,6 +121,24 @@ class IntakeDaoTest {
         assertEquals(350, dao.getLastIntakeSizeMl())
     }
 
+    @Test
+    fun observeLastIntakeSizeMl_emitsMostRecentAmount() = runTest {
+        val now = System.currentTimeMillis()
+        val date = LocalDate.now()
+
+        dao.observeLastIntakeSizeMl().test {
+            assertNull(awaitItem())
+
+            dao.insert(entity(amountMl = 200, date = date, ts = now - 10_000L))
+            assertEquals(200, awaitItem())
+
+            dao.insert(entity(amountMl = 350, date = date, ts = now))
+            assertEquals(350, awaitItem())
+
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
     private fun entity(amountMl: Int, date: LocalDate, ts: Long = System.currentTimeMillis()) =
         IntakeEntity(
             amountMl = amountMl,

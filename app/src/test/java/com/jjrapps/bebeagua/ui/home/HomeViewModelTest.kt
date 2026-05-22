@@ -7,6 +7,7 @@ import com.jjrapps.bebeagua.domain.usecase.AddIntakeUseCase
 import com.jjrapps.bebeagua.domain.usecase.CalculateReminderTimesUseCase
 import com.jjrapps.bebeagua.domain.usecase.DeleteIntakeUseCase
 import com.jjrapps.bebeagua.domain.usecase.GetTodaySummaryUseCase
+import com.jjrapps.bebeagua.domain.usecase.ObserveLastIntakeSizeUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import com.jjrapps.bebeagua.util.MainCoroutineRule
@@ -31,6 +32,7 @@ class HomeViewModelTest {
 
     private val getTodaySummaryUseCase = mockk<GetTodaySummaryUseCase>()
     private val observeSettingsUseCase = mockk<ObserveSettingsUseCase>()
+    private val observeLastIntakeSizeUseCase = mockk<ObserveLastIntakeSizeUseCase>()
     private val addIntakeUseCase = mockk<AddIntakeUseCase>()
     private val deleteIntakeUseCase = mockk<DeleteIntakeUseCase>()
     private val scheduleRemindersUseCase = mockk<ScheduleRemindersUseCase>(relaxed = true)
@@ -39,9 +41,11 @@ class HomeViewModelTest {
     private fun buildViewModel(): HomeViewModel {
         every { getTodaySummaryUseCase() } returns flowOf(defaultSummary())
         every { observeSettingsUseCase() } returns flowOf(defaultSettings())
+        every { observeLastIntakeSizeUseCase() } returns flowOf(null)
         return HomeViewModel(
             getTodaySummaryUseCase,
             observeSettingsUseCase,
+            observeLastIntakeSizeUseCase,
             addIntakeUseCase,
             deleteIntakeUseCase,
             scheduleRemindersUseCase,
@@ -59,8 +63,9 @@ class HomeViewModelTest {
     fun `uiState emits Success with correct consumed amount`() = runTest {
         every { getTodaySummaryUseCase() } returns flowOf(defaultSummary(consumed = 600))
         every { observeSettingsUseCase() } returns flowOf(defaultSettings())
+        every { observeLastIntakeSizeUseCase() } returns flowOf(null)
         val viewModel = HomeViewModel(
-            getTodaySummaryUseCase, observeSettingsUseCase, addIntakeUseCase,
+            getTodaySummaryUseCase, observeSettingsUseCase, observeLastIntakeSizeUseCase, addIntakeUseCase,
             deleteIntakeUseCase, scheduleRemindersUseCase, calculateReminderTimesUseCase
         )
 
@@ -69,6 +74,24 @@ class HomeViewModelTest {
             val first = awaitItem()
             val success = if (first is HomeUiState.Success) first else awaitItem() as HomeUiState.Success
             assertEquals(600, success.summary.consumedMl)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `uiState uses latest intake amount as default size`() = runTest {
+        every { getTodaySummaryUseCase() } returns flowOf(defaultSummary())
+        every { observeSettingsUseCase() } returns flowOf(defaultSettings())
+        every { observeLastIntakeSizeUseCase() } returns flowOf(450)
+        val viewModel = HomeViewModel(
+            getTodaySummaryUseCase, observeSettingsUseCase, observeLastIntakeSizeUseCase, addIntakeUseCase,
+            deleteIntakeUseCase, scheduleRemindersUseCase, calculateReminderTimesUseCase
+        )
+
+        viewModel.uiState.test {
+            val first = awaitItem()
+            val success = if (first is HomeUiState.Success) first else awaitItem() as HomeUiState.Success
+            assertEquals(450, success.defaultIntakeSizeMl)
             cancelAndIgnoreRemainingEvents()
         }
     }
