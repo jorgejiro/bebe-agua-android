@@ -1,6 +1,6 @@
-# CLAUDE.md — Bebe Agua
+# AGENTS.md — Bebe Agua
 
-> Documento guía para Claude Code. Léelo antes de cualquier tarea no trivial. Si algo aquí entra en conflicto con la petición del usuario, pregunta antes de ejecutar.
+> Documento guía para Codex. Léelo antes de cualquier tarea no trivial. Si algo aquí entra en conflicto con la petición del usuario, pregunta antes de ejecutar.
 
 ---
 
@@ -273,7 +273,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 ---
 
-## 8. Cómo trabajar en este repo (instrucciones para Claude Code)
+## 8. Cómo trabajar en este repo (instrucciones para Codex)
 
 ### Antes de cada tarea
 1. Lee este archivo entero. Si la tarea contradice algo aquí, pregunta antes de tirar adelante.
@@ -342,7 +342,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 ## 11. Preguntas abiertas
 
-Cosas a decidir antes/durante el desarrollo (Claude Code: si te topas con una de estas, **pregunta a Jorge** antes de inventar una respuesta):
+Cosas a decidir antes/durante el desarrollo (Codex: si te topas con una de estas, **pregunta a Jorge** antes de inventar una respuesta):
 
 1. ~~¿Acción de eliminar registro reduce el contador del día?~~ **Resuelto: sí, reduce el contador.**
 2. ¿Los recordatorios deben silenciarse si el dispositivo está en modo "No molestar"? (Por defecto sí, no hacer override del DND.)
