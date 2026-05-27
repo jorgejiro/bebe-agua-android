@@ -62,7 +62,7 @@ Limite habitual: 80 caracteres.
 
 ### Espanol
 
-Registra agua y recibe recordatorios puntuales, sin cuentas ni anuncios.
+Registra el agua que bebes y recibe recordatorios para llegar a tu objetivo
 
 ### English
 
@@ -74,26 +74,26 @@ Track water intake and get timely reminders. No accounts or ads.
 
 ### Espanol
 
-Bebe Agua es una app sencilla para registrar tu ingesta diaria de agua y recibir recordatorios periodicos durante el dia.
+Bebe Agua es una app sencilla para registrar tu ingesta diaria de agua y recibir recordatorios periódicos durante el día.
 
-La pantalla principal esta pensada para ser rapida: un toque registra la cantidad que usas normalmente, y puedes cambiarla cuando quieras desde tus medidas configuradas o introducir otra cantidad. El progreso diario se muestra en un circulo claro con el total bebido frente a tu objetivo.
+La pantalla principal esta pensada para ser rápida: un toque registra la cantidad que usas normalmente, y puedes cambiarla cuando quieras desde tus medidas configuradas o introducir otra cantidad. El progreso diario se muestra en un circulo claro con el total bebido frente a tu objetivo.
 
-Puedes configurar tu objetivo diario, la hora de inicio y fin de los recordatorios, y cuantos avisos quieres recibir al dia. La app calcula los horarios de forma uniforme dentro de tu franja horaria y deja de recordarte beber cuando ya has alcanzado el objetivo.
+Puedes configurar tu objetivo diario, la hora de inicio y fin de los recordatorios, y cuantos avisos quieres recibir al día. La app calcula los horarios de forma uniforme dentro de tu franja horaria y deja de recordarte beber cuando ya has alcanzado el objetivo.
 
-Tambien incluye historial de los ultimos dias, estadisticas basicas, rachas, soporte para Espanol e Ingles, y acciones rapidas desde la notificacion para registrar agua o posponer el aviso.
+Tambien incluye historial de los últimos dias, estadísticas basicas, rachas, soporte para Español e Inglés, y acciones rápidas desde la notificación para registrar agua o posponer el aviso.
 
-Privacidad sencilla: sin cuentas, sin nube, sin anuncios y sin tracking. Tus registros se guardan localmente en tu dispositivo.
+Privacidad total: sin cuentas, sin nube, sin anuncios y sin tracking. No se guardan datos personales, y los registros de ingesta se guardan localmente en tu dispositivo.
 
 Funciones principales:
 
-- Registro rapido de agua con un solo toque.
+- Registro rápido de agua con un solo toque.
 - Objetivo diario configurable.
 - Recordatorios dentro de la franja horaria que elijas.
-- Acciones rapidas desde la notificacion.
-- Historial diario y estadisticas basicas.
-- Tamano de ingesta configurable.
-- Idioma Espanol e Ingles.
-- Datos guardados solo en el dispositivo.
+- Acciones rápidas desde la notificación.
+- Historial diario y estadísticas básicas.
+- Tamaño de ingesta configurable.
+- Idioma Español e Inglés.
+- Datos guardados sólo en el dispositivo (privacidad total).
 
 ### English
 
@@ -391,4 +391,3 @@ Drink Water is a local-only hydration reminder app. It does not require accounts
 ### Espanol
 
 Bebe Agua es una app local de recordatorios de hidratacion. No requiere cuentas, no muestra anuncios, no usa analitica y no transmite datos del usuario fuera del dispositivo. Las alarmas exactas se usan solo para enviar puntualmente los recordatorios configurados por el usuario.
-
