@@ -36,6 +36,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
@@ -122,7 +124,9 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
                 onUpdateWindow = viewModel::updateDayWindow,
                 onUpdateReminders = viewModel::updateRemindersPerDay,
                 onUpdateSizes = viewModel::updateIntakeSizes,
-                onUpdateLanguage = viewModel::updateLanguage
+                onUpdateLanguage = viewModel::updateLanguage,
+                onUpdateSkipImminent = viewModel::updateSkipImminentReminder,
+                onUpdateSkipImminentWindow = viewModel::updateSkipImminentWindowMinutes
             )
         }
         SnackbarHost(
@@ -140,7 +144,9 @@ private fun SettingsContent(
     onUpdateWindow: (Int, Int) -> Unit,
     onUpdateReminders: (Int) -> Unit,
     onUpdateSizes: (List<Int>) -> Unit,
-    onUpdateLanguage: (String) -> Unit
+    onUpdateLanguage: (String) -> Unit,
+    onUpdateSkipImminent: (Boolean) -> Unit,
+    onUpdateSkipImminentWindow: (Int) -> Unit
 ) {
     val context = LocalContext.current
     val settings = state.settings
@@ -151,6 +157,7 @@ private fun SettingsContent(
     var showEndTimePicker by rememberSaveable { mutableStateOf(false) }
     var showAddSizeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
+    var showSkipWindowDialog by rememberSaveable { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -193,6 +200,25 @@ private fun SettingsContent(
                     onDecrement = { if (settings.remindersPerDay > 1) onUpdateReminders(settings.remindersPerDay - 1) },
                     onIncrement = { if (settings.remindersPerDay < 24) onUpdateReminders(settings.remindersPerDay + 1) }
                 )
+                HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
+                SwitchRow(
+                    label = stringResource(R.string.settings_skip_imminent),
+                    subtitle = stringResource(R.string.settings_skip_imminent_subtitle),
+                    checked = settings.skipImminentReminder,
+                    onCheckedChange = onUpdateSkipImminent
+                )
+                if (settings.skipImminentReminder) {
+                    HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
+                    SettingRow(
+                        label = stringResource(R.string.settings_skip_imminent_window),
+                        subtitle = stringResource(R.string.settings_skip_imminent_window_subtitle),
+                        value = stringResource(
+                            R.string.settings_minutes_format,
+                            settings.skipImminentWindowMinutes
+                        ),
+                        onClick = { showSkipWindowDialog = true }
+                    )
+                }
                 if (state.calculatedTimes.isNotEmpty()) {
                     HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
                     SchedulePreview(
@@ -342,6 +368,14 @@ private fun SettingsContent(
         )
     }
 
+    if (showSkipWindowDialog) {
+        MinutesDialog(
+            current = settings.skipImminentWindowMinutes,
+            onConfirm = { onUpdateSkipImminentWindow(it); showSkipWindowDialog = false },
+            onDismiss = { showSkipWindowDialog = false }
+        )
+    }
+
     if (showLanguageDialog) {
         ChoiceDialog(
             title = stringResource(R.string.settings_language),
@@ -409,6 +443,41 @@ private fun SettingRow(
             contentDescription = null,
             tint = TextMuted,
             modifier = Modifier.size(16.dp)
+        )
+    }
+}
+
+@Composable
+private fun SwitchRow(
+    label: String,
+    checked: Boolean,
+    subtitle: String? = null,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onCheckedChange(!checked) }
+            .padding(start = 16.dp, end = 12.dp, top = 10.dp, bottom = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, fontFamily = DmSansFontFamily, fontSize = 14.sp, color = TextPrimary)
+            if (subtitle != null) {
+                Text(subtitle, fontFamily = DmSansFontFamily, fontSize = 11.sp, color = TextMuted)
+            }
+        }
+        Spacer(Modifier.width(12.dp))
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = BackgroundMain,
+                checkedTrackColor = AccentLight,
+                uncheckedThumbColor = TextMuted,
+                uncheckedTrackColor = BackgroundElement,
+                uncheckedBorderColor = BorderDefault
+            )
         )
     }
 }
@@ -580,6 +649,53 @@ private fun GoalDialog(current: Int, onConfirm: (Int) -> Unit, onDismiss: () -> 
                 input.toIntOrNull()?.takeIf { it in 100..10000 }?.let { onConfirm(it) }
                     ?: onDismiss()
             }) { Text(stringResource(R.string.save)) }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }
+        },
+        containerColor = BackgroundCard
+    )
+}
+
+@Composable
+private fun MinutesDialog(current: Int, onConfirm: (Int) -> Unit, onDismiss: () -> Unit) {
+    val min = AppSettings.MIN_SKIP_IMMINENT_WINDOW_MINUTES
+    val max = AppSettings.MAX_SKIP_IMMINENT_WINDOW_MINUTES
+    var minutes by rememberSaveable { mutableStateOf(current.coerceIn(min, max)) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(16.dp),
+        title = { Text(stringResource(R.string.settings_skip_imminent_window)) },
+        text = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                IconButton(
+                    onClick = { minutes = (minutes - 5).coerceAtLeast(min) },
+                    enabled = minutes > min
+                ) {
+                    Icon(Icons.Outlined.Remove, contentDescription = null, tint = AccentLight)
+                }
+                Text(
+                    text = stringResource(R.string.settings_minutes_format, minutes),
+                    fontFamily = DmMonoFontFamily,
+                    fontSize = 18.sp,
+                    color = TextPrimary,
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+                    modifier = Modifier.weight(1f)
+                )
+                IconButton(
+                    onClick = { minutes = (minutes + 5).coerceAtMost(max) },
+                    enabled = minutes < max
+                ) {
+                    Icon(Icons.Outlined.Add, contentDescription = null, tint = AccentLight)
+                }
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = { onConfirm(minutes) }) { Text(stringResource(R.string.save)) }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }

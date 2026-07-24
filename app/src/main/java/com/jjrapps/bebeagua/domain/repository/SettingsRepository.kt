@@ -10,6 +10,8 @@ interface SettingsRepository {
     suspend fun updateRemindersPerDay(count: Int)
     suspend fun updateIntakeSizes(sizes: List<Int>)
     suspend fun updateLanguage(language: String)
+    suspend fun updateSkipImminentReminder(enabled: Boolean)
+    suspend fun updateSkipImminentWindowMinutes(minutes: Int)
     fun isOnboardingDone(): Flow<Boolean>
     suspend fun completeOnboarding()
 }

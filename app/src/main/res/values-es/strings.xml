@@ -47,6 +47,11 @@
     <string name="settings_reminders_less">menos</string>
     <string name="settings_reminders_more">más</string>
     <string name="settings_schedule_preview">Horarios calculados</string>
+    <string name="settings_skip_imminent">Saltar recordatorio tras beber</string>
+    <string name="settings_skip_imminent_subtitle">Si el siguiente recordatorio toca poco después de registrar una ingesta, se salta</string>
+    <string name="settings_skip_imminent_window">Margen de cortesía</string>
+    <string name="settings_skip_imminent_window_subtitle">Minutos de silencio tras registrar una ingesta</string>
+    <string name="settings_minutes_format">%1$d min</string>
     <string name="settings_intake_sizes">Tamaños de ingesta</string>
     <string name="settings_add_size">+ Añadir tamaño</string>
     <string name="settings_add_size_title">Añadir tamaño</string>

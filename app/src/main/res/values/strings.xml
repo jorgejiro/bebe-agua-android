@@ -47,6 +47,11 @@
     <string name="settings_reminders_less">less</string>
     <string name="settings_reminders_more">more</string>
     <string name="settings_schedule_preview">Calculated schedule</string>
+    <string name="settings_skip_imminent">Skip reminder after drinking</string>
+    <string name="settings_skip_imminent_subtitle">If the next reminder is due soon after you log an intake, it is skipped</string>
+    <string name="settings_skip_imminent_window">Grace window</string>
+    <string name="settings_skip_imminent_window_subtitle">Minutes of silence after logging an intake</string>
+    <string name="settings_minutes_format">%1$d min</string>
     <string name="settings_intake_sizes">Intake sizes</string>
     <string name="settings_add_size">+ Add size</string>
     <string name="settings_add_size_title">Add intake size</string>

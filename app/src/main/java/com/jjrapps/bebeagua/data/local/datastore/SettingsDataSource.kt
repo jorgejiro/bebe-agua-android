@@ -23,6 +23,8 @@ class SettingsDataSource @Inject constructor(
         private val KEY_INTAKE_SIZES_ML = stringPreferencesKey("intake_sizes_ml")
         private val KEY_LANGUAGE = stringPreferencesKey("language")
         private val KEY_ONBOARDING_DONE = booleanPreferencesKey("onboarding_done")
+        private val KEY_SKIP_IMMINENT_REMINDER = booleanPreferencesKey("skip_imminent_reminder")
+        private val KEY_SKIP_IMMINENT_WINDOW_MINUTES = intPreferencesKey("skip_imminent_window_minutes")
 
         const val DEFAULT_DAILY_GOAL_ML = 2100
         const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
@@ -30,6 +32,8 @@ class SettingsDataSource @Inject constructor(
         const val DEFAULT_REMINDERS_PER_DAY = 10
         val DEFAULT_INTAKE_SIZES_ML = listOf(200)
         const val DEFAULT_LANGUAGE = "auto"
+        const val DEFAULT_SKIP_IMMINENT_REMINDER = false
+        const val DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES = 15
     }
 
     val dailyGoalMl: Flow<Int> =
@@ -55,6 +59,14 @@ class SettingsDataSource @Inject constructor(
     val language: Flow<String> =
         dataStore.data.map { it[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE }
 
+    val skipImminentReminder: Flow<Boolean> =
+        dataStore.data.map { it[KEY_SKIP_IMMINENT_REMINDER] ?: DEFAULT_SKIP_IMMINENT_REMINDER }
+
+    val skipImminentWindowMinutes: Flow<Int> =
+        dataStore.data.map {
+            it[KEY_SKIP_IMMINENT_WINDOW_MINUTES] ?: DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES
+        }
+
     val snapshot: Flow<SettingsSnapshot> = dataStore.data.map { prefs ->
         SettingsSnapshot(
             dailyGoalMl = prefs[KEY_DAILY_GOAL_ML] ?: DEFAULT_DAILY_GOAL_ML,
@@ -66,7 +78,11 @@ class SettingsDataSource @Inject constructor(
                 ?.mapNotNull(String::toIntOrNull)
                 ?.takeIf { it.isNotEmpty() }
                 ?: DEFAULT_INTAKE_SIZES_ML,
-            language = prefs[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE
+            language = prefs[KEY_LANGUAGE] ?: DEFAULT_LANGUAGE,
+            skipImminentReminder = prefs[KEY_SKIP_IMMINENT_REMINDER]
+                ?: DEFAULT_SKIP_IMMINENT_REMINDER,
+            skipImminentWindowMinutes = prefs[KEY_SKIP_IMMINENT_WINDOW_MINUTES]
+                ?: DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES
         )
     }
 
@@ -76,7 +92,9 @@ class SettingsDataSource @Inject constructor(
         val dayEndMinutes: Int,
         val remindersPerDay: Int,
         val intakeSizesMl: List<Int>,
-        val language: String
+        val language: String,
+        val skipImminentReminder: Boolean,
+        val skipImminentWindowMinutes: Int
     )
 
     suspend fun setDailyGoalMl(value: Int) {
@@ -101,6 +119,14 @@ class SettingsDataSource @Inject constructor(
 
     suspend fun setLanguage(language: String) {
         dataStore.edit { it[KEY_LANGUAGE] = language }
+    }
+
+    suspend fun setSkipImminentReminder(enabled: Boolean) {
+        dataStore.edit { it[KEY_SKIP_IMMINENT_REMINDER] = enabled }
+    }
+
+    suspend fun setSkipImminentWindowMinutes(minutes: Int) {
+        dataStore.edit { it[KEY_SKIP_IMMINENT_WINDOW_MINUTES] = minutes }
     }
 
     val isOnboardingDone: Flow<Boolean> =
