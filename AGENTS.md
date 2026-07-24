@@ -26,7 +26,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 
 ---
 
-## 2. Funcionalidad (estado actual v1.1.0)
+## 2. Funcionalidad (estado actual v1.2.0)
 
 ### 2.1 Pantalla principal (Casa) ✅ Implementada
 - Círculo de progreso central mostrando `consumido / objetivo` en ml.
@@ -336,14 +336,16 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - [x] Suite de tests (40 tests: unitarios + instrumentados).
 - [x] Release signing + R8 minification.
 
-**v1.1 — En desarrollo** (`versionCode 6`, `versionName 1.1.0`)
+**v1.1 — Cerrada** (`versionCode 6`, `versionName 1.1.0`)
 - [x] Ventana de cortesía tras registrar una ingesta.
+
+**v1.2 — En desarrollo** (`versionCode 7`, `versionName 1.2.0`)
 - [x] Changelog consultable dentro de la app (Configuración → Acerca de → Novedades).
 - [ ] Gráfico semanal/mensual en historial.
 - [ ] Widget de pantalla principal con botón rápido de registro.
 - [ ] Export/import de datos en JSON.
 
-**v1.2 (eventual)**
+**v1.3 (eventual)**
 - [ ] Wear OS companion.
 - [ ] Recordatorios "inteligentes" (saltarse el siguiente si has bebido más de la cuota esperada).
 
