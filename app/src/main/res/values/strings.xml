@@ -121,12 +121,28 @@
         <item>The \"Next reminder\" indicator on the home screen now always matches the reminder that is really scheduled.</item>
     </string-array>
     <string-array name="changelog_1_0">
+        <item>First release published on Google Play.</item>
+        <item>The amount you logged last is kept as the default one, even after restarting the app.</item>
+    </string-array>
+    <string-array name="changelog_1_0_3">
+        <item>Onboarding now asks how many reminders you want per day.</item>
+        <item>The onboarding setup page scrolls, so every field is reachable on small screens.</item>
+        <item>Default daily goal raised from 1500 ml to 2100 ml (only affects new installs).</item>
+    </string-array>
+    <string-array name="changelog_1_0_2">
+        <item>The first reminder of the day now fires at your start time.</item>
+        <item>When no reminder slots are left for today, the next one is scheduled for tomorrow.</item>
+        <item>The exact-alarm permission status refreshes every time you come back to Settings.</item>
+    </string-array>
+    <string-array name="changelog_1_0_1">
         <item>Home screen with progress ring, one-tap logging of your default amount and today\'s records list.</item>
         <item>History for the last 30 days with daily totals, average, best day and current streak.</item>
         <item>Exact reminders inside your time window, which stop once you reach the daily goal.</item>
         <item>Notification quick actions to log an intake or snooze the reminder for 15 minutes.</item>
         <item>Settings for daily goal, time window, reminders per day, intake sizes and language.</item>
-        <item>Spanish and English, no account and no cloud: all your data stays on the device.</item>
+        <item>First-launch onboarding to set your goal, your time window and the permissions.</item>
+        <item>Spanish and English, applied straight away when you switch language.</item>
+        <item>No account and no cloud: all your data stays on the device.</item>
     </string-array>
 
     <!-- Common -->

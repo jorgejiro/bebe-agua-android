@@ -121,12 +121,28 @@
         <item>El indicador «Próximo recordatorio» de la pantalla principal coincide siempre con el recordatorio realmente programado.</item>
     </string-array>
     <string-array name="changelog_1_0">
+        <item>Primera versión publicada en Google Play.</item>
+        <item>La última cantidad registrada se mantiene como cantidad por defecto, incluso al reiniciar la app.</item>
+    </string-array>
+    <string-array name="changelog_1_0_3">
+        <item>El onboarding pregunta cuántos recordatorios quieres al día.</item>
+        <item>La página de configuración del onboarding se desplaza, así que todos los campos son accesibles en pantallas pequeñas.</item>
+        <item>Objetivo diario por defecto de 1500 ml a 2100 ml (solo afecta a instalaciones nuevas).</item>
+    </string-array>
+    <string-array name="changelog_1_0_2">
+        <item>El primer recordatorio del día se envía a tu hora de inicio.</item>
+        <item>Cuando ya no quedan huecos de recordatorio para hoy, el siguiente se programa para mañana.</item>
+        <item>El estado del permiso de alarmas exactas se actualiza cada vez que vuelves a Ajustes.</item>
+    </string-array>
+    <string-array name="changelog_1_0_1">
         <item>Pantalla principal con anillo de progreso, registro de la cantidad por defecto en un toque y lista de registros del día.</item>
         <item>Historial de los últimos 30 días con totales diarios, media, mejor día y racha actual.</item>
         <item>Recordatorios exactos dentro de tu franja horaria, que dejan de enviarse al alcanzar el objetivo diario.</item>
         <item>Acciones rápidas en la notificación para registrar una ingesta o posponer el recordatorio 15 minutos.</item>
         <item>Ajustes de objetivo diario, franja horaria, recordatorios al día, tamaños de ingesta e idioma.</item>
-        <item>Español e inglés, sin cuentas ni nube: todos los datos se quedan en el dispositivo.</item>
+        <item>Onboarding en el primer arranque para configurar el objetivo, la franja horaria y los permisos.</item>
+        <item>Español e inglés, aplicados al instante al cambiar de idioma.</item>
+        <item>Sin cuentas ni nube: todos los datos se quedan en el dispositivo.</item>
     </string-array>
 
     <!-- Comunes -->
