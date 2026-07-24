@@ -36,6 +36,24 @@ object ChangelogCatalog {
             versionCode = 5,
             releaseDate = LocalDate.of(2026, 5, 26),
             highlightsRes = R.array.changelog_1_0
+        ),
+        ChangelogRelease(
+            versionName = "1.0.3",
+            versionCode = 4,
+            releaseDate = LocalDate.of(2026, 5, 9),
+            highlightsRes = R.array.changelog_1_0_3
+        ),
+        ChangelogRelease(
+            versionName = "1.0.2",
+            versionCode = 3,
+            releaseDate = LocalDate.of(2026, 5, 9),
+            highlightsRes = R.array.changelog_1_0_2
+        ),
+        ChangelogRelease(
+            versionName = "1.0.1",
+            versionCode = 2,
+            releaseDate = LocalDate.of(2026, 5, 6),
+            highlightsRes = R.array.changelog_1_0_1
         )
     )
 }

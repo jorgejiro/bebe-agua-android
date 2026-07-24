@@ -28,6 +28,39 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 
 Primera versión publicada en Google Play.
 
+### Corregido
+- La última cantidad registrada se mantiene como cantidad por defecto también entre arranques.
+- Avisos de lint que bloqueaban la build de release.
+
+## [1.0.3] — 2026-05-09 (versionCode 4)
+
+### Añadido
+- Paso de «recordatorios al día» en la página de configuración del onboarding.
+
+### Cambiado
+- Objetivo diario por defecto de 1500 ml a 2100 ml (solo afecta a instalaciones nuevas).
+
+### Corregido
+- La página de configuración del onboarding es desplazable, así que todos los campos son
+  accesibles en pantallas pequeñas.
+
+## [1.0.2] — 2026-05-09 (versionCode 3)
+
+### Cambiado
+- El primer recordatorio del día se ancla a la hora de inicio configurada en lugar de repartirse
+  desde el primer intervalo.
+
+### Corregido
+- Cuando ya no quedan horarios válidos hoy, el siguiente recordatorio se programa para mañana.
+- El estado del permiso de alarmas exactas se refresca en el `onResume` de Ajustes.
+
+### Interno
+- Suite inicial de tests (unitarios e instrumentados).
+
+## [1.0.1] — 2026-05-06 (versionCode 2)
+
+Primera build instalable con el MVP completo.
+
 ### Añadido
 - Pantalla principal con anillo de progreso, registro de la cantidad por defecto en un toque,
   selector de medida y lista de registros del día con borrado.
@@ -39,5 +72,8 @@ Primera versión publicada en Google Play.
 - Ajustes: objetivo diario, franja horaria, recordatorios al día, tamaños de ingesta e idioma,
   con estado de los permisos de notificaciones y alarmas exactas.
 - Onboarding en el primer arranque.
-- Traducción a español e inglés. Todos los datos se guardan en el dispositivo (Room + DataStore),
-  sin cuentas, sin nube, sin publicidad y sin tracking.
+- Icono adaptativo propio (gota de agua).
+- Traducción a español e inglés, aplicada en caliente al cambiar de idioma. Todos los datos se
+  guardan en el dispositivo (Room + DataStore), sin cuentas, sin nube, sin publicidad y sin
+  tracking.
+- Firma de release y minificación con R8.
