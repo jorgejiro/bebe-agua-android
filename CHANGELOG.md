@@ -18,6 +18,13 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
   distintivo para la versión instalada.
 - Sección «Acerca de» en Ajustes con la versión instalada (`versionName (versionCode)`).
 
+### Cambiado
+- Valores por defecto para instalaciones nuevas: objetivo diario 2100 → 2400 ml, fin de la
+  franja horaria 23:00 → 21:00 y recordatorios al día 10 → 14. No afecta a instalaciones
+  existentes, que conservan sus ajustes.
+- Los valores por defecto viven ahora en `AppSettings` y los leen tanto `SettingsDataSource`
+  como el onboarding, que antes los duplicaba.
+
 ## [1.1.0] — 2026-07-24 (versionCode 6)
 
 ### Añadido

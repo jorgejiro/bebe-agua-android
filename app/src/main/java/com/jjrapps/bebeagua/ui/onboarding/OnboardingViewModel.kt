@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jjrapps.bebeagua.domain.model.AppSettings
 import com.jjrapps.bebeagua.domain.repository.SettingsRepository
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,13 +18,13 @@ class OnboardingViewModel @Inject constructor(
     private val scheduleRemindersUseCase: ScheduleRemindersUseCase
 ) : ViewModel() {
 
-    var goalMl by mutableIntStateOf(2100)
+    var goalMl by mutableIntStateOf(AppSettings.DEFAULT_DAILY_GOAL_ML)
         private set
-    var dayStartMinutes by mutableIntStateOf(480)
+    var dayStartMinutes by mutableIntStateOf(AppSettings.DEFAULT_DAY_START_MINUTES)
         private set
-    var dayEndMinutes by mutableIntStateOf(1380)
+    var dayEndMinutes by mutableIntStateOf(AppSettings.DEFAULT_DAY_END_MINUTES)
         private set
-    var remindersPerDay by mutableIntStateOf(10)
+    var remindersPerDay by mutableIntStateOf(AppSettings.DEFAULT_REMINDERS_PER_DAY)
         private set
 
     fun setGoal(ml: Int) { goalMl = ml.coerceIn(100, 10000) }

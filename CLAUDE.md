@@ -41,10 +41,10 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - (v1.1, no v1) Gráfico semanal/mensual.
 
 ### 2.3 Pantalla Configuración ✅ Implementada
-- **Objetivo diario** (ml). Por defecto: 1500 ml.
+- **Objetivo diario** (ml). Por defecto: 2400 ml.
 - **Hora de inicio del día**. Por defecto: 08:00.
-- **Hora de fin del día**. Por defecto: 23:00.
-- **Número de recordatorios al día** (slider entre N_min y N_max calculados según ventana horaria).
+- **Hora de fin del día**. Por defecto: 21:00.
+- **Número de recordatorios al día** (slider entre N_min y N_max calculados según ventana horaria). Por defecto: 14.
 - **Saltar recordatorio tras beber** (opcional, **desactivada por defecto**). Si se activa, un recordatorio que caiga dentro de la ventana de cortesía posterior a una ingesta no se envía: se programa el siguiente horario de la agenda. Ventana configurable, 15 min por defecto (rango 5–120). Ver `docs/decisions/001-ventana-de-cortesia-tras-ingesta.md`.
 - **Lista editable de tamaños de ingesta**. Por defecto: `[200 ml]`. El usuario puede añadir, editar y eliminar (mínimo siempre debe quedar uno).
 - **Tamaño por defecto al iniciar**: el último usado (no se configura, se infiere).

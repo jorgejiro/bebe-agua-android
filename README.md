@@ -16,9 +16,9 @@ A native Android app to track your daily water intake and receive timely reminde
 - Summary stats: daily average, best day, and current streak.
 
 ### Settings
-- **Daily goal** — stepper + keyboard input, default 1500 ml.
-- **Reminder window** — configurable start and end time (default 08:00–23:00).
-- **Reminders per day** — slider to set how many reminders fire within the window.
+- **Daily goal** — stepper + keyboard input, default 2400 ml.
+- **Reminder window** — configurable start and end time (default 08:00–21:00).
+- **Reminders per day** — slider to set how many reminders fire within the window (default 14).
 - **Calculated schedule** — preview of exact reminder times derived from your settings.
 - **Intake sizes** — editable list of preset amounts; add, edit, or delete entries (minimum one must remain).
 - **Language** — Español / English (follows system locale by default).
