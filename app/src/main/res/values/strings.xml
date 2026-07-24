@@ -104,6 +104,31 @@
     <string name="onboarding_next">Next</string>
     <string name="onboarding_finish">Get started</string>
 
+    <!-- About -->
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_version_format">%1$s (%2$d)</string>
+    <string name="settings_changelog">What\'s new</string>
+    <string name="settings_changelog_subtitle">Changes in every version</string>
+
+    <!-- Changelog -->
+    <string name="changelog_title">What\'s new</string>
+    <string name="changelog_back">Back</string>
+    <string name="changelog_current">Current</string>
+    <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_1_0">
+        <item>New option to skip a reminder when you have just logged an intake, with a configurable courtesy window (off by default).</item>
+        <item>The \"Next reminder\" indicator on the home screen now always matches the reminder that is really scheduled.</item>
+    </string-array>
+    <string-array name="changelog_1_0">
+        <item>Home screen with progress ring, one-tap logging of your default amount and today\'s records list.</item>
+        <item>History for the last 30 days with daily totals, average, best day and current streak.</item>
+        <item>Exact reminders inside your time window, which stop once you reach the daily goal.</item>
+        <item>Notification quick actions to log an intake or snooze the reminder for 15 minutes.</item>
+        <item>Settings for daily goal, time window, reminders per day, intake sizes and language.</item>
+        <item>Spanish and English, no account and no cloud: all your data stays on the device.</item>
+    </string-array>
+
     <!-- Common -->
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

@@ -65,6 +65,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jjrapps.bebeagua.BuildConfig
 import com.jjrapps.bebeagua.R
 import com.jjrapps.bebeagua.domain.model.AppSettings
 import com.jjrapps.bebeagua.ui.theme.AccentLight
@@ -84,7 +85,10 @@ import java.time.LocalTime
 import java.util.Locale
 
 @Composable
-fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
+fun SettingsScreen(
+    onOpenChangelog: () -> Unit = {},
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -126,7 +130,8 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
                 onUpdateSizes = viewModel::updateIntakeSizes,
                 onUpdateLanguage = viewModel::updateLanguage,
                 onUpdateSkipImminent = viewModel::updateSkipImminentReminder,
-                onUpdateSkipImminentWindow = viewModel::updateSkipImminentWindowMinutes
+                onUpdateSkipImminentWindow = viewModel::updateSkipImminentWindowMinutes,
+                onOpenChangelog = onOpenChangelog
             )
         }
         SnackbarHost(
@@ -146,7 +151,8 @@ private fun SettingsContent(
     onUpdateSizes: (List<Int>) -> Unit,
     onUpdateLanguage: (String) -> Unit,
     onUpdateSkipImminent: (Boolean) -> Unit,
-    onUpdateSkipImminentWindow: (Int) -> Unit
+    onUpdateSkipImminentWindow: (Int) -> Unit,
+    onOpenChangelog: () -> Unit
 ) {
     val context = LocalContext.current
     val settings = state.settings
@@ -310,6 +316,29 @@ private fun SettingsContent(
                     }
                 )
             }
+        }
+
+        // About section
+        item {
+            SectionHeader(stringResource(R.string.settings_section_about))
+            Spacer(Modifier.height(8.dp))
+            SettingsCard {
+                InfoRow(
+                    label = stringResource(R.string.settings_version),
+                    value = stringResource(
+                        R.string.settings_version_format,
+                        BuildConfig.VERSION_NAME,
+                        BuildConfig.VERSION_CODE
+                    )
+                )
+                HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
+                SettingRow(
+                    label = stringResource(R.string.settings_changelog),
+                    subtitle = stringResource(R.string.settings_changelog_subtitle),
+                    value = "",
+                    onClick = onOpenChangelog
+                )
+            }
             Spacer(Modifier.height(8.dp))
         }
     }
@@ -436,14 +465,36 @@ private fun SettingRow(
                 Text(subtitle, fontFamily = DmSansFontFamily, fontSize = 11.sp, color = TextMuted)
             }
         }
-        Text(value, fontFamily = DmMonoFontFamily, fontSize = 13.sp, color = TextSecondary)
-        Spacer(Modifier.width(4.dp))
+        if (value.isNotEmpty()) {
+            Text(value, fontFamily = DmMonoFontFamily, fontSize = 13.sp, color = TextSecondary)
+            Spacer(Modifier.width(4.dp))
+        }
         Icon(
             imageVector = Icons.Outlined.ChevronRight,
             contentDescription = null,
             tint = TextMuted,
             modifier = Modifier.size(16.dp)
         )
+    }
+}
+
+/** Read-only counterpart of [SettingRow]: no click target and no chevron. */
+@Composable
+private fun InfoRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = label,
+            fontFamily = DmSansFontFamily,
+            fontSize = 14.sp,
+            color = TextPrimary,
+            modifier = Modifier.weight(1f)
+        )
+        Text(value, fontFamily = DmMonoFontFamily, fontSize = 13.sp, color = TextSecondary)
     }
 }
 

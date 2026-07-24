@@ -23,6 +23,7 @@ A native Android app to track your daily water intake and receive timely reminde
 - **Intake sizes** — editable list of preset amounts; add, edit, or delete entries (minimum one must remain).
 - **Language** — Español / English (follows system locale by default).
 - **Permissions** — inline status for notification permission and exact-alarm permission, with direct links to system settings.
+- **About** — installed version and a **What's new** screen with the changelog of every release (see [CHANGELOG.md](CHANGELOG.md)).
 
 ### Reminders
 - Delivered via `AlarmManager.setExactAndAllowWhileIdle` — fires at the exact scheduled time.

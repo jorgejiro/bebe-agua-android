@@ -52,6 +52,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - **Tema**: Auto / Claro / Oscuro.
 - **Vista previa de horarios de recordatorio calculados**.
 - **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados. El estado de `canScheduleExactAlarms()` se refresca en `onResume`.
+- **Acerca de**: versión instalada (`versionName (versionCode)`) y acceso a la pantalla **Novedades** (changelog).
 
 ### 2.4 Pantalla Onboarding ✅ Implementada
 - Flujo de bienvenida al primer arranque.
@@ -73,6 +74,16 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 - Cantidad sugerida por recordatorio = `objetivoDiario / N` (redondeado a la medida disponible más cercana, solo informativo en la notificación).
 - Si el usuario registra manualmente, el "próximo recordatorio" se desplaza para que no salga inmediatamente después.
 - Con la opción "saltar recordatorio tras beber" activada, el corte pasa a ser `últimaIngesta + ventanaDeCortesía`: se descarta cualquier horario anterior a ese corte (puede saltarse más de uno si la ventana supera el intervalo). El cálculo vive en `ReminderWindow.kt` y lo comparten `ScheduleRemindersUseCase` y `HomeViewModel`, de modo que la alarma programada y el indicador "Próximo recordatorio" nunca divergen.
+
+### 2.7 Pantalla Novedades (changelog) ✅ Implementada
+- Se abre desde Configuración → Acerca de → **Novedades** (ruta `changelog`, no es una pestaña de la navegación superior; mientras está abierta se mantiene resaltada la pestaña de Configuración).
+- Lista de versiones de más reciente a más antigua: nombre de versión, fecha de publicación, distintivo "Actual" para el `versionCode` instalado y los cambios en viñetas.
+- **Tres sitios que hay que mantener sincronizados** al publicar una versión:
+  1. `CHANGELOG.md` en la raíz (fuente de verdad del repo).
+  2. Los `string-array` `changelog_<version>` en `values/strings.xml` y `values-es/strings.xml` (texto traducido que ve el usuario).
+  3. `ui/changelog/ChangelogCatalog.kt` (versión, `versionCode`, fecha y referencia al array).
+- El test unitario `ChangelogCatalogTest` falla si el `versionCode` compilado no tiene entrada en el catálogo; el instrumentado `ChangelogResourcesTest` falla si falta el array en ES o EN.
+- No se muestra automáticamente al actualizar: es solo consultable.
 
 ---
 
@@ -194,6 +205,11 @@ app/
           HistoryScreen.kt
           HistoryViewModel.kt
           HistoryUiState.kt
+        changelog/
+          ChangelogScreen.kt
+          ChangelogViewModel.kt
+          ChangelogUiState.kt
+          ChangelogCatalog.kt       # catálogo estático de versiones + @ArrayRes de sus cambios
         settings/
           SettingsScreen.kt
           SettingsViewModel.kt
@@ -205,7 +221,7 @@ app/
           MainViewModel.kt        # gestiona el estado de onboarding completado
         navigation/
           NavGraph.kt
-          Screen.kt               # sealed class con rutas Home / History / Settings
+          Screen.kt               # sealed class con rutas Home / History / Settings / Changelog
       reminder/
         AlarmManagerReminderScheduler.kt   # implementación producción
         NoOpReminderScheduler.kt           # stub para tests
@@ -287,6 +303,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 ### Al hacer cambios
 - Los strings van en `strings.xml`. **Nunca hardcodees strings en Composables.**
 - Si añades un string, añade también la traducción en `values-es/strings.xml` (o EN si el base es ES).
+- Si subes `versionCode`/`versionName` → actualiza `CHANGELOG.md`, los `string-array` `changelog_*` (EN y ES) y `ChangelogCatalog.kt`.
 - Si tocas el schema de Room → escribe la migration y el test de migration. Incrementa `AppDatabase.VERSION`.
 - Si tocas algo de notificaciones → manualmente prueba en emulador con Android 12, 14 y 16 (la lógica de permisos cambia).
 - No añadas dependencias sin justificar y sin actualizar `libs.versions.toml`.
@@ -324,6 +341,8 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - [x] Release signing + R8 minification.
 
 **v1.1 — En desarrollo** (`versionCode 6`, `versionName 1.1.0`)
+- [x] Ventana de cortesía tras registrar una ingesta.
+- [x] Changelog consultable dentro de la app (Configuración → Acerca de → Novedades).
 - [ ] Gráfico semanal/mensual en historial.
 - [ ] Widget de pantalla principal con botón rápido de registro.
 - [ ] Export/import de datos en JSON.
