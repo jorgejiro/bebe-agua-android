@@ -31,6 +31,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jjrapps.bebeagua.R
+import com.jjrapps.bebeagua.ui.changelog.ChangelogScreen
 import com.jjrapps.bebeagua.ui.history.HistoryScreen
 import com.jjrapps.bebeagua.ui.home.HomeScreen
 import com.jjrapps.bebeagua.ui.main.MainViewModel
@@ -64,11 +65,17 @@ private fun MainScaffold() {
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
+    // Changelog is reached from Settings, so keep that tab highlighted while it is open.
+    val activeRoute = when (currentRoute) {
+        Screen.Changelog.route -> Screen.Settings.route
+        else -> currentRoute
+    }
+
     Scaffold(
         containerColor = BackgroundMain,
         topBar = {
             BebeAguaTopNav(
-                currentRoute = currentRoute,
+                currentRoute = activeRoute,
                 onNavigate = { screen ->
                     navController.navigate(screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
@@ -88,7 +95,14 @@ private fun MainScaffold() {
         ) {
             composable(Screen.Home.route)     { HomeScreen() }
             composable(Screen.History.route)  { HistoryScreen() }
-            composable(Screen.Settings.route) { SettingsScreen() }
+            composable(Screen.Settings.route) {
+                SettingsScreen(
+                    onOpenChangelog = { navController.navigate(Screen.Changelog.route) }
+                )
+            }
+            composable(Screen.Changelog.route) {
+                ChangelogScreen(onBack = { navController.popBackStack() })
+            }
         }
     }
 }
