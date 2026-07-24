@@ -116,6 +116,10 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_2_0">
+        <item>Nueva pantalla «Novedades» en Ajustes → Acerca de: los cambios de cada versión, dentro de la propia app.</item>
+        <item>Ajustes muestra la versión instalada.</item>
+    </string-array>
     <string-array name="changelog_1_1_0">
         <item>Nueva opción para saltarse un recordatorio cuando acabas de registrar una ingesta, con ventana de cortesía configurable (desactivada por defecto).</item>
         <item>El indicador «Próximo recordatorio» de la pantalla principal coincide siempre con el recordatorio realmente programado.</item>

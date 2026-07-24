@@ -11,6 +11,13 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.2.0] — 2026-07-25 (versionCode 7)
+
+### Añadido
+- Pantalla «Novedades» accesible desde Ajustes → Acerca de, con el changelog de cada versión y
+  distintivo para la versión instalada.
+- Sección «Acerca de» en Ajustes con la versión instalada (`versionName (versionCode)`).
+
 ## [1.1.0] — 2026-07-24 (versionCode 6)
 
 ### Añadido
@@ -18,7 +25,6 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
   cortesía posterior a una ingesta no se envía y se pasa al siguiente horario de la agenda.
   Ventana configurable (5–120 min, 15 por defecto), desactivada por defecto.
   Ver `docs/decisions/001-ventana-de-cortesia-tras-ingesta.md`.
-- Pantalla «Novedades» accesible desde Ajustes → Acerca de, con el changelog de cada versión.
 
 ### Corregido
 - El indicador «Próximo recordatorio» de la pantalla principal y la alarma realmente programada

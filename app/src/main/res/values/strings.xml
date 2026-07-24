@@ -116,6 +116,10 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_2_0">
+        <item>New \"What\'s new\" screen in Settings → About: the changes of every version, right inside the app.</item>
+        <item>Settings now shows the installed version.</item>
+    </string-array>
     <string-array name="changelog_1_1_0">
         <item>New option to skip a reminder when you have just logged an intake, with a configurable courtesy window (off by default).</item>
         <item>The \"Next reminder\" indicator on the home screen now always matches the reminder that is really scheduled.</item>
