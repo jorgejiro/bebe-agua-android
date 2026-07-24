@@ -119,6 +119,7 @@
     <string-array name="changelog_1_2_0">
         <item>New \"What\'s new\" screen in Settings → About: the changes of every version, right inside the app.</item>
         <item>Settings now shows the installed version.</item>
+        <item>New defaults for fresh installs: 2400 ml daily goal, an 08:00–21:00 window and 14 reminders per day.</item>
     </string-array>
     <string-array name="changelog_1_1_0">
         <item>New option to skip a reminder when you have just logged an intake, with a configurable courtesy window (off by default).</item>

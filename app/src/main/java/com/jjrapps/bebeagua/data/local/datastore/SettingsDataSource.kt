@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.jjrapps.bebeagua.domain.model.AppSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -26,14 +27,16 @@ class SettingsDataSource @Inject constructor(
         private val KEY_SKIP_IMMINENT_REMINDER = booleanPreferencesKey("skip_imminent_reminder")
         private val KEY_SKIP_IMMINENT_WINDOW_MINUTES = intPreferencesKey("skip_imminent_window_minutes")
 
-        const val DEFAULT_DAILY_GOAL_ML = 2100
-        const val DEFAULT_DAY_START_MINUTES = 480   // 08:00
-        const val DEFAULT_DAY_END_MINUTES = 1380    // 23:00
-        const val DEFAULT_REMINDERS_PER_DAY = 10
-        val DEFAULT_INTAKE_SIZES_ML = listOf(200)
-        const val DEFAULT_LANGUAGE = "auto"
-        const val DEFAULT_SKIP_IMMINENT_REMINDER = false
-        const val DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES = 15
+        // Defaults live in AppSettings so the onboarding prefill cannot drift from these.
+        private const val DEFAULT_DAILY_GOAL_ML = AppSettings.DEFAULT_DAILY_GOAL_ML
+        private const val DEFAULT_DAY_START_MINUTES = AppSettings.DEFAULT_DAY_START_MINUTES
+        private const val DEFAULT_DAY_END_MINUTES = AppSettings.DEFAULT_DAY_END_MINUTES
+        private const val DEFAULT_REMINDERS_PER_DAY = AppSettings.DEFAULT_REMINDERS_PER_DAY
+        private val DEFAULT_INTAKE_SIZES_ML = AppSettings.DEFAULT_INTAKE_SIZES_ML
+        private const val DEFAULT_LANGUAGE = AppSettings.DEFAULT_LANGUAGE
+        private const val DEFAULT_SKIP_IMMINENT_REMINDER = AppSettings.DEFAULT_SKIP_IMMINENT_REMINDER
+        private const val DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES =
+            AppSettings.DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES
     }
 
     val dailyGoalMl: Flow<Int> =

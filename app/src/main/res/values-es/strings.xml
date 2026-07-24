@@ -119,6 +119,7 @@
     <string-array name="changelog_1_2_0">
         <item>Nueva pantalla «Novedades» en Ajustes → Acerca de: los cambios de cada versión, dentro de la propia app.</item>
         <item>Ajustes muestra la versión instalada.</item>
+        <item>Nuevos valores por defecto en instalaciones nuevas: objetivo de 2400 ml, franja de 08:00 a 21:00 y 14 recordatorios al día.</item>
     </string-array>
     <string-array name="changelog_1_1_0">
         <item>Nueva opción para saltarse un recordatorio cuando acabas de registrar una ingesta, con ventana de cortesía configurable (desactivada por defecto).</item>
