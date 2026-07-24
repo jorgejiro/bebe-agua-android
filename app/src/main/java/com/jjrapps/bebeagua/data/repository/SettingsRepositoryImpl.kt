@@ -21,7 +21,9 @@ class SettingsRepositoryImpl @Inject constructor(
                 dayEndMinutes = s.dayEndMinutes,
                 remindersPerDay = s.remindersPerDay,
                 intakeSizesMl = s.intakeSizesMl,
-                language = s.language
+                language = s.language,
+                skipImminentReminder = s.skipImminentReminder,
+                skipImminentWindowMinutes = s.skipImminentWindowMinutes
             )
         }
 
@@ -37,6 +39,17 @@ class SettingsRepositoryImpl @Inject constructor(
     override suspend fun updateIntakeSizes(sizes: List<Int>) = dataSource.setIntakeSizesMl(sizes)
 
     override suspend fun updateLanguage(language: String) = dataSource.setLanguage(language)
+
+    override suspend fun updateSkipImminentReminder(enabled: Boolean) =
+        dataSource.setSkipImminentReminder(enabled)
+
+    override suspend fun updateSkipImminentWindowMinutes(minutes: Int) =
+        dataSource.setSkipImminentWindowMinutes(
+            minutes.coerceIn(
+                AppSettings.MIN_SKIP_IMMINENT_WINDOW_MINUTES,
+                AppSettings.MAX_SKIP_IMMINENT_WINDOW_MINUTES
+            )
+        )
 
     override fun isOnboardingDone(): Flow<Boolean> = dataSource.isOnboardingDone
 

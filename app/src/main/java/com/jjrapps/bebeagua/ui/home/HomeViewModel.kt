@@ -9,6 +9,7 @@ import com.jjrapps.bebeagua.domain.usecase.GetTodaySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveLastIntakeSizeUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
+import com.jjrapps.bebeagua.domain.usecase.graceWindowCutoff
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,7 +18,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.Instant
 import java.time.LocalTime
+import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,7 +48,16 @@ class HomeViewModel @Inject constructor(
             settings.dayEndMinutes,
             settings.remindersPerDay
         )
-        val nextReminder = reminderTimes.firstOrNull { it > now }
+        // Mirror the scheduler: a reminder inside the post-intake grace window is skipped.
+        val lastIntakeAt = if (settings.skipImminentReminder) {
+            summary.intakes.maxOfOrNull { it.timestampEpochMs }?.let { epochMs ->
+                Instant.ofEpochMilli(epochMs).atZone(ZoneId.systemDefault()).toLocalTime()
+            }
+        } else {
+            null
+        }
+        val cutoff = graceWindowCutoff(now, lastIntakeAt, settings.skipImminentWindowMinutes)
+        val nextReminder = cutoff?.let { limit -> reminderTimes.firstOrNull { it > limit } }
         val defaultSize = lastIntakeSizeMl
             ?: settings.intakeSizesMl.firstOrNull()
             ?: 200

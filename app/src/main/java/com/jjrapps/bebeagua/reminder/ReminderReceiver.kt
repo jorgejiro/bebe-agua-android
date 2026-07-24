@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.jjrapps.bebeagua.domain.model.Intake
 import com.jjrapps.bebeagua.domain.usecase.GetTodaySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
@@ -45,7 +46,15 @@ class ReminderReceiver : BroadcastReceiver() {
                 val summary = getTodaySummaryUseCase().first()
                 val consumedMl = summary.consumedMl
 
-                if (consumedMl < settings.dailyGoalMl && canPostNotifications(context)) {
+                // Safety net: an alarm already in flight when the user drank must stay silent
+                // if it lands inside the grace window.
+                val withinGraceWindow = settings.skipImminentReminder &&
+                    isWithinGraceWindow(summary.intakes, settings.skipImminentWindowMinutes)
+
+                if (consumedMl < settings.dailyGoalMl &&
+                    !withinGraceWindow &&
+                    canPostNotifications(context)
+                ) {
                     val notification = NotificationFactory.build(
                         context = context,
                         consumedMl = consumedMl,
@@ -67,6 +76,13 @@ class ReminderReceiver : BroadcastReceiver() {
                 pendingResult.finish()
             }
         }
+    }
+
+    private fun isWithinGraceWindow(intakes: List<Intake>, windowMinutes: Int): Boolean {
+        if (windowMinutes <= 0) return false
+        val lastIntakeMs = intakes.maxOfOrNull { it.timestampEpochMs } ?: return false
+        val elapsedMs = System.currentTimeMillis() - lastIntakeMs
+        return elapsedMs in 0 until windowMinutes * 60_000L
     }
 
     private fun canPostNotifications(context: Context): Boolean {

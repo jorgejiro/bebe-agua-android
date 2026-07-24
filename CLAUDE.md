@@ -45,6 +45,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - **Hora de inicio del día**. Por defecto: 08:00.
 - **Hora de fin del día**. Por defecto: 23:00.
 - **Número de recordatorios al día** (slider entre N_min y N_max calculados según ventana horaria).
+- **Saltar recordatorio tras beber** (opcional, **desactivada por defecto**). Si se activa, un recordatorio que caiga dentro de la ventana de cortesía posterior a una ingesta no se envía: se programa el siguiente horario de la agenda. Ventana configurable, 15 min por defecto (rango 5–120). Ver `docs/decisions/001-ventana-de-cortesia-tras-ingesta.md`.
 - **Lista editable de tamaños de ingesta**. Por defecto: `[200 ml]`. El usuario puede añadir, editar y eliminar (mínimo siempre debe quedar uno).
 - **Tamaño por defecto al iniciar**: el último usado (no se configura, se infiere).
 - **Idioma**: Auto / Español / English.
@@ -71,6 +72,7 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 - Distribuir `N` puntos uniformemente en la ventana.
 - Cantidad sugerida por recordatorio = `objetivoDiario / N` (redondeado a la medida disponible más cercana, solo informativo en la notificación).
 - Si el usuario registra manualmente, el "próximo recordatorio" se desplaza para que no salga inmediatamente después.
+- Con la opción "saltar recordatorio tras beber" activada, el corte pasa a ser `últimaIngesta + ventanaDeCortesía`: se descarta cualquier horario anterior a ese corte (puede saltarse más de uno si la ventana supera el intervalo). El cálculo vive en `ReminderWindow.kt` y lo comparten `ScheduleRemindersUseCase` y `HomeViewModel`, de modo que la alarma programada y el indicador "Próximo recordatorio" nunca divergen.
 
 ---
 
@@ -139,6 +141,7 @@ app/
       BebeAguaApplication.kt
       MainActivity.kt
       di/
+        ClockModule.kt
         DatabaseModule.kt
         DataStoreModule.kt
         RepositoryModule.kt
@@ -173,6 +176,7 @@ app/
           CalculateReminderTimesUseCase.kt
           ScheduleRemindersUseCase.kt
           ObserveSettingsUseCase.kt
+          ReminderWindow.kt          # funciones puras de corte (snooze + ventana de cortesía)
       ui/
         theme/
           Color.kt

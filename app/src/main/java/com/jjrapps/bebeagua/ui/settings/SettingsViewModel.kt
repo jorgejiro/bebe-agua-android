@@ -72,6 +72,16 @@ class SettingsViewModel @Inject constructor(
 
     fun updateIntakeSizes(sizes: List<Int>) = update { settingsRepository.updateIntakeSizes(sizes) }
 
+    fun updateSkipImminentReminder(enabled: Boolean) = update {
+        settingsRepository.updateSkipImminentReminder(enabled)
+        scheduleRemindersUseCase()
+    }
+
+    fun updateSkipImminentWindowMinutes(minutes: Int) = update {
+        settingsRepository.updateSkipImminentWindowMinutes(minutes)
+        scheduleRemindersUseCase()
+    }
+
     fun updateLanguage(language: String) = update {
         settingsRepository.updateLanguage(language)
         val localeList = if (language == "auto") {
