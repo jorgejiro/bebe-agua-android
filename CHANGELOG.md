@@ -14,6 +14,9 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y l
 ## [1.2.0] — 2026-07-25 (versionCode 7)
 
 ### Añadido
+- Widget de escritorio de 1x1: un toque registra la cantidad por defecto sin abrir la app, igual
+  que el botón principal de la pantalla principal. Implementado con Glance
+  (ver `docs/decisions/002-widget-de-escritorio-con-glance.md`).
 - Pantalla «Novedades» accesible desde Ajustes → Acerca de, con el changelog de cada versión y
   distintivo para la versión instalada.
 - Sección «Acerca de» en Ajustes con la versión instalada (`versionName (versionCode)`).

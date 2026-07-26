@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Add" badge overlaid on the launcher icon in the 1x1 widget. The dark outer ring keeps the
+     badge readable on top of the icon and on any wallpaper. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="#0B1829"
+        android:pathData="M12,0a12,12 0 1,0 0,24a12,12 0 1,0 0,-24z" />
+
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M12,2a10,10 0 1,0 0,20a10,10 0 1,0 0,-20z" />
+
+    <path
+        android:pathData="M12,7.2L12,16.8"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round" />
+
+    <path
+        android:pathData="M7.2,12L16.8,12"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.4"
+        android:strokeLineCap="round" />
+</vector>

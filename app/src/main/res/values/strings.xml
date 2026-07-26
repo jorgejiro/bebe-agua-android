@@ -117,6 +117,7 @@
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
     <string-array name="changelog_1_2_0">
+        <item>New 1x1 home screen widget: one tap logs your default amount without opening the app.</item>
         <item>New \"What\'s new\" screen in Settings → About: the changes of every version, right inside the app.</item>
         <item>Settings now shows the installed version.</item>
         <item>New defaults for fresh installs: 2400 ml daily goal, an 08:00–21:00 window and 14 reminders per day.</item>
@@ -149,6 +150,12 @@
         <item>Spanish and English, applied straight away when you switch language.</item>
         <item>No account and no cloud: all your data stays on the device.</item>
     </string-array>
+
+    <!-- Widget -->
+    <string name="widget_drink_label">Log a drink</string>
+    <string name="widget_drink_description">One tap logs your default amount.</string>
+    <string name="widget_drink_content_description">Log default amount</string>
+    <string name="widget_toast_intake_added">+%1$d ml · %2$d/%3$d ml</string>
 
     <!-- Common -->
     <string name="ok">OK</string>
