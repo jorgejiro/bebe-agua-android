@@ -10,6 +10,7 @@ import com.jjrapps.bebeagua.domain.usecase.ObserveLastIntakeSizeUseCase
 import com.jjrapps.bebeagua.domain.usecase.ObserveSettingsUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import com.jjrapps.bebeagua.domain.usecase.graceWindowCutoff
+import com.jjrapps.bebeagua.domain.usecase.resolveDefaultIntakeSize
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.SharingStarted
@@ -58,9 +59,7 @@ class HomeViewModel @Inject constructor(
         }
         val cutoff = graceWindowCutoff(now, lastIntakeAt, settings.skipImminentWindowMinutes)
         val nextReminder = cutoff?.let { limit -> reminderTimes.firstOrNull { it > limit } }
-        val defaultSize = lastIntakeSizeMl
-            ?: settings.intakeSizesMl.firstOrNull()
-            ?: 200
+        val defaultSize = resolveDefaultIntakeSize(lastIntakeSizeMl, settings.intakeSizesMl)
         HomeUiState.Success(
             summary = summary,
             nextReminderTime = nextReminder,

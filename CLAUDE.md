@@ -87,6 +87,20 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 
 ---
 
+### 2.8 Widget de escritorio ✅ Implementado
+- Widget de **1x1** (`resizeMode="none"`, `targetCellWidth/Height=1`): el icono de la app con un
+  distintivo «+» en la esquina. No muestra datos, es solo un botón.
+- Una pulsación = una ingesta de la cantidad por defecto (la última usada), igual que el botón
+  principal de Casa. Además reprograma el siguiente recordatorio.
+- Confirma con un `Toast` (`+250 ml · 1250/2400 ml`). No abre la app.
+- Como no renderiza datos, **no hay que invalidarlo nunca** (`updatePeriodMillis="0"`, sin
+  `updateAll()`): no puede desincronizarse de la base de datos.
+- La lógica vive en `RecordDefaultIntakeUseCase`; `AddDefaultIntakeAction` es un cascarón. La
+  precedencia de la cantidad por defecto es la función pura `resolveDefaultIntakeSize`, compartida
+  con `HomeViewModel`, para que widget y Home nunca divergan.
+- Glance instancia los `ActionCallback` por reflexión: es el **único** sitio donde se usa Hilt con
+  `@EntryPoint` en vez de inyección por constructor.
+
 ## 3. Stack técnico
 
 **Vinculante** (no cambiar sin justificarlo):
@@ -106,7 +120,8 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 | DI | Hilt **2.59.2** |
 | Persistencia | **Room 2.7.1** para registros de ingesta; **DataStore Preferences 1.1.4** para ajustes |
 | Navegación | **Navigation Compose 2.9.0** (Nav3 no estaba maduro; se descartó) |
-| Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver`. **No usar WorkManager** para recordatorios. |
+| Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver`. **No usar WorkManager** para recordatorios (Glance lo arrastra como dependencia transitiva, pero no lo usamos nosotros). |
+| Widget | **Glance 1.1.1** (`androidx.glance:glance-appwidget`). No usar `RemoteViews` con layouts XML. Ver `docs/decisions/002-widget-de-escritorio-con-glance.md`. |
 | Notificaciones | `NotificationManagerCompat` + canal `reminders` con `IMPORTANCE_DEFAULT` |
 | Concurrencia | Coroutines **1.10.2** + Flow |
 | i18n | Recursos `strings.xml` (`values/`, `values-es/`); cambio de idioma en runtime con `AppCompatDelegate.setApplicationLocales` |
@@ -122,6 +137,7 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 | Room | 2.7.1 |
 | DataStore | 1.1.4 |
 | Navigation Compose | 2.9.0 |
+| Glance (widget) | 1.1.1 |
 | Hilt Navigation Compose | 1.2.0 |
 | Coroutines | 1.10.2 |
 | Timber | 5.0.1 |
@@ -187,7 +203,10 @@ app/
           CalculateReminderTimesUseCase.kt
           ScheduleRemindersUseCase.kt
           ObserveSettingsUseCase.kt
+          GetDefaultIntakeSizeUseCase.kt     # lectura puntual de la cantidad por defecto (widget)
+          RecordDefaultIntakeUseCase.kt      # registrar por defecto + reprogramar (widget)
           ReminderWindow.kt          # funciones puras de corte (snooze + ventana de cortesía)
+          IntakeDefaults.kt          # función pura: precedencia de la cantidad por defecto
       ui/
         theme/
           Color.kt
@@ -229,6 +248,10 @@ app/
         NotificationActionReceiver.kt      # maneja acciones de notificación
         BootReceiver.kt
         NotificationFactory.kt
+      widget/
+        DrinkWidget.kt                     # GlanceAppWidget 1x1 (icono + badge «+»)
+        DrinkWidgetReceiver.kt
+        AddDefaultIntakeAction.kt          # ActionCallback; Hilt vía @EntryPoint
     res/
       values/strings.xml
       values-es/strings.xml
@@ -345,8 +368,8 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 **v1.2 — En desarrollo** (`versionCode 7`, `versionName 1.2.0`)
 - [x] Changelog consultable dentro de la app (Configuración → Acerca de → Novedades).
+- [x] Widget de pantalla principal 1x1 con botón rápido de registro (Glance).
 - [ ] Gráfico semanal/mensual en historial.
-- [ ] Widget de pantalla principal con botón rápido de registro.
 - [ ] Export/import de datos en JSON.
 
 **v1.3 (eventual)**

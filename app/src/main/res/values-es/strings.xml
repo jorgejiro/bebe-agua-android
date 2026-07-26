@@ -117,6 +117,7 @@
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
     <string-array name="changelog_1_2_0">
+        <item>Nuevo widget de escritorio de 1x1: un toque registra tu cantidad por defecto sin abrir la app.</item>
         <item>Nueva pantalla «Novedades» en Ajustes → Acerca de: los cambios de cada versión, dentro de la propia app.</item>
         <item>Ajustes muestra la versión instalada.</item>
         <item>Nuevos valores por defecto en instalaciones nuevas: objetivo de 2400 ml, franja de 08:00 a 21:00 y 14 recordatorios al día.</item>
@@ -149,6 +150,12 @@
         <item>Español e inglés, aplicados al instante al cambiar de idioma.</item>
         <item>Sin cuentas ni nube: todos los datos se quedan en el dispositivo.</item>
     </string-array>
+
+    <!-- Widget -->
+    <string name="widget_drink_label">Registrar ingesta</string>
+    <string name="widget_drink_description">Un toque registra tu cantidad por defecto.</string>
+    <string name="widget_drink_content_description">Registrar la cantidad por defecto</string>
+    <string name="widget_toast_intake_added">+%1$d ml · %2$d/%3$d ml</string>
 
     <!-- Comunes -->
     <string name="ok">Aceptar</string>

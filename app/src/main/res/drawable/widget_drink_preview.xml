@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Preview shown in the system widget picker: the launcher icon with the "add" badge, matching
+     what DrinkWidget renders on the home screen. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ic_launcher_fg" />
+
+    <item
+        android:drawable="@drawable/ic_widget_add_badge"
+        android:gravity="bottom|end"
+        android:width="40dp"
+        android:height="40dp" />
+</layer-list>

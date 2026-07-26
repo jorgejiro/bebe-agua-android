@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.glance.appwidget)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.room.runtime)
