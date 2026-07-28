@@ -19,10 +19,30 @@ Los widgets de Android se dibujan con `RemoteViews`, un mecanismo ajeno a Compos
    evita introducir layouts XML de UI en el proyecto. Se elige la 1.1.1 por ser la última
    estable (la 1.2.0 solo tiene `rc01` publicada).
 
-2. **El widget no renderiza datos.** Solo el icono `ic_launcher_fg` con el distintivo
-   `ic_widget_add_badge`. Consecuencia importante: no hay nada que invalidar. No hace falta
-   llamar a `updateAll()` tras registrar una ingesta ni `updatePeriodMillis`, y el widget no puede
-   quedar desincronizado con la base de datos.
+2. **El widget no renderiza datos.** Solo el icono con el distintivo `ic_widget_add_badge`.
+   Consecuencia importante: no hay nada que invalidar. No hace falta llamar a `updateAll()` tras
+   registrar una ingesta ni `updatePeriodMillis`, y el widget no puede quedar desincronizado con la
+   base de datos.
+
+2.b **Todo se dimensiona en proporción a la celda, no en dp fijos** (añadido 2026-07-28). El
+   tamaño de una celda 1x1 depende de la rejilla del launcher: en la rejilla 8x6 de Nova Launcher
+   sobre un Galaxy S25 ronda los 45 dp, la mitad que en la rejilla por defecto. Con un distintivo
+   de 22 dp fijos el «+» dominaba la celda. Por eso:
+   - `SizeMode.Exact` + `LocalSize.current` para conocer el tamaño real de la celda.
+   - Distintivo = 36 % del lado menor (acotado a 15–28 dp), radio de esquina = 22 %.
+   - El arte se dibuja desde `drawable-nodpi/ic_widget_icon.png`, un recorte centrado de
+     `ic_launcher_fg.png` (304 de 432 px, sin reescalado) que **elimina la zona de seguridad del
+     icono adaptativo**. `ic_launcher_fg.png` mide 432 px pero su dibujo solo ocupa los 293 px
+     centrales, porque el launcher recorta el 66 % central de la capa de primer plano. Al pintarlo
+     tal cual en el widget, la gota quedaba a ~68 % del lado, más pequeña que en el icono de la app
+     de al lado. Como bonus, el recorte se decodifica a 304×304 en vez de escalarse a 1296×1296
+     (`drawable/` sin cualificador se interpreta como mdpi), unos 6,7 MB menos de bitmap en el
+     proceso del launcher.
+   - **Un cuadrado del lado menor con `ContentScale.Fit`, no `fillMaxSize` con `Crop`.** Una celda
+     1x1 no es cuadrada: en la rejilla 8x6 mide ~45 × 57 dp. Llenando la celda entera, `Crop`
+     escalaba el arte hasta cubrir el alto y recortaba la gota por los lados. El cuadrado centrado
+     de lado `min(ancho, alto)` no puede recortar nada sea cual sea la proporción de la celda, y es
+     también el rectángulo al que el redondeo de esquinas tiene sentido aplicarse.
 
 3. **La lógica vive en el dominio, no en el widget.** `RecordDefaultIntakeUseCase` encapsula
    «lee la cantidad por defecto → registra → reprograma el recordatorio → devuelve los totales
@@ -73,4 +93,10 @@ Los widgets de Android se dibujan con `RemoteViews`, un mecanismo ajeno a Compos
 - Pulsar dos veces registra dos ingestas. No se añade antirrebote: es coherente con el botón de
   Home, y los registros se pueden borrar desde la lista de «Registros de hoy».
 - `previewImage` en vez de `previewLayout` para la vista del selector de widgets, para no crear un
-  layout XML solo para el preview.
+  layout XML solo para el preview. El `layer-list` del preview fija el tamaño de sus dos capas
+  (96 dp y 35 dp) para mantener la misma proporción que el widget en cualquier densidad.
+- `SizeMode.Exact` implica que el launcher puede pedir una recomposición al cambiar el tamaño de la
+  celda. Es barato (no hay E/S en `Content`) y no rompe el «nada que invalidar»: sigue sin haber
+  datos que refrescar.
+- El hueco entre el borde del widget y el borde de la celda lo pone el launcher (en Nova, la opción
+  de margen/padding de widgets). No se puede eliminar desde la app.

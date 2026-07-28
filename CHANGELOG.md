@@ -11,12 +11,13 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
-## [1.2.0] — 2026-07-25 (versionCode 7)
+## [1.2.0] — 2026-07-28 (versionCode 7)
 
 ### Añadido
 - Widget de escritorio de 1x1: un toque registra la cantidad por defecto sin abrir la app, igual
   que el botón principal de la pantalla principal. Implementado con Glance
-  (ver `docs/decisions/002-widget-de-escritorio-con-glance.md`).
+  (ver `docs/decisions/002-widget-de-escritorio-con-glance.md`). El icono llena la celda y el
+  distintivo «+» se escala con ella, para que también se vea bien en rejillas densas (8x6).
 - Pantalla «Novedades» accesible desde Ajustes → Acerca de, con el changelog de cada versión y
   distintivo para la versión instalada.
 - Sección «Acerca de» en Ajustes con la versión instalada (`versionName (versionCode)`).
