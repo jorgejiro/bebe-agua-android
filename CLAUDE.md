@@ -100,6 +100,14 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
   con `HomeViewModel`, para que widget y Home nunca divergan.
 - Glance instancia los `ActionCallback` por reflexión: es el **único** sitio donde se usa Hilt con
   `@EntryPoint` en vez de inyección por constructor.
+- **Todo se dimensiona en proporción a la celda** (`SizeMode.Exact` + `LocalSize.current`), no en dp
+  fijos: una celda 1x1 mide ~45 × 57 dp en rejillas densas (8x6 en Nova) y el doble en la rejilla
+  por defecto. Distintivo = 36 % del lado menor (15–28 dp), radio de esquina = 22 %.
+- El arte se dibuja en un **cuadrado del lado menor con `ContentScale.Fit`**: la celda no es
+  cuadrada, así que llenarla con `Crop` recortaba la gota por los lados.
+- El arte es `drawable-nodpi/ic_widget_icon.png`, recorte centrado de `ic_launcher_fg.png` sin la
+  zona de seguridad del icono adaptativo, para que la gota se vea igual de grande que en el icono de
+  la app. Si se cambia el icono, **hay que regenerar el recorte** (`sips -c 304 304`).
 
 ## 3. Stack técnico
 
@@ -113,8 +121,8 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 | `minSdk` | 31 (Android 12) |
 | `targetSdk` | 36 (Android 16) |
 | `compileSdk` | 36 |
-| Build | Gradle Kotlin DSL + Version Catalog (`libs.versions.toml`) |
-| AGP | **9.2.1** |
+| Build | Gradle Kotlin DSL + Version Catalog (`libs.versions.toml`), wrapper **9.5.0** |
+| AGP | **9.3.1** |
 | KSP | **2.3.7** (para Hilt y Room; no usar kapt) |
 | Arquitectura | MVVM + UDF (Unidirectional Data Flow), capas: `ui` / `domain` / `data` |
 | DI | Hilt **2.59.2** |
