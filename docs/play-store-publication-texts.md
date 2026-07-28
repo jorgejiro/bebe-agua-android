@@ -32,6 +32,8 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 
 5. Generar un nuevo `.aab` firmado con la upload key vigente.
 6. Subir el `.aab` a **Production** o promover la release ya validada desde **Internal testing**.
+   Pegar las notas de la version (es-ES y en-US) desde
+   [`play-release-notes.md`](play-release-notes.md).
 7. Revisar:
    - ficha principal;
    - paises/regiones;
@@ -160,21 +162,11 @@ A simple and private way to remember to drink water throughout the day.
 
 ## Novedades de esta version
 
-### Espanol
+El texto de "Novedades" cambia en cada publicacion, asi que vive en su propio archivo, con el
+recuento de caracteres frente al limite de 500 de Play y una seccion por version:
+[`play-release-notes.md`](play-release-notes.md).
 
-- Registro rapido de ingesta diaria de agua.
-- Recordatorios configurables dentro de tu franja horaria.
-- Historial de los ultimos dias y estadisticas basicas.
-- Acciones rapidas desde la notificacion.
-- Soporte para Espanol e Ingles.
-
-### English
-
-- Quick daily water intake logging.
-- Configurable reminders within your chosen time window.
-- Recent history and basic statistics.
-- Quick actions from notifications.
-- Spanish and English support.
+Lo que habia aqui eran las notas de la primera publicacion; estan conservadas en ese archivo.
 
 ---
 
