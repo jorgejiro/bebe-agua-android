@@ -15,6 +15,49 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
+## 1.2.1 (versionCode 8) — 2026-08-04
+
+### es-ES (275 caracteres)
+
+```text
+Novedades de la versión 1.2.1
+
+• Corregido: el widget de escritorio se quedaba cargando indefinidamente al añadirlo y el toque no registraba nada. Ya se muestra correctamente y un toque registra tu cantidad por defecto.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+```
+
+### en-US (224 caracteres)
+
+```text
+What's new in 1.2.1
+
+• Fixed: the home screen widget was stuck on a loading spinner when added and taps did nothing. It now renders correctly and one tap logs your default amount.
+
+No accounts, no cloud, no ads, no tracking.
+```
+
+### Formato con etiquetas de idioma
+
+```xml
+<es-ES>
+Novedades de la versión 1.2.1
+
+• Corregido: el widget de escritorio se quedaba cargando indefinidamente al añadirlo y el toque no registraba nada. Ya se muestra correctamente y un toque registra tu cantidad por defecto.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+</es-ES>
+<en-US>
+What's new in 1.2.1
+
+• Fixed: the home screen widget was stuck on a loading spinner when added and taps did nothing. It now renders correctly and one tap logs your default amount.
+
+No accounts, no cloud, no ads, no tracking.
+</en-US>
+```
+
+---
+
 ## 1.2.0 (versionCode 7) — 2026-07-28
 
 ### es-ES (468 caracteres)

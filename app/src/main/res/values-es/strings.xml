@@ -116,6 +116,9 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_2_1">
+        <item>Corregido: el widget de escritorio se quedaba en el indicador de carga al añadirlo y el toque no hacía nada. Ya se muestra y registra tu cantidad por defecto.</item>
+    </string-array>
     <string-array name="changelog_1_2_0">
         <item>Nuevo widget de escritorio de 1x1: un toque registra tu cantidad por defecto sin abrir la app.</item>
         <item>Nueva pantalla «Novedades» en Ajustes → Acerca de: los cambios de cada versión, dentro de la propia app.</item>
