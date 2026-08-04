@@ -116,6 +116,9 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_2_1">
+        <item>Fixed: the home screen widget was stuck on a loading spinner when added and taps did nothing. It now renders and logs your default amount.</item>
+    </string-array>
     <string-array name="changelog_1_2_0">
         <item>New 1x1 home screen widget: one tap logs your default amount without opening the app.</item>
         <item>New \"What\'s new\" screen in Settings → About: the changes of every version, right inside the app.</item>

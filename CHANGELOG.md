@@ -11,6 +11,15 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.2.1] — 2026-08-04 (versionCode 8)
+
+### Corregido
+- El widget de escritorio se quedaba indefinidamente en el indicador de carga al colocarlo y el
+  toque no registraba nada, solo en la build de release: R8 (full mode) eliminaba los
+  constructores que WorkManager y Glance instancian por reflexión. Añadidas las reglas
+  `-keepclassmembers` correspondientes en `proguard-rules.pro`.
+  Ver `docs/decisions/003-reglas-r8-para-reflexion-de-glance-y-workmanager.md`.
+
 ## [1.2.0] — 2026-07-28 (versionCode 7)
 
 ### Añadido
