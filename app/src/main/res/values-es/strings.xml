@@ -106,6 +106,7 @@
 
     <!-- Acerca de -->
     <string name="settings_section_about">Acerca de</string>
+    <string name="settings_feedback">Enviar comentarios</string>
     <string name="settings_version">Versión</string>
     <string name="settings_version_format">%1$s (%2$d)</string>
     <string name="settings_changelog">Novedades</string>
