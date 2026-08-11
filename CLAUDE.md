@@ -383,7 +383,11 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - [ ] Gráfico semanal/mensual en historial.
 - [ ] Export/import de datos en JSON.
 
-**v1.3 (eventual)**
+**v1.3 — Cerrada** (`versionCode 9`, `versionName 1.3.0`)
+- [x] Nombre de la app con exclamaciones: ¡Bebe agua! / Drink Water!
+- [x] Enviar comentarios al autor por correo desde Ajustes → Acerca de.
+
+**v1.4 (eventual)**
 - [ ] Wear OS companion.
 - [ ] Recordatorios "inteligentes" (saltarse el siguiente si has bebido más de la cuota esperada).
 

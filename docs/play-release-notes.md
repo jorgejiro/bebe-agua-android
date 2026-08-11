@@ -15,6 +15,53 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
+## 1.3.0 (versionCode 9) — 2026-08-11
+
+### es-ES (327 caracteres)
+
+```text
+Novedades de la versión 1.3.0
+
+• La app ahora se llama «¡Bebe agua!».
+• Nuevo «Enviar comentarios» en Ajustes → Acerca de: abre tu app de correo para escribir al autor, con la versión instalada ya en el asunto. Si algo no funciona o echas algo en falta, cuéntalo por ahí.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+```
+
+### en-US (308 caracteres)
+
+```text
+What's new in 1.3.0
+
+• The app is now called Drink Water!
+• New "Send feedback" in Settings → About: it opens your email app to write to the author, with the installed version already in the subject. If something is broken or missing, that is the place to say so.
+
+No accounts, no cloud, no ads, no tracking.
+```
+
+### Formato con etiquetas de idioma
+
+```xml
+<es-ES>
+Novedades de la versión 1.3.0
+
+• La app ahora se llama «¡Bebe agua!».
+• Nuevo «Enviar comentarios» en Ajustes → Acerca de: abre tu app de correo para escribir al autor, con la versión instalada ya en el asunto. Si algo no funciona o echas algo en falta, cuéntalo por ahí.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+</es-ES>
+<en-US>
+What's new in 1.3.0
+
+• The app is now called Drink Water!
+• New "Send feedback" in Settings → About: it opens your email app to write to the author, with the installed version already in the subject. If something is broken or missing, that is the place to say so.
+
+No accounts, no cloud, no ads, no tracking.
+</en-US>
+```
+
+---
+
 ## 1.2.1 (versionCode 8) — 2026-08-04
 
 ### es-ES (275 caracteres)
