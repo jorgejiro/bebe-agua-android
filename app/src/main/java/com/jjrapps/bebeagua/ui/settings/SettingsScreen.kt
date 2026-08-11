@@ -2,6 +2,7 @@ package com.jjrapps.bebeagua.ui.settings
 
 import android.app.AlarmManager
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.compose.foundation.background
@@ -63,6 +64,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jjrapps.bebeagua.BuildConfig
@@ -81,8 +83,19 @@ import com.jjrapps.bebeagua.ui.theme.TextMuted
 import com.jjrapps.bebeagua.ui.theme.TextPrimary
 import com.jjrapps.bebeagua.ui.theme.TextSecondary
 import com.jjrapps.bebeagua.ui.theme.WarnYellow
+import timber.log.Timber
 import java.time.LocalTime
 import java.util.Locale
+
+/**
+ * Where feedback goes. A constant rather than a string resource: it is the author's address, the same
+ * in every language, and nothing about it is translatable.
+ *
+ * **The row does not show it.** An address printed in Settings is a line of text nobody needs — whoever
+ * taps the row is about to read it in the To: field of their own mail app, and whoever does not tap it
+ * was never going to write. Keeping it off the screen also keeps it out of screenshots.
+ */
+private const val FEEDBACK_EMAIL = "jjrmobileapps@gmail.com"
 
 @Composable
 fun SettingsScreen(
@@ -322,7 +335,35 @@ private fun SettingsContent(
         item {
             SectionHeader(stringResource(R.string.settings_section_about))
             Spacer(Modifier.height(8.dp))
+            // The subject carries the version because a report without it is a report you cannot act
+            // on: the author needs to know whether the bug is in what is published or in what was
+            // fixed two builds ago.
+            val feedbackSubject = stringResource(
+                R.string.feedback_subject,
+                stringResource(R.string.app_name),
+                BuildConfig.VERSION_NAME,
+                BuildConfig.VERSION_CODE
+            )
             SettingsCard {
+                SettingRow(
+                    label = stringResource(R.string.settings_feedback),
+                    value = "",
+                    onClick = {
+                        // ACTION_SENDTO with a mailto: URI, so only email apps answer rather than the
+                        // whole share sheet.
+                        //
+                        // The subject goes in the URI *and* in EXTRA_SUBJECT. Gmail parses the mailto:
+                        // URI and ignores the extra, while other clients read only the extra: sending
+                        // both is what makes it land everywhere. `Uri.encode` is not optional, the
+                        // subject starts with «¡» and has spaces and brackets in it.
+                        val mailto = "mailto:$FEEDBACK_EMAIL?subject=${Uri.encode(feedbackSubject)}"
+                        val intent = Intent(Intent.ACTION_SENDTO, mailto.toUri())
+                            .putExtra(Intent.EXTRA_SUBJECT, feedbackSubject)
+                        runCatching { context.startActivity(intent) }
+                            .onFailure { Timber.w(it, "No email app to send feedback with") }
+                    }
+                )
+                HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
                 InfoRow(
                     label = stringResource(R.string.settings_version),
                     value = stringResource(

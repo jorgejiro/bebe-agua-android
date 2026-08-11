@@ -52,7 +52,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - **Tema**: Auto / Claro / Oscuro.
 - **Vista previa de horarios de recordatorio calculados**.
 - **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados. El estado de `canScheduleExactAlarms()` se refresca en `onResume`.
-- **Acerca de**: versión instalada (`versionName (versionCode)`) y acceso a la pantalla **Novedades** (changelog).
+- **Acerca de**: **Enviar comentarios** —correo al autor con el nombre y la versión en el asunto; la dirección **no se imprime en la pantalla**, se ve en la app de correo al abrirse—, versión instalada (`versionName (versionCode)`) y acceso a la pantalla **Novedades** (changelog).
 
 ### 2.4 Pantalla Onboarding ✅ Implementada
 - Flujo de bienvenida al primer arranque.
