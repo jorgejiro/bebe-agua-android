@@ -399,7 +399,12 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - **Package**: `com.jjrapps.bebeagua`.
 - **Paleta base**: azules acuáticos. Colores semilla en `Theme.kt`; Material 3 dynamic color en Android 12+.
 - **Icono adaptativo**: gota estilizada sobre fondo claro.
-- **Capturas para Play**: 5 capturas (Home, Home con muchas ingestas, Historial, Settings, Notificación).
+- **Capturas para Play**: 7 escenas × 2 idiomas × 3 formatos (teléfono, tablet 7", tablet 10"), generadas
+  con el pipeline de `docs/store-assets/generar-capturas/` (ver su `README.md`) y guardadas en
+  `docs/store-assets/capturas/<formato>/<idioma>/`. **No se hacen a mano**: hay que rehacerlas cuando
+  cambie una pantalla, y el script incluye un control (`revisar.py`) que detecta capturas en negro o con
+  el idioma colado. Las capturas se toman con el **APK debug**, porque la siembra de la base de datos
+  necesita `run-as` y eso solo funciona con una app debuggable.
 
 ---
 

@@ -18,3 +18,7 @@ keystore.properties
 *.aab
 *.pwd.txt
 /app/release/
+
+# La base de datos sembrada para las capturas se genera con sembrar_historial.py
+/docs/store-assets/generar-capturas/siembra/*.db
+/docs/store-assets/generar-capturas/__pycache__/
