@@ -172,11 +172,17 @@ Lo que habia aqui eran las notas de la primera publicacion; estan conservadas en
 
 ## Capturas - Orden recomendado
 
-1. Home con progreso diario visible.
-2. Home con varios registros en "Registros de hoy".
-3. Historial con estadisticas y dias registrados.
-4. Ajustes con objetivo, horario y recordatorios.
-5. Notificacion con acciones rapidas.
+Las capturas se generan automaticamente, en español y en ingles y en los tres formatos que pide Play
+(telefono, tablet de 7" y tablet de 10"): ver `store-assets/generar-capturas/README.md`. Quedan en
+`store-assets/capturas/<formato>/<idioma>/` y este es el orden en que se suben:
+
+1. `01-registrar-agua` — la pantalla principal, con el anillo a media asta y los registros del dia.
+2. `02-elegir-medida` — el selector de cantidad.
+3. `03-historial` — los ultimos dias, con racha y medias.
+4. `04-objetivo-y-recordatorios` — Ajustes: objetivo, franja horaria, recordatorios y horarios.
+5. `05-medidas-y-permisos` — el final de Ajustes: medidas, idioma, permisos y Acerca de.
+6. `06-recordatorio-en-la-notificacion` — el aviso con sus dos acciones rapidas.
+7. `07-widget-en-el-escritorio` — el widget de 1x1 en la pantalla de inicio.
 
 ---
 
