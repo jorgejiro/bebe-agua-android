@@ -11,6 +11,19 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.3.0] — 2026-08-11 (versionCode 9)
+
+### Añadido
+- **Enviar comentarios** en Ajustes → Acerca de: abre la app de correo del usuario con la dirección
+  del autor puesta y, en el asunto, el nombre y la versión instalada. La dirección no se imprime en
+  la pantalla, se lee en el campo Para de la app de correo. Mismo planteamiento que en
+  «¡Aquí hay tomate!».
+
+### Cambiado
+- La app se llama **¡Bebe agua!** (ES) / **Drink Water!** (EN). Cambia el nombre del lanzador, el de
+  los ajustes del sistema y el de la ficha de Google Play. El package, el repositorio y los datos
+  guardados no cambian.
+
 ## [1.2.1] — 2026-08-04 (versionCode 8)
 
 ### Corregido

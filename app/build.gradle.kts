@@ -24,8 +24,8 @@ android {
         applicationId = "com.jjrapps.bebeagua"
         minSdk = 31
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.2.1"
+        versionCode = 9
+        versionName = "1.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

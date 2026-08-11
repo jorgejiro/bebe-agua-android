@@ -117,6 +117,10 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_3_0">
+        <item>La app ahora se llama ¡Bebe agua!</item>
+        <item>Nueva fila «Enviar comentarios» en Ajustes → Acerca de: abre tu app de correo con la dirección del autor y la versión instalada ya puestas.</item>
+    </string-array>
     <string-array name="changelog_1_2_1">
         <item>Corregido: el widget de escritorio se quedaba en el indicador de carga al añadirlo y el toque no hacía nada. Ya se muestra y registra tu cantidad por defecto.</item>
     </string-array>

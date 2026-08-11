@@ -120,6 +120,10 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_3_0">
+        <item>The app is now called Drink Water!</item>
+        <item>New \"Send feedback\" row in Settings → About: it opens your email app with the author\'s address and the installed version already in the subject.</item>
+    </string-array>
     <string-array name="changelog_1_2_1">
         <item>Fixed: the home screen widget was stuck on a loading spinner when added and taps did nothing. It now renders and logs your default amount.</item>
     </string-array>
