@@ -1,4 +1,4 @@
-# Novedades para Google Play — Bebe Agua
+# Novedades para Google Play — ¡Bebe agua!
 
 Textos de **«Novedades»** («What's new») listos para copiar y pegar en Play Console al crear la
 release: *Producción → Crear nueva versión → Notas de la versión*, una pestaña por idioma
