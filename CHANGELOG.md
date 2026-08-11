@@ -11,7 +11,7 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
-## [1.3.0] — 2026-08-11 (versionCode 9)
+## [1.3.0] — 2026-08-11 (versionCode 10)
 
 ### Añadido
 - **Enviar comentarios** en Ajustes → Acerca de: abre la app de correo del usuario con la dirección

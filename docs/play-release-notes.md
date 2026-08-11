@@ -15,7 +15,7 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
-## 1.3.0 (versionCode 9) — 2026-08-11
+## 1.3.0 (versionCode 10) — 2026-08-11
 
 ### es-ES (327 caracteres)
 
