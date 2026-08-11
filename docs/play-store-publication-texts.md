@@ -1,4 +1,4 @@
-# Textos para Google Play - Bebe Agua
+# Textos para Google Play - ¡Bebe agua!
 
 Documento de trabajo para rellenar la ficha de Google Play Console y preparar el paso de beta interna a produccion.
 
@@ -50,11 +50,11 @@ JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home" ./gradle
 
 ### Espanol
 
-Bebe Agua
+¡Bebe agua!
 
 ### English
 
-Drink Water
+Drink Water!
 
 ---
 
@@ -76,7 +76,7 @@ Track water intake and get timely reminders. No accounts or ads.
 
 ### Espanol
 
-Bebe Agua es una app sencilla para registrar tu ingesta diaria de agua y recibir recordatorios periódicos durante el día.
+¡Bebe agua! es una app sencilla para registrar tu ingesta diaria de agua y recibir recordatorios periódicos durante el día.
 
 La pantalla principal esta pensada para ser rápida: un toque registra la cantidad que usas normalmente, y puedes cambiarla cuando quieras desde tus medidas configuradas o introducir otra cantidad. El progreso diario se muestra en un circulo claro con el total bebido frente a tu objetivo.
 
@@ -99,7 +99,7 @@ Funciones principales:
 
 ### English
 
-Drink Water is a simple app for tracking your daily water intake and receiving periodic reminders throughout the day.
+Drink Water! is a simple app for tracking your daily water intake and receiving periodic reminders throughout the day.
 
 The home screen is built for quick use: one tap logs your usual amount, and you can change it whenever you want from your configured sizes or enter a custom amount. Your daily progress is shown in a clear circular view with the amount consumed against your goal.
 
@@ -208,13 +208,13 @@ Si preparas una imagen promocional de 1024 x 500, sugerencia de copy:
 
 ### Espanol
 
-Bebe Agua
+¡Bebe agua!
 
 Recordatorios simples para mantenerte hidratado.
 
 ### English
 
-Drink Water
+Drink Water!
 
 Simple reminders to stay hydrated.
 
@@ -238,7 +238,7 @@ No aplica para datos remotos, porque no hay cuenta ni servidor. Los datos locale
 
 ### Privacy policy summary
 
-Bebe Agua does not collect, share, or sell personal data. Water intake records and settings are stored locally on the user's device and are not transmitted to the developer or third parties.
+¡Bebe agua! does not collect, share, or sell personal data. Water intake records and settings are stored locally on the user's device and are not transmitted to the developer or third parties.
 
 ---
 
@@ -248,11 +248,11 @@ Puedes publicarlo como pagina simple si Play Console te pide una URL de politica
 
 ### English
 
-# Privacy Policy for Drink Water
+# Privacy Policy for Drink Water!
 
 Effective date: 2026-05-26
 
-Drink Water is a personal hydration reminder app. The app is designed to work without accounts, cloud services, advertising, analytics, or tracking.
+Drink Water! is a personal hydration reminder app. The app is designed to work without accounts, cloud services, advertising, analytics, or tracking.
 
 ## Data stored on your device
 
@@ -280,11 +280,11 @@ For questions about this privacy policy, contact the developer through the email
 
 ### Espanol
 
-# Politica de privacidad de Bebe Agua
+# Politica de privacidad de ¡Bebe agua!
 
 Fecha de entrada en vigor: 2026-05-26
 
-Bebe Agua es una app personal de recordatorios de hidratacion. La app esta disenada para funcionar sin cuentas, servicios en la nube, publicidad, analitica ni tracking.
+¡Bebe agua! es una app personal de recordatorios de hidratacion. La app esta disenada para funcionar sin cuentas, servicios en la nube, publicidad, analitica ni tracking.
 
 ## Datos guardados en el dispositivo
 
@@ -378,8 +378,8 @@ La app usa alarmas exactas para enviar recordatorios de hidratacion a las horas 
 
 ### English
 
-Drink Water is a local-only hydration reminder app. It does not require accounts, does not show ads, does not use analytics, and does not transmit user data off the device. Exact alarms are used only to deliver user-configured hydration reminders on time.
+Drink Water! is a local-only hydration reminder app. It does not require accounts, does not show ads, does not use analytics, and does not transmit user data off the device. Exact alarms are used only to deliver user-configured hydration reminders on time.
 
 ### Espanol
 
-Bebe Agua es una app local de recordatorios de hidratacion. No requiere cuentas, no muestra anuncios, no usa analitica y no transmite datos del usuario fuera del dispositivo. Las alarmas exactas se usan solo para enviar puntualmente los recordatorios configurados por el usuario.
+¡Bebe agua! es una app local de recordatorios de hidratacion. No requiere cuentas, no muestra anuncios, no usa analitica y no transmite datos del usuario fuera del dispositivo. Las alarmas exactas se usan solo para enviar puntualmente los recordatorios configurados por el usuario.

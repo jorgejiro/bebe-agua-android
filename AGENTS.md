@@ -353,7 +353,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 ## 10. Branding y assets
 
-- **Nombre**: Bebe Agua (ES) / Drink Water (EN).
+- **Nombre**: ¡Bebe agua! (ES) / Drink Water! (EN). El repo, el package y el `rootProject.name` siguen siendo `Bebe Agua` / `bebeagua`.
 - **Package**: `com.jjrapps.bebeagua`.
 - **Paleta base**: azules acuáticos. Colores semilla en `Theme.kt`; Material 3 dynamic color en Android 12+.
 - **Icono adaptativo**: gota estilizada sobre fondo claro.

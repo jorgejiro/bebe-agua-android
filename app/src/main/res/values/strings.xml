@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Drink Water</string>
+    <string name="app_name">Drink Water!</string>
 
     <!-- Navigation -->
     <string name="nav_home">Home</string>
