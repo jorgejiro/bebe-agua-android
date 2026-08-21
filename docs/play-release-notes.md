@@ -12,6 +12,11 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
   texto**: aquí se escribe para alguien que aún no tiene la versión, así que se omite lo interno y se
   añade el recordatorio de que la app sigue sin cuentas ni seguimiento.
 - Al publicar una versión nueva, añade su bloque arriba y deja los anteriores como historial.
+- **Cada bloque lleva SIEMPRE tres subsecciones**, en este orden: `### es-ES (N caracteres)`,
+  `### en-US (N caracteres)` y `### Formato con etiquetas de idioma`. La tercera repite los dos
+  textos envueltos en `<es-ES>` y `<en-US>` dentro de un único bloque, que es el formato que Play
+  Console acepta de una sola pegada para todos los idiomas. Sin ella hay que copiar idioma por
+  idioma, así que un bloque con solo las dos primeras está incompleto.
 
 ---
 
@@ -37,6 +42,27 @@ What's new in 1.3.1
 • New "Notification settings" row in Settings → Permissions, in case you would rather put the sound back.
 
 No accounts, no cloud, no ads, no tracking.
+```
+
+### Formato con etiquetas de idioma
+
+```xml
+<es-ES>
+Novedades de la versión 1.3.1
+
+• Los recordatorios ahora vibran en vez de sonar. Así puedes dejar el móvil en modo sonido, sin perderte llamadas, y el aviso de beber se sigue notando (también en el reloj, si tienes uno emparejado).
+• Nueva fila «Ajustes de notificación» en Ajustes → Permisos, por si prefieres devolverle el sonido.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+</es-ES>
+<en-US>
+What's new in 1.3.1
+
+• Reminders now vibrate instead of making a sound. You can leave your phone in ring mode, so you do not miss calls, and the reminder still gets through — on your watch too, if you have one paired.
+• New "Notification settings" row in Settings → Permissions, in case you would rather put the sound back.
+
+No accounts, no cloud, no ads, no tracking.
+</en-US>
 ```
 
 ---
