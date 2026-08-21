@@ -15,6 +15,32 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
+## 1.3.1 (versionCode 11) — 2026-08-21
+
+### es-ES (388 caracteres)
+
+```text
+Novedades de la versión 1.3.1
+
+• Los recordatorios ahora vibran en vez de sonar. Así puedes dejar el móvil en modo sonido, sin perderte llamadas, y el aviso de beber se sigue notando (también en el reloj, si tienes uno emparejado).
+• Nueva fila «Ajustes de notificación» en Ajustes → Permisos, por si prefieres devolverle el sonido.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+```
+
+### en-US (368 caracteres)
+
+```text
+What's new in 1.3.1
+
+• Reminders now vibrate instead of making a sound. You can leave your phone in ring mode, so you do not miss calls, and the reminder still gets through — on your watch too, if you have one paired.
+• New "Notification settings" row in Settings → Permissions, in case you would rather put the sound back.
+
+No accounts, no cloud, no ads, no tracking.
+```
+
+---
+
 ## 1.3.0 (versionCode 10) — 2026-08-11
 
 ### es-ES (327 caracteres)
