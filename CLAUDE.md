@@ -337,9 +337,12 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - Los strings van en `strings.xml`. **Nunca hardcodees strings en Composables.**
 - Si añades un string, añade también la traducción en `values-es/strings.xml` (o EN si el base es ES).
 - Si subes `versionCode`/`versionName` → actualiza `CHANGELOG.md`, los `string-array` `changelog_*` (EN y ES) y `ChangelogCatalog.kt`.
-- Si la versión se publica en Play → añade su bloque de «Novedades» (es-ES y en-US, máximo 500
-  caracteres cada uno) en `docs/play-release-notes.md`. Es el texto de la ficha, distinto del
-  changelog interno: se escribe para quien todavía no tiene la versión.
+- Si la versión se publica en Play → añade su bloque de «Novedades» en
+  `docs/play-release-notes.md`, con sus **tres** subsecciones: `es-ES`, `en-US` (máximo 500
+  caracteres cada uno) y **`Formato con etiquetas de idioma`**, que repite ambos textos envueltos en
+  `<es-ES>`/`<en-US>` para pegarlos de una vez en Play Console. La tercera no es opcional: sin ella
+  hay que copiar idioma por idioma. Es el texto de la ficha, distinto del changelog interno: se
+  escribe para quien todavía no tiene la versión.
 - Si tocas el schema de Room → escribe la migration y el test de migration. Incrementa `AppDatabase.VERSION`.
 - Si tocas algo de notificaciones → manualmente prueba en emulador con Android 12, 14 y 16 (la lógica de permisos cambia).
 - No añadas dependencias sin justificar y sin actualizar `libs.versions.toml`.
