@@ -62,6 +62,8 @@
     <string name="settings_notifications">Notificaciones</string>
     <string name="settings_exact_alarms">Alarmas exactas</string>
     <string name="settings_exact_alarms_subtitle">Necesario para recordatorios puntuales</string>
+    <string name="settings_notification_settings">Ajustes de notificación</string>
+    <string name="settings_notification_settings_subtitle">Los recordatorios vibran y no suenan</string>
     <string name="settings_permission_granted">Concedido</string>
     <string name="settings_permission_denied">Denegado — toca para activar</string>
     <string name="settings_ml_format">%1$d ml</string>
@@ -117,6 +119,10 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_3_1">
+        <item>Los recordatorios vibran en vez de sonar, así puedes dejar el móvil en modo sonido sin que este te interrumpa.</item>
+        <item>Nueva fila «Ajustes de notificación» en Ajustes → Permisos: abre el canal de los recordatorios en los ajustes del sistema, donde puedes devolverle el sonido.</item>
+    </string-array>
     <string-array name="changelog_1_3_0">
         <item>La app ahora se llama ¡Bebe agua!</item>
         <item>Nueva fila «Enviar comentarios» en Ajustes → Acerca de: abre tu app de correo con la dirección del autor y la versión instalada ya puestas.</item>

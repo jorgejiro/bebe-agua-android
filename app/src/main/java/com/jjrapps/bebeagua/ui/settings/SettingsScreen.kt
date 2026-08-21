@@ -67,6 +67,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jjrapps.bebeagua.BebeAguaApplication.Companion.REMINDER_CHANNEL_ID
 import com.jjrapps.bebeagua.BuildConfig
 import com.jjrapps.bebeagua.R
 import com.jjrapps.bebeagua.domain.model.AppSettings
@@ -326,6 +327,24 @@ private fun SettingsContent(
                                 }
                             )
                         }
+                    }
+                )
+                HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
+                SettingRow(
+                    label = stringResource(R.string.settings_notification_settings),
+                    subtitle = stringResource(R.string.settings_notification_settings_subtitle),
+                    value = "",
+                    onClick = {
+                        // Sound, vibration pattern and pop-up behaviour of a channel belong to the
+                        // user once it exists, so the app cannot offer them: it can only take them
+                        // to the one screen where Android lets them be changed.
+                        val intent = Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS).apply {
+                            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+                            putExtra(Settings.EXTRA_CHANNEL_ID, REMINDER_CHANNEL_ID)
+                            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        }
+                        runCatching { context.startActivity(intent) }
+                            .onFailure { Timber.w(it, "No channel settings screen available") }
                     }
                 )
             }
