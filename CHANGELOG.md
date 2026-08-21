@@ -11,6 +11,24 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.3.1] — 2026-08-21 (versionCode 11)
+
+### Cambiado
+- Los recordatorios **vibran y no suenan**. Así el móvil puede quedarse en modo sonido —sin perderse
+  llamadas ni otros avisos— y el recordatorio de beber sigue notándose, en la muñeca incluida si hay
+  un reloj emparejado.
+- El sonido, la vibración y el aviso emergente de un canal de notificación pertenecen al usuario
+  desde el momento en que el canal existe: volver a crearlo con otros valores no cambia nada en los
+  móviles que ya lo tienen. Por eso el canal pasa a ser `reminders_vibrate` y el antiguo
+  `reminders` se borra al arrancar, para no dejar dos filas de recordatorios en los ajustes del
+  sistema. Efecto secundario: si habías tocado a mano el sonido o la vibración del canal antiguo,
+  ese ajuste se pierde. Ver `docs/decisions/005-recordatorios-que-vibran-sin-sonar.md`.
+
+### Añadido
+- Fila **Ajustes de notificación** en Ajustes → Permisos: abre directamente el canal en los ajustes
+  del sistema, que es el único sitio donde Android permite devolverle el sonido o cambiar el patrón
+  de vibración.
+
 ## [1.3.0] — 2026-08-11 (versionCode 10)
 
 ### Añadido
