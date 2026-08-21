@@ -62,6 +62,8 @@
     <string name="settings_notifications">Notifications</string>
     <string name="settings_exact_alarms">Exact alarms</string>
     <string name="settings_exact_alarms_subtitle">Required for on-time reminders</string>
+    <string name="settings_notification_settings">Notification settings</string>
+    <string name="settings_notification_settings_subtitle">Reminders vibrate and stay silent</string>
     <string name="settings_permission_granted">Granted</string>
     <string name="settings_permission_denied">Denied — tap to enable</string>
     <string name="settings_ml_format">%1$d ml</string>
@@ -120,6 +122,10 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_3_1">
+        <item>Reminders now vibrate instead of making a sound, so you can leave the phone in ring mode without this one interrupting you.</item>
+        <item>New \"Notification settings\" row in Settings → Permissions: it opens the reminder channel in the system settings, where the sound can be turned back on.</item>
+    </string-array>
     <string-array name="changelog_1_3_0">
         <item>The app is now called Drink Water!</item>
         <item>New \"Send feedback\" row in Settings → About: it opens your email app with the author\'s address and the installed version already in the subject.</item>

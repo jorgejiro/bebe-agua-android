@@ -51,7 +51,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - **Idioma**: Auto / Español / English.
 - **Tema**: Auto / Claro / Oscuro.
 - **Vista previa de horarios de recordatorio calculados**.
-- **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados. El estado de `canScheduleExactAlarms()` se refresca en `onResume`.
+- **Permisos**: estado de permiso de notificaciones y de alarmas exactas, con botón para abrir ajustes del sistema si están denegados. El estado de `canScheduleExactAlarms()` se refresca en `onResume`. Además, fila **Ajustes de notificación** que abre el canal `reminders_vibrate` en los ajustes del sistema (`ACTION_CHANNEL_NOTIFICATION_SETTINGS`): es el único sitio donde se puede devolver el sonido o cambiar el patrón de vibración, porque esos ajustes pertenecen al usuario en cuanto el canal existe.
 - **Acerca de**: **Enviar comentarios** —correo al autor con el nombre y la versión en el asunto; la dirección **no se imprime en la pantalla**, se ve en la app de correo al abrirse—, versión instalada (`versionName (versionCode)`) y acceso a la pantalla **Novedades** (changelog).
 
 ### 2.4 Pantalla Onboarding ✅ Implementada
@@ -63,6 +63,8 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - Tap en la notificación → abre la app en la pantalla principal.
 - Acción rápida en la notificación: "He bebido X ml" (medida por defecto actual) que registra sin abrir la app.
 - Acción rápida: "Posponer 15 min".
+- **Vibran y no suenan** (canal con `setSound(null, null)` + `enableVibration(true)`), para que el móvil pueda quedarse en modo sonido sin que el recordatorio moleste. Si hay un reloj emparejado, el reenvío lo hace el sistema (no marcamos `setLocalOnly`) y la vibración de la muñeca la decide el reloj.
+- El sonido, la vibración y la importancia de un canal se congelan en su primera creación: recrearlo con otros valores es un no-op en los móviles que ya lo tienen. Cambiar ese comportamiento obliga a **estrenar id de canal** y borrar el viejo (`BebeAguaApplication.createNotificationChannels`). Historial de ids: `reminders` (≤ 1.3.0, sonaba y no vibraba) → `reminders_vibrate` (1.3.1+). Ver `docs/decisions/005-recordatorios-que-vibran-sin-sonar.md`.
 - Solo se envían entre `horaInicio` y `horaFin`.
 - Dejan de enviarse al alcanzar el objetivo diario.
 - Al registrar manualmente una ingesta, se reprograma el siguiente recordatorio desde ese momento.
@@ -130,7 +132,7 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 | Navegación | **Navigation Compose 2.9.0** (Nav3 no estaba maduro; se descartó) |
 | Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver`. **No usar WorkManager** para recordatorios (Glance lo arrastra como dependencia transitiva, pero no lo usamos nosotros). |
 | Widget | **Glance 1.1.1** (`androidx.glance:glance-appwidget`). No usar `RemoteViews` con layouts XML. Ver `docs/decisions/002-widget-de-escritorio-con-glance.md`. |
-| Notificaciones | `NotificationManagerCompat` + canal `reminders` con `IMPORTANCE_DEFAULT` |
+| Notificaciones | `NotificationManagerCompat` + canal `reminders_vibrate` con `IMPORTANCE_DEFAULT`, sin sonido y con vibración |
 | Concurrencia | Coroutines **1.10.2** + Flow |
 | i18n | Recursos `strings.xml` (`values/`, `values-es/`); cambio de idioma en runtime con `AppCompatDelegate.setApplicationLocales` |
 | Tests | **JUnit 4** + MockK **1.13.9** + Turbine **1.2.0** + Compose UI Test |
@@ -386,6 +388,10 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 **v1.3 — Cerrada** (`versionCode 10`, `versionName 1.3.0`)
 - [x] Nombre de la app con exclamaciones: ¡Bebe agua! / Drink Water!
 - [x] Enviar comentarios al autor por correo desde Ajustes → Acerca de.
+
+**v1.3.1 — Cerrada** (`versionCode 11`, `versionName 1.3.1`)
+- [x] Los recordatorios vibran y no suenan (canal nuevo `reminders_vibrate`).
+- [x] Atajo a los ajustes de notificación del sistema desde Ajustes → Permisos.
 
 **v1.4 (eventual)**
 - [ ] Wear OS companion.
