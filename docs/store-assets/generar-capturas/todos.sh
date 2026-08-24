@@ -13,6 +13,7 @@ SDK="$HOME/Library/Android/sdk"
 ADB="$SDK/platform-tools/adb"
 APK="${1:-$AQUI/../../../app/build/outputs/apk/debug/app-debug.apk}"
 
+# Cada pase es «AVD formato»; las capturas de cada formato quedan en ../capturas/<idioma>/<formato>.
 declare -a PASES=(
   "Medium_Phone telefono"
   "Tablet7 tablet-7-pulgadas"
@@ -23,8 +24,8 @@ python3 "$AQUI/sembrar_historial.py"
 
 for pase in "${PASES[@]}"; do
   set -- $pase
-  avd=$1; destino=$2
-  echo "══ $avd → $destino ══"
+  avd=$1; formato=$2
+  echo "══ $avd → $formato ══"
 
   # A que el AVD anterior haya cerrado de verdad. Sin esta espera el emulador aborta con «Running
   # multiple emulators with the same AVD»: `adb emu kill` vuelve enseguida, pero el proceso tarda en
@@ -46,7 +47,7 @@ for pase in "${PASES[@]}"; do
   "$ADB" uninstall com.jjrapps.bebeagua >/dev/null 2>&1 || true
   "$ADB" install -r "$APK" >/dev/null
 
-  python3 -u "$AQUI/capturar.py" "$AQUI/../capturas/$destino"
+  python3 -u "$AQUI/capturar.py" "$formato"
 
   "$ADB" emu kill || true
   sleep 8

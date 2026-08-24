@@ -24,7 +24,9 @@ datos, `ui.py` navega buscando texto con `uiautomator`, `tanda.py` hace las seis
 idioma, `capturar.py` orquesta las dos tandas y coloca el widget, y `revisar.py` controla el juego
 completo antes de subirlo. `todos.sh` hace los tres formatos de un tirón.
 
-Las capturas van versionadas en `docs/store-assets/capturas/<formato>/<idioma>/`.
+Las capturas van versionadas en `docs/store-assets/capturas/<idioma>/<formato>/`. El idioma va primero
+porque la ficha de Play se sube idioma a idioma: así los tres formatos de un idioma se actualizan
+juntos y sin tocar el otro.
 
 ## Consecuencias
 
