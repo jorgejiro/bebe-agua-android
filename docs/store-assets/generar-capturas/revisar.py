@@ -64,7 +64,7 @@ def revisar(raiz):
         print(f"\n{formato}  {tam[0]}×{tam[1]}  ({aspecto})")
 
         nombres = sorted(
-            os.path.basename(p) for p in glob.glob(os.path.join(raiz, formato, "es", "*.png"))
+            os.path.basename(p) for p in glob.glob(os.path.join(raiz, "es", formato, "*.png"))
         )
         if len(nombres) != ESCENAS:
             fallos.append(f"{formato}: {len(nombres)} escenas, se esperaban {ESCENAS}")
@@ -72,7 +72,7 @@ def revisar(raiz):
         for escena in nombres:
             medidas, firmas = {}, {}
             for idioma in IDIOMAS:
-                ruta = os.path.join(raiz, formato, idioma, escena)
+                ruta = os.path.join(raiz, idioma, formato, escena)
                 if not os.path.exists(ruta):
                     fallos.append(f"{ruta}: no existe")
                     continue

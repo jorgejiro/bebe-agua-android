@@ -174,7 +174,8 @@ Lo que habia aqui eran las notas de la primera publicacion; estan conservadas en
 
 Las capturas se generan automaticamente, en español y en ingles y en los tres formatos que pide Play
 (telefono, tablet de 7" y tablet de 10"): ver `store-assets/generar-capturas/README.md`. Quedan en
-`store-assets/capturas/<formato>/<idioma>/` y este es el orden en que se suben:
+`store-assets/capturas/<idioma>/<formato>/` —el idioma primero, que es como Play pide los recursos: uno
+por ficha de idioma— y este es el orden en que se suben:
 
 1. `01-registrar-agua` — la pantalla principal, con el anillo a media asta y los registros del dia.
 2. `02-elegir-medida` — el selector de cantidad.

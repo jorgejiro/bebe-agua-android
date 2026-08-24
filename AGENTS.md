@@ -363,8 +363,8 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - **Icono adaptativo**: gota estilizada sobre fondo claro.
 - **Capturas para Play**: 7 escenas × 2 idiomas × 3 formatos (teléfono, tablet 7", tablet 10"), generadas
   con el pipeline de `docs/store-assets/generar-capturas/` (ver su `README.md`) y guardadas en
-  `docs/store-assets/capturas/<formato>/<idioma>/`. **No se hacen a mano**: hay que rehacerlas cuando
-  cambie una pantalla, y el script incluye un control (`revisar.py`) que detecta capturas en negro o con
+  `docs/store-assets/capturas/<idioma>/<formato>/` —el idioma manda en el árbol, porque la ficha de Play
+  se sube idioma a idioma—. **No se hacen a mano**: hay que rehacerlas cuando cambie una pantalla, y el script incluye un control (`revisar.py`) que detecta capturas en negro o con
   el idioma colado. Las capturas se toman con el **APK debug**, porque la siembra de la base de datos
   necesita `run-as` y eso solo funciona con una app debuggable.
 

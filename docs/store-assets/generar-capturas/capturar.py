@@ -2,7 +2,11 @@
 """
 Juego completo de capturas para la ficha de Play, en el dispositivo conectado.
 
-    python3 capturar.py <directorio-destino> [--sin-widget]
+    python3 capturar.py <formato> [--sin-widget]
+
+El formato es una de las claves de `PANTALLAS` —`telefono`, `tablet-7-pulgadas`,
+`tablet-10-pulgadas`—, y las capturas quedan en `../capturas/<idioma>/<formato>`: la ficha de Play
+se sube idioma a idioma, así que el idioma manda en el árbol y el formato va dentro.
 
 Siete escenas por idioma, en español y en inglés: las cinco pantallas de la app, el recordatorio en la
 sombra de notificaciones y el widget en el escritorio.
@@ -58,7 +62,7 @@ def alto_pantalla():
     return tanda.alto_pantalla()
 
 
-# Resolución y densidad que Play exige de cada formato, por carpeta de destino. **No salen del AVD**: los
+# Resolución y densidad que Play exige de cada formato. **No salen del AVD**: los
 # tres `config.ini` dicen 2560×1600 @ 320, y los valores de verdad se fijan con `wm size` y `wm density`,
 # que persisten en el emulador… pero no siempre los dos. A 320 dpi la tablet de 7" se queda en 540 dp de
 # ancho en vez de 600, que es el umbral con el que Android decide que algo es una tablet: las capturas
@@ -70,9 +74,8 @@ PANTALLAS = {
 }
 
 
-def fijar_pantalla(raiz):
-    """Aplica la resolución y la densidad del formato que toca, deducidas del directorio de destino."""
-    formato = os.path.basename(os.path.normpath(raiz))
+def fijar_pantalla(formato):
+    """Aplica la resolución y la densidad que Play exige del formato que toca."""
     medidas = PANTALLAS.get(formato)
     if not medidas:
         print(f"aviso: '{formato}' no está en PANTALLAS, se deja la pantalla como esté")
@@ -319,8 +322,13 @@ def capturar_widget(destino):
     print("  07-widget-en-el-escritorio.png")
 
 
+# Raíz del árbol de capturas: `<idioma>/<formato>` dentro de esta carpeta.
+CAPTURAS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "capturas")
+
+
 if __name__ == "__main__":
-    raiz = sys.argv[1]
+    formato = sys.argv[1]
+    capturas = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--capturas=")), CAPTURAS)
     # Los pases se pueden trocear, que es útil cuando quien lanza el script tiene un límite de tiempo por
     # orden: `--solo-preparar` deja la pantalla, los datos y el widget listos, y luego cada
     # `--idioma es|en` hace su tanda sin volver a tocar nada de eso.
@@ -328,7 +336,7 @@ if __name__ == "__main__":
     idiomas = [a.split("=")[1] for a in sys.argv if a.startswith("--idioma=")] or ["es", "en"]
 
     if solo_preparar or "--sin-preparar" not in sys.argv:
-        fijar_pantalla(raiz)
+        fijar_pantalla(formato)
         preparar()
         if "--sin-widget" not in sys.argv:
             colocar_widget()
@@ -336,7 +344,8 @@ if __name__ == "__main__":
         raise SystemExit(0)
 
     for idioma in idiomas:
-        destino = os.path.join(raiz, idioma)
+        destino = os.path.join(capturas, idioma, formato)
+        os.makedirs(destino, exist_ok=True)
         print(f"── {idioma} ──")
         # `--solo-widget` rehace nada más la escena del escritorio, que no depende del idioma de la app y
         # es la única que hay que repetir cuando se recoloca el widget.
