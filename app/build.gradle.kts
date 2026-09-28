@@ -31,11 +31,14 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file(keystoreProps["storeFile"] as String)
-            storePassword = keystoreProps["storePassword"] as String
-            keyAlias = keystoreProps["keyAlias"] as String
-            keyPassword = keystoreProps["keyPassword"] as String
+        // F-Droid builds without keystore.properties and signs with its own key.
+        if (keystoreProps.containsKey("storeFile")) {
+            create("release") {
+                storeFile = file(keystoreProps["storeFile"] as String)
+                storePassword = keystoreProps["storePassword"] as String
+                keyAlias = keystoreProps["keyAlias"] as String
+                keyPassword = keystoreProps["keyPassword"] as String
+            }
         }
     }
 
@@ -47,7 +50,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.findByName("release")
         }
     }
     compileOptions {
@@ -57,6 +60,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+    // AGP embeds a dependency list encrypted with a Google key: only Google can read it,
+    // and F-Droid rejects APKs that carry it.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
 }
 
