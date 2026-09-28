@@ -28,7 +28,7 @@ Se replica lo ya hecho con Sleep Noise (`fdroiddata!50449`).
   Play + copias).
 - [x] T3 · Receta `docs/fdroid/com.jjrapps.bebeagua.yml`, validada con `fdroid lint`, guía
   `docs/fdroid/LEEME.md` y nota en `CLAUDE.md`. Ruta: inline.
-- [ ] T4 · Rama `com.jjrapps.bebeagua` en el fork de `fdroiddata` con la receta y merge request.
+- [x] T4 · Rama `com.jjrapps.bebeagua` en el fork de `fdroiddata` con la receta y merge request.
   Ruta: inline (`glab`).
 
 ## Progreso
@@ -40,9 +40,13 @@ Se replica lo ya hecho con Sleep Noise (`fdroiddata!50449`).
   icono del APK). La descripción ES se copió tal cual de la ficha de Play, que no lleva tildes.
 - T3 · `b42af6f`. `fdroid lint` (fdroidserver 2.4.5, con `config/categories.yml` de fdroiddata)
   sin avisos; `fdroid rewritemeta` no cambia nada. Categorías: Habit Tracker, Sports & Health.
+- T4 · `main` subido a GitHub. Rama `com.jjrapps.bebeagua` del fork `jorgejiro/fdroiddata`
+  (desde su `master` `3db245b`), commit `6df8a1a` `New app: Drink Water!` con la receta idéntica a
+  la del repo.
 - Sin verificar: el build real en la CI de F-Droid.
 
 ## Siguiente paso
 
-T4, pendiente de confirmación de Jorge: push de `main` a GitHub (la receta apunta a `272aca3`),
-rama en el fork y merge request `New app: Drink Water!`.
+Merge request abierto el 2026-09-28: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/50455.
+Firma de F-Droid, sin builds reproducibles. Falta que pase la CI (al abrirlo aún no había pipeline)
+y la revisión.
