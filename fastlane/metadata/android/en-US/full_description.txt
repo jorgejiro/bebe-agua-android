@@ -1,0 +1,20 @@
+Drink Water! is a simple app for tracking your daily water intake and receiving periodic reminders throughout the day.
+
+The home screen is built for quick use: one tap logs your usual amount, and you can change it whenever you want from your configured sizes or enter a custom amount. Your daily progress is shown in a clear circular view with the amount consumed against your goal.
+
+You can configure your daily goal, reminder start and end time, and how many reminders you want per day. The app calculates reminder times evenly within your selected window and stops reminding you once you reach your daily goal.
+
+It also includes recent history, basic statistics, streaks, Spanish and English support, and quick notification actions to log water or snooze a reminder.
+
+Simple privacy: no accounts, no cloud, no ads, and no tracking. Your records stay stored locally on your device.
+
+Main features:
+
+- One-tap water logging.
+- Configurable daily goal.
+- Reminders within your chosen time window.
+- Quick actions from notifications.
+- Daily history and basic statistics.
+- Configurable intake sizes.
+- Spanish and English language support.
+- Data stored only on your device.

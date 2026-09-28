@@ -1,0 +1,6 @@
+What's new in 1.3.1
+
+• Reminders now vibrate instead of making a sound. You can leave your phone in ring mode, so you do not miss calls, and the reminder still gets through — on your watch too, if you have one paired.
+• New "Notification settings" row in Settings → Permissions, in case you would rather put the sound back.
+
+No accounts, no cloud, no ads, no tracking.
