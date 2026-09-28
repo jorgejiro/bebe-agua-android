@@ -337,6 +337,13 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - Los strings van en `strings.xml`. **Nunca hardcodees strings en Composables.**
 - Si añades un string, añade también la traducción en `values-es/strings.xml` (o EN si el base es ES).
 - Si subes `versionCode`/`versionName` → actualiza `CHANGELOG.md`, los `string-array` `changelog_*` (EN y ES) y `ChangelogCatalog.kt`.
+- Cada versión sale también en **F-Droid**, y ahí no hay que abrir nada: su bot detecta el tag
+  `vX.Y.Z` y compila la app, así que **hay que etiquetar cada release**. Lo que sí hay que añadir es
+  `fastlane/metadata/android/{en-US,es-ES}/changelogs/<versionCode>.txt` (máximo 500 caracteres),
+  con el mismo texto que las notas de Play. Sin él, la versión sale en F-Droid sin novedades. Si
+  cambian los textos de la ficha o las capturas, la ficha de fastlane se vuelve a copiar. El build
+  de release tiene que seguir compilando sin `keystore.properties` y sin plugins que descarguen
+  herramientas (foojay). Ver `docs/fdroid/LEEME.md`.
 - Si la versión se publica en Play → añade su bloque de «Novedades» en
   `docs/play-release-notes.md`, con sus **tres** subsecciones: `es-ES`, `en-US` (máximo 500
   caracteres cada uno) y **`Formato con etiquetas de idioma`**, que repite ambos textos envueltos en

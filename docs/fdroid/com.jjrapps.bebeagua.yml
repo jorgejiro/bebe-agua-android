@@ -1,0 +1,27 @@
+Categories:
+  - Habit Tracker
+  - Sports & Health
+License: MIT
+AuthorName: Jorge
+AuthorEmail: jjrmobileapps@gmail.com
+SourceCode: https://github.com/jorgejiro/bebe-agua-android
+IssueTracker: https://github.com/jorgejiro/bebe-agua-android/issues
+Changelog: https://github.com/jorgejiro/bebe-agua-android/blob/HEAD/CHANGELOG.md
+
+AutoName: Drink Water!
+
+RepoType: git
+Repo: https://github.com/jorgejiro/bebe-agua-android.git
+
+Builds:
+  - versionName: 1.3.1
+    versionCode: 11
+    commit: 272aca3a0721ca01778f51bcabae0afd142770e6
+    subdir: app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+CurrentVersion: 1.3.1
+CurrentVersionCode: 11
