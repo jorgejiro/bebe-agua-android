@@ -43,10 +43,10 @@ Se replica lo ya hecho con Sleep Noise (`fdroiddata!50449`).
 - T4 · `main` subido a GitHub. Rama `com.jjrapps.bebeagua` del fork `jorgejiro/fdroiddata`
   (desde su `master` `3db245b`), commit `6df8a1a` `New app: Drink Water!` con la receta idéntica a
   la del repo.
-- Sin verificar: el build real en la CI de F-Droid.
 
 ## Siguiente paso
 
 Merge request abierto el 2026-09-28: https://gitlab.com/fdroid/fdroiddata/-/merge_requests/50455.
-Firma de F-Droid, sin builds reproducibles. Falta que pase la CI (al abrirlo aún no había pipeline)
-y la revisión.
+Firma de F-Droid, sin builds reproducibles. La pipeline 2888936927 falló solo en `checkupdates`
+(el último tag era `v1.3.0`, versionCode 10 < 11). Se etiquetó `v1.3.1` sobre `272aca3` y, al
+relanzar el job, la pipeline pasa entera: `fdroid build` y `check apk` incluidos. Falta la revisión.

@@ -25,11 +25,12 @@ abrir un merge request allí con la receta.
 - **La firma es la de F-Droid, no la tuya.** Quien instala desde Play no puede actualizar desde
   F-Droid, ni al revés, sin desinstalar antes. Para firmar con la clave propia hacen falta builds
   reproducibles, y es un trabajo aparte.
-- **La receta de la 1.3.1 apunta a un commit, no a un tag.** La 1.3.1 no tiene tag, y el commit de
+- **La receta de la 1.3.1 apunta al commit del tag `v1.3.1`, no al de la versión.** El commit de
   la versión es anterior a quitar lo que F-Droid rechaza: la firma obligatoria (sin
   `keystore.properties` el build fallaba), el bloque de dependencias cifrado para Google
-  (`dependenciesInfo`) y el plugin foojay. La app es la misma: solo cambia la configuración del
-  build.
+  (`dependenciesInfo`) y el plugin foojay. Por eso `v1.3.1` se puso sobre ese commit. La app es la
+  misma: solo cambia la configuración del build. Sin ese tag, `checkupdates` falla en la CI del
+  merge request: el último tag tendría un `versionCode` menor que el de la receta.
 - **Las versiones siguientes se publican solas.** Con `UpdateCheckMode: Tags` y
   `AutoUpdateMode: Version`, F-Droid detecta cada tag `vX.Y.Z` nuevo, lee `versionCode` y
   `versionName` de `app/build.gradle.kts` y añade el build. Basta con etiquetar cada release.
