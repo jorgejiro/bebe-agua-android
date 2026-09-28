@@ -22,6 +22,7 @@
   <img src="https://img.shields.io/badge/Design-Material%203-FF7043?style=for-the-badge" alt="Material 3" />
   <img src="https://img.shields.io/badge/Privacy-100%25%20Offline-00C853?style=for-the-badge" alt="100% offline" />
   <img src="https://img.shields.io/badge/Version-1.3.1-0288D1?style=for-the-badge" alt="Version 1.3.1" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License" />
 </p>
 
 ---
@@ -34,7 +35,8 @@ big ring, and reminders arrive only inside the hours you choose — and stop as 
 your goal.
 
 Built 100% natively with **Kotlin**, **Jetpack Compose** and **Material 3**, with dynamic color that
-matches your wallpaper. Everything stays on your device.
+matches your wallpaper. Everything stays on your device, and the code is open source under the
+MIT License.
 
 ---
 
@@ -205,4 +207,5 @@ If you enjoy the app, a ⭐ review on
 
 ## 📄 License
 
-Personal project. All rights reserved.
+This project is open source under the [MIT License](LICENSE).
+Feel free to fork it, learn from it and adapt it. Contributions and feature requests are welcome.
