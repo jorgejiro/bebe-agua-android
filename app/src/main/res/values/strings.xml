@@ -185,6 +185,12 @@
     <string name="widget_drink_description">One tap logs your default amount.</string>
     <string name="widget_drink_content_description">Log default amount</string>
     <string name="widget_toast_intake_added">+%1$d ml · %2$d/%3$d ml</string>
+    <string name="widget_drink_wide_label">Today\'s progress</string>
+    <string name="widget_drink_wide_description">Shows today\'s water progress. One tap logs your default amount.</string>
+    <string name="widget_wide_progress">%1$d / %2$d ml</string>
+    <string name="widget_wide_percent">%1$d%% of your goal</string>
+    <string name="widget_wide_goal_reached">Goal reached</string>
+    <string name="widget_wide_no_data">Open the app</string>
 
     <!-- Common -->
     <string name="ok">OK</string>

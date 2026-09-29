@@ -33,19 +33,22 @@ use cases, `./gradlew lint test`, release build installs and renders on the emul
 
 ## Delivery
 
-Branch `feat/widget-2x1` (after `feat/resumen-diario`). Push / PR / merge are the owner's
+Branch `feat/widget-2x1`, stacked on `feat/resumen-diario`. Push / PR / merge are the owner's
 decision. Forecast ~500 authored lines, strategy `ask-on-risk`.
 
 ## Tasks
 
-- [ ] T1 — Widget + receiver + provider XML + preview + strings, content reads today's summary.
-      Route: delegated (writer trigger).
+- [x] T1 — Widget + receiver + provider XML + preview + strings, content reads today's summary.
+      Route: delegated (writer trigger). Commit: T1_HASH
 - [ ] T2 — `WidgetUpdater` + calls at every change point + midnight refresh + tests + docs.
       Route: delegated (writer trigger).
 
 ## Progress / evidence
 
-(none yet)
+- T1: `./gradlew lint test`: BUILD SUCCESSFUL (new `DrinkWideWidgetTest`, 8 tests). Icon+badge
+  extracted to shared `DrinkIconWithBadge`; provider is `resizeMode="horizontal"` (a taller widget
+  adds nothing; width may grow). Card uses the app's fixed palette (`BackgroundMain`), like the app
+  has no dynamic/light variant for the widget. Manual emulator check pending (narrow grids).
 
 ## Next step
 

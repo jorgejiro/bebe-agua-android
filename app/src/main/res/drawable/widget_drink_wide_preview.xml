@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Preview shown in the system widget picker for the 2x1 widget: dark card, icon with the "add"
+     badge on the left and two bars standing in for the progress text. Sizes are explicit so the
+     proportions match DrinkWideWidget at every density. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:width="220dp" android:height="90dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF0F2440" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/ic_widget_icon"
+        android:left="9dp"
+        android:width="72dp"
+        android:height="72dp"
+        android:gravity="center_vertical|start" />
+
+    <item
+        android:drawable="@drawable/ic_widget_add_badge"
+        android:left="54dp"
+        android:bottom="10dp"
+        android:width="27dp"
+        android:height="27dp"
+        android:gravity="bottom|start" />
+
+    <item
+        android:left="96dp"
+        android:top="26dp"
+        android:width="100dp"
+        android:height="14dp"
+        android:gravity="top|start">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFC8E8F8" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+
+    <item
+        android:left="96dp"
+        android:top="48dp"
+        android:width="60dp"
+        android:height="10dp"
+        android:gravity="top|start">
+        <shape android:shape="rectangle">
+            <solid android:color="#FF7AADCF" />
+            <corners android:radius="5dp" />
+        </shape>
+    </item>
+</layer-list>

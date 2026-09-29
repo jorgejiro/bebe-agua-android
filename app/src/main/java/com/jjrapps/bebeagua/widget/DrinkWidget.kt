@@ -50,7 +50,6 @@ object DrinkWidget : GlanceAppWidget() {
 
     @Composable
     private fun Content() {
-        val context = LocalContext.current
         val size = LocalSize.current
         val side = minOf(size.width, size.height)
         Box(
@@ -59,34 +58,43 @@ object DrinkWidget : GlanceAppWidget() {
                 .clickable(actionRunCallback<AddDefaultIntakeAction>()),
             contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = GlanceModifier
-                    .size(side)
-                    .cornerRadius(side * CORNER_RADIUS_RATIO),
-                contentAlignment = Alignment.Center
-            ) {
-                // The artwork is a crop of the launcher icon without the adaptive-icon safe zone,
-                // so the drop is as big here as in the app icon the launcher draws next to it.
-                Image(
-                    provider = ImageProvider(R.drawable.ic_widget_icon),
-                    contentDescription = context
-                        .getString(R.string.widget_drink_content_description),
-                    contentScale = ContentScale.Fit,
-                    modifier = GlanceModifier.fillMaxSize()
-                )
-                Box(
-                    modifier = GlanceModifier
-                        .fillMaxSize()
-                        .padding(side * BADGE_INSET_RATIO),
-                    contentAlignment = Alignment.BottomEnd
-                ) {
-                    Image(
-                        provider = ImageProvider(R.drawable.ic_widget_add_badge),
-                        contentDescription = null,
-                        modifier = GlanceModifier.size(badgeSize(side))
-                    )
-                }
-            }
+            DrinkIconWithBadge(side)
+        }
+    }
+}
+
+/**
+ * The app icon artwork with the "add" badge, laid out in a square of [side]. Shared by the 1x1 and
+ * the 2x1 widget so both look identical and the badge keeps the same proportions.
+ */
+@Composable
+internal fun DrinkIconWithBadge(side: Dp) {
+    val context = LocalContext.current
+    Box(
+        modifier = GlanceModifier
+            .size(side)
+            .cornerRadius(side * CORNER_RADIUS_RATIO),
+        contentAlignment = Alignment.Center
+    ) {
+        // The artwork is a crop of the launcher icon without the adaptive-icon safe zone,
+        // so the drop is as big here as in the app icon the launcher draws next to it.
+        Image(
+            provider = ImageProvider(R.drawable.ic_widget_icon),
+            contentDescription = context.getString(R.string.widget_drink_content_description),
+            contentScale = ContentScale.Fit,
+            modifier = GlanceModifier.fillMaxSize()
+        )
+        Box(
+            modifier = GlanceModifier
+                .fillMaxSize()
+                .padding(side * BADGE_INSET_RATIO),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            Image(
+                provider = ImageProvider(R.drawable.ic_widget_add_badge),
+                contentDescription = null,
+                modifier = GlanceModifier.size(badgeSize(side))
+            )
         }
     }
 }
@@ -96,6 +104,6 @@ internal fun badgeSize(side: Dp): Dp = (side * BADGE_RATIO).coerceIn(BADGE_MIN, 
 
 private const val BADGE_RATIO = 0.36f
 private const val BADGE_INSET_RATIO = 0.02f
-private const val CORNER_RADIUS_RATIO = 0.22f
+internal const val CORNER_RADIUS_RATIO = 0.22f
 private val BADGE_MIN = 15.dp
 private val BADGE_MAX = 28.dp

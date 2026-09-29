@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 2x1 home screen widget: icon with the "add" badge plus today's progress. It renders data, so it
+     is refreshed explicitly (WidgetUpdater + midnight alarm) and never by the system timer, hence
+     updatePeriodMillis="0". Horizontal resize only: a taller widget would add nothing. -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_drink_wide_description"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
+    android:maxResizeHeight="40dp"
+    android:previewImage="@drawable/widget_drink_wide_preview"
+    android:resizeMode="horizontal"
+    android:targetCellWidth="2"
+    android:targetCellHeight="1"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

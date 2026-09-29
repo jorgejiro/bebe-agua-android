@@ -182,6 +182,12 @@
     <string name="widget_drink_description">Un toque registra tu cantidad por defecto.</string>
     <string name="widget_drink_content_description">Registrar la cantidad por defecto</string>
     <string name="widget_toast_intake_added">+%1$d ml · %2$d/%3$d ml</string>
+    <string name="widget_drink_wide_label">Progreso de hoy</string>
+    <string name="widget_drink_wide_description">Muestra el progreso de agua de hoy. Un toque registra tu cantidad por defecto.</string>
+    <string name="widget_wide_progress">%1$d / %2$d ml</string>
+    <string name="widget_wide_percent">%1$d %% de tu objetivo</string>
+    <string name="widget_wide_goal_reached">Objetivo cumplido</string>
+    <string name="widget_wide_no_data">Abre la app</string>
 
     <!-- Comunes -->
     <string name="ok">Aceptar</string>
