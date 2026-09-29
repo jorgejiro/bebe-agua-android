@@ -44,4 +44,4 @@ Off (release chores). Checks: `./gradlew lint test` (ChangelogCatalogTest), char
   finished the upload to Google Play" — AAB 12 + changelogs en-US/es-ES + listing texts, sent to
   review.
 - T3: recipe 1.4.0 → commit be068cbf…; fork branch commit 7e57c1eb on MR !50455; update comment
-  posted for the reviewer (note 3924442027). Pipeline 2893837949 running at time of writing.
+  posted for the reviewer (note 3924442027). Pipeline 2893837949: success (fdroid build, checkupdates, lint, rewritemeta, check apk, all green).
