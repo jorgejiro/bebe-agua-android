@@ -33,8 +33,12 @@ invalidar» del ADR 002 deja de valer para él.
 4. **Sin `updatePeriodMillis` ni WorkManager propio.** `updatePeriodMillis="0"`: el mínimo del
    sistema es 30 min, es impreciso y despierta el dispositivo sin necesidad. WorkManager sigue
    descartado para nuestro código (solo lo usa Glance por dentro).
-5. **Lectura de datos.** `provideGlance` lee `GetTodaySummaryUseCase` vía `@EntryPoint` antes de
-   `provideContent`, para que el contenido no haga E/S. Si la lectura falla se muestra «Abre la app».
+5. **Lectura de datos.** `provideGlance` obtiene el `Flow` de `GetTodaySummaryUseCase` vía
+   `@EntryPoint` y el contenido lo **observa** con `collectAsState` (valor inicial leído antes, para
+   no parpadear). Una lectura puntual con `first()` no sirve: `provideGlance` se ejecuta una vez por
+   sesión, y `updateAll()` sobre una sesión viva solo recompone, así que el widget se quedaba en el
+   valor viejo (visto en el emulador: la pulsación sumaba y el texto seguía en `0 / 2400 ml`). Si
+   la lectura falla se muestra «Abre la app».
 6. **Tamaños proporcionales.** Padding, lado del icono y tamaños de texto salen de `wideLayout(ancho,
    alto)` (funciones puras con tope), como `badgeSize` en el 1x1. Fondo con la paleta fija de la app.
 

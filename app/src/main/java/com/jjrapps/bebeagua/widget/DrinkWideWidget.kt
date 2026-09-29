@@ -2,6 +2,8 @@ package com.jjrapps.bebeagua.widget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -41,7 +43,8 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.firstOrNull
 import timber.log.Timber
 
 /**
@@ -63,14 +66,18 @@ object DrinkWideWidget : GlanceAppWidget() {
     }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        // Read before provideContent: the content lambda must stay free of I/O.
-        val summary = runCatching {
-            EntryPointAccessors
-                .fromApplication(context.applicationContext, Dependencies::class.java)
-                .getTodaySummaryUseCase()()
-                .first()
-        }.onFailure { Timber.e(it, "Wide widget could not read today's summary") }.getOrNull()
-        provideContent { Content(summary) }
+        val summaries = EntryPointAccessors
+            .fromApplication(context.applicationContext, Dependencies::class.java)
+            .getTodaySummaryUseCase()()
+            .catch { Timber.e(it, "Wide widget could not read today's summary") }
+        // provideGlance runs once per session: update()/updateAll() on a live session only
+        // recomposes, so the content must observe the data instead of a one-shot read. The first
+        // value is read up front so the widget never flashes an empty state.
+        val initial = runCatching { summaries.firstOrNull() }.getOrNull()
+        provideContent {
+            val summary by summaries.collectAsState(initial = initial)
+            Content(summary)
+        }
     }
 
     @Composable
