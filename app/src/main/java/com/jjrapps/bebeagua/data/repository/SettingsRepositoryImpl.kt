@@ -23,7 +23,9 @@ class SettingsRepositoryImpl @Inject constructor(
                 intakeSizesMl = s.intakeSizesMl,
                 language = s.language,
                 skipImminentReminder = s.skipImminentReminder,
-                skipImminentWindowMinutes = s.skipImminentWindowMinutes
+                skipImminentWindowMinutes = s.skipImminentWindowMinutes,
+                dailySummaryEnabled = s.dailySummaryEnabled,
+                dailySummaryMinutes = s.dailySummaryMinutes
             )
         }
 
@@ -50,6 +52,12 @@ class SettingsRepositoryImpl @Inject constructor(
                 AppSettings.MAX_SKIP_IMMINENT_WINDOW_MINUTES
             )
         )
+
+    override suspend fun updateDailySummaryEnabled(enabled: Boolean) =
+        dataSource.setDailySummaryEnabled(enabled)
+
+    override suspend fun updateDailySummaryTime(minutes: Int) =
+        dataSource.setDailySummaryMinutes(minutes.coerceIn(0, 24 * 60 - 1))
 
     override fun isOnboardingDone(): Flow<Boolean> = dataSource.isOnboardingDone
 

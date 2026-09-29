@@ -3,6 +3,7 @@ package com.jjrapps.bebeagua.reminder
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.jjrapps.bebeagua.domain.usecase.ScheduleDailySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class BootReceiver : BroadcastReceiver() {
 
     @Inject lateinit var scheduleRemindersUseCase: ScheduleRemindersUseCase
+    @Inject lateinit var scheduleDailySummaryUseCase: ScheduleDailySummaryUseCase
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
@@ -28,6 +30,7 @@ class BootReceiver : BroadcastReceiver() {
         scope.launch {
             try {
                 scheduleRemindersUseCase()
+                scheduleDailySummaryUseCase()
             } catch (e: Exception) {
                 Timber.e(e, "BootReceiver error")
             } finally {

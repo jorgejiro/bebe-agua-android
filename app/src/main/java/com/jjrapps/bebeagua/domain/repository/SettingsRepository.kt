@@ -12,6 +12,8 @@ interface SettingsRepository {
     suspend fun updateLanguage(language: String)
     suspend fun updateSkipImminentReminder(enabled: Boolean)
     suspend fun updateSkipImminentWindowMinutes(minutes: Int)
+    suspend fun updateDailySummaryEnabled(enabled: Boolean)
+    suspend fun updateDailySummaryTime(minutes: Int)
     fun isOnboardingDone(): Flow<Boolean>
     suspend fun completeOnboarding()
 }

@@ -86,6 +86,11 @@
     <string name="notification_title">¿Has bebido agua?</string>
     <string name="notification_text">Llevas %1$d ml de %2$d ml hoy</string>
     <string name="notification_action_drink">Beber %1$d ml</string>
+    <string name="daily_summary_channel_name">Resumen diario</string>
+    <string name="daily_summary_channel_desc">Resumen de fin de día del agua que has bebido</string>
+    <string name="daily_summary_title">Resumen de hoy</string>
+    <string name="daily_summary_text">Has bebido %1$d ml de %2$d ml (%3$d%%)</string>
+    <string name="daily_summary_text_goal_reached">Objetivo cumplido: %1$d ml de %2$d ml</string>
     <string name="notification_action_snooze">Posponer 15 min</string>
 
     <!-- Permisos -->

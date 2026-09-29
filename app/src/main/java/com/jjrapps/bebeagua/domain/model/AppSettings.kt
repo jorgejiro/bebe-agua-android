@@ -11,10 +11,15 @@ data class AppSettings(
     val language: String,
     /** When true, a reminder falling within [skipImminentWindowMinutes] after an intake is skipped. */
     val skipImminentReminder: Boolean = false,
-    val skipImminentWindowMinutes: Int = 15
+    val skipImminentWindowMinutes: Int = 15,
+    /** When true, an end-of-day summary notification is posted at [dailySummaryMinutes]. */
+    val dailySummaryEnabled: Boolean = DEFAULT_DAILY_SUMMARY_ENABLED,
+    val dailySummaryMinutes: Int = DEFAULT_DAILY_SUMMARY_MINUTES
 ) {
     val dayStart: LocalTime get() = LocalTime.of(dayStartMinutes / 60, dayStartMinutes % 60)
     val dayEnd: LocalTime get() = LocalTime.of(dayEndMinutes / 60, dayEndMinutes % 60)
+    val dailySummaryTime: LocalTime
+        get() = LocalTime.of(dailySummaryMinutes / 60, dailySummaryMinutes % 60)
 
     companion object {
         const val MIN_SKIP_IMMINENT_WINDOW_MINUTES = 5
@@ -30,5 +35,7 @@ data class AppSettings(
         const val DEFAULT_LANGUAGE = "auto"
         const val DEFAULT_SKIP_IMMINENT_REMINDER = false
         const val DEFAULT_SKIP_IMMINENT_WINDOW_MINUTES = 15
+        const val DEFAULT_DAILY_SUMMARY_ENABLED = true
+        const val DEFAULT_DAILY_SUMMARY_MINUTES = 23 * 60   // 23:00
     }
 }

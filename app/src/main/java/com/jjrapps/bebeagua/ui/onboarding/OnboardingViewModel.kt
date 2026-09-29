@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jjrapps.bebeagua.domain.model.AppSettings
 import com.jjrapps.bebeagua.domain.repository.SettingsRepository
+import com.jjrapps.bebeagua.domain.usecase.ScheduleDailySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
-    private val scheduleRemindersUseCase: ScheduleRemindersUseCase
+    private val scheduleRemindersUseCase: ScheduleRemindersUseCase,
+    private val scheduleDailySummaryUseCase: ScheduleDailySummaryUseCase
 ) : ViewModel() {
 
     var goalMl by mutableIntStateOf(AppSettings.DEFAULT_DAILY_GOAL_ML)
@@ -39,6 +41,7 @@ class OnboardingViewModel @Inject constructor(
             settingsRepository.updateRemindersPerDay(remindersPerDay)
             settingsRepository.completeOnboarding()
             runCatching { scheduleRemindersUseCase() }
+            runCatching { scheduleDailySummaryUseCase() }
         }
     }
 }

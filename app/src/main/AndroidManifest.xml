@@ -38,6 +38,14 @@
         </receiver>
 
         <receiver
+            android:name=".reminder.DailySummaryReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.jjrapps.bebeagua.ACTION_DAILY_SUMMARY_ALARM" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".reminder.NotificationActionReceiver"
             android:exported="false" />
 

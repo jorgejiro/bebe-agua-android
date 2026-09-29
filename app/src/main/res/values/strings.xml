@@ -86,6 +86,11 @@
     <string name="notification_title">Time to drink water!</string>
     <string name="notification_text">You\'ve had %1$d ml of %2$d ml today</string>
     <string name="notification_action_drink">Drink %1$d ml</string>
+    <string name="daily_summary_channel_name">Daily summary</string>
+    <string name="daily_summary_channel_desc">End-of-day summary of the water you drank</string>
+    <string name="daily_summary_title">Today\'s summary</string>
+    <string name="daily_summary_text">You drank %1$d ml of %2$d ml (%3$d%%)</string>
+    <string name="daily_summary_text_goal_reached">Goal reached: %1$d ml of %2$d ml</string>
     <string name="notification_action_snooze">Snooze 15 min</string>
 
     <!-- Permissions warning -->

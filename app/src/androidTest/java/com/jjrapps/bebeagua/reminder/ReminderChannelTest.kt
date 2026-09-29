@@ -3,6 +3,7 @@ package com.jjrapps.bebeagua.reminder
 import android.app.NotificationManager
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.jjrapps.bebeagua.BebeAguaApplication.Companion.DAILY_SUMMARY_CHANNEL_ID
 import com.jjrapps.bebeagua.BebeAguaApplication.Companion.REMINDER_CHANNEL_ID
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -28,6 +29,15 @@ class ReminderChannelTest {
         }
         assertNull("The reminder channel must have no sound", channel.sound)
         assertTrue("The reminder channel must vibrate", channel.shouldVibrate())
+    }
+
+    @Test
+    fun dailySummaryChannelIsSilentAndVibrates() {
+        val channel = requireNotNull(notificationManager.getNotificationChannel(DAILY_SUMMARY_CHANNEL_ID)) {
+            "Channel $DAILY_SUMMARY_CHANNEL_ID was not created by the Application"
+        }
+        assertNull("The daily summary channel must have no sound", channel.sound)
+        assertTrue("The daily summary channel must vibrate", channel.shouldVibrate())
     }
 
     @Test
