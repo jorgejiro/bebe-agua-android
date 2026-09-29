@@ -79,6 +79,19 @@ delivery since the owner has historically merged straight to `main`.
 - `./gradlew lint test compileDebugAndroidTestKotlin assembleDebug`: BUILD SUCCESSFUL.
 - Commit: 69653fd
 
+### Native review (RDD)
+- T1–T3 range `main..1b3cf41`: medium risk, owner granted consent, reliability lens approved and
+  acknowledged (lineage review-410676df6841cbed). Advisory warning R3-nav-before-graph (cold-start
+  navigate before NavHost sets the graph) plus R3-singletop-stale-date fixed in bf53615
+  (assessed: medium, under budget → pending in slice). Remaining advisories as follow-ups:
+  receiver untested (R3-receiver-untested), timezone change not rescheduling (R3-tz-change, same as
+  reminders).
+- Emulator (Medium_Phone, API 36, debug build of bf53615): `dumpsys alarm` shows
+  `ACTION_DAILY_SUMMARY_ALARM` at 2026-09-29 23:00 after onboarding; cold start with
+  `extra_summary_date=2026-09-28` opens the 28th day detail with History highlighted, no FATAL in
+  logcat; warm intent with 2026-09-27 replaces it and Back returns to Home.
+- `./gradlew lint test assembleDebug`: exit 0.
+
 ## Next step
 
-Owner: review, manual check on emulator (notification tap, exact-alarm denied), then decide push/PR.
+Owner: real 23:00 notification check on a device, then decide push/PR.
