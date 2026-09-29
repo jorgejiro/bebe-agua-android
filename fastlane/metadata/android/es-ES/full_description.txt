@@ -1,20 +1,25 @@
-¡Bebe agua! es una app sencilla para registrar tu ingesta diaria de agua y recibir recordatorios periódicos durante el día.
+¡Bebe agua! es una app sencilla para registrar el agua que bebes cada día y recibir recordatorios a lo largo de la jornada, sin cuentas, sin anuncios y sin enviar nada fuera de tu móvil.
 
-La pantalla principal esta pensada para ser rápida: un toque registra la cantidad que usas normalmente, y puedes cambiarla cuando quieras desde tus medidas configuradas o introducir otra cantidad. El progreso diario se muestra en un circulo claro con el total bebido frente a tu objetivo.
+La pantalla principal está pensada para ser rápida: un toque registra la cantidad que usaste la última vez. Si hoy quieres otra, cambia de medida entre las que tengas configuradas o escribe una cantidad distinta con «Otra cantidad…». Un círculo de progreso muestra lo bebido frente a tu objetivo, y debajo tienes los registros de hoy, que puedes borrar si te equivocas.
 
-Puedes configurar tu objetivo diario, la hora de inicio y fin de los recordatorios, y cuantos avisos quieres recibir al día. La app calcula los horarios de forma uniforme dentro de tu franja horaria y deja de recordarte beber cuando ya has alcanzado el objetivo.
+Los recordatorios se reparten de forma uniforme entre la hora de inicio y la de fin que elijas, con el número de avisos que prefieras. Dejan de llegar cuando alcanzas el objetivo, se recalculan cada vez que registras agua y en la pantalla principal ves cuándo será el siguiente. Vibran sin sonar, así que puedes tener el móvil en modo sonido sin que te molesten; si llevas un reloj emparejado, el aviso también le llega. Si lo prefieres, puedes activar que se salte el aviso que caiga justo después de beber.
 
-Tambien incluye historial de los últimos dias, estadísticas basicas, rachas, soporte para Español e Inglés, y acciones rápidas desde la notificación para registrar agua o posponer el aviso.
+Desde la propia notificación puedes registrar la cantidad habitual o posponer el aviso 15 minutos. También hay un widget de 1×1 para el escritorio: una pulsación registra tu cantidad habitual sin abrir la app.
 
-Privacidad total: sin cuentas, sin nube, sin anuncios y sin tracking. No se guardan datos personales, y los registros de ingesta se guardan localmente en tu dispositivo.
+El historial recoge los últimos 30 días con el total de cada jornada, la media, el mejor día y tu racha actual. Puedes elegir el idioma (automático, español o inglés) y el tema (automático, claro u oscuro), consultar las novedades de cada versión dentro de la app y escribir al autor desde Ajustes.
+
+Tu privacidad: no hay cuentas, nube, anuncios ni seguimiento. Los registros y los ajustes se guardan solo en tu dispositivo. El código es abierto, con licencia MIT.
 
 Funciones principales:
 
-- Registro rápido de agua con un solo toque.
-- Objetivo diario configurable.
-- Recordatorios dentro de la franja horaria que elijas.
-- Acciones rápidas desde la notificación.
-- Historial diario y estadísticas básicas.
-- Tamaño de ingesta configurable.
-- Idioma Español e Inglés.
-- Datos guardados sólo en el dispositivo (privacidad total).
+- Registro de agua con un toque, con la última cantidad usada.
+- Medidas configurables y opción de introducir otra cantidad.
+- Círculo de progreso diario y lista de registros de hoy.
+- Recordatorios repartidos en tu franja horaria, con número de avisos a tu gusto.
+- Aviso que vibra sin sonar, compatible con relojes emparejados.
+- Opción de saltar el recordatorio justo después de beber.
+- Acciones rápidas en la notificación: registrar o posponer 15 minutos.
+- Widget de escritorio de 1×1 para registrar con una pulsación.
+- Historial de 30 días con media, mejor día y rachas.
+- Idioma automático, español o inglés; tema automático, claro u oscuro.
+- Sin cuentas, sin anuncios y sin seguimiento: los datos no salen de tu dispositivo.

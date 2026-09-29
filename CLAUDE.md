@@ -350,6 +350,8 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
   `<es-ES>`/`<en-US>` para pegarlos de una vez en Play Console. La tercera no es opcional: sin ella
   hay que copiar idioma por idioma. Es el texto de la ficha, distinto del changelog interno: se
   escribe para quien todavía no tiene la versión.
+- La ficha y los AAB se suben a Play con **fastlane** (`fastlane validar|ficha|subir`); ver «Subir a
+  Google Play con fastlane» en `docs/play-store-publication-texts.md`. No subas nada sin que Jorge lo confirme.
 - Si tocas el schema de Room → escribe la migration y el test de migration. Incrementa `AppDatabase.VERSION`.
 - Si tocas algo de notificaciones → manualmente prueba en emulador con Android 12, 14 y 16 (la lógica de permisos cambia).
 - No añadas dependencias sin justificar y sin actualizar `libs.versions.toml`.

@@ -55,6 +55,30 @@ Play pide **9:16 exacto** para las capturas de tablet, y lados de 320–3840 px 
 de ancho y la grande en 800 dp, que son los dos umbrales con los que Android decide que algo es una
 tablet.
 
+## Copiar las capturas a fastlane
+
+`capturar.py` no toca `fastlane/`. Tras `revisar.py`, las capturas se copian a mano a
+`fastlane/metadata/android/<es-ES|en-US>/images/` (el mapeo es `es`→`es-ES`, `en`→`en-US`), numeradas
+1–7 por el prefijo de la escena, y se comprueba con `cmp` que son idénticas:
+
+| Formato | Carpeta de fastlane |
+|---|---|
+| `telefono` | `phoneScreenshots` |
+| `tablet-7-pulgadas` | `sevenInchScreenshots` |
+| `tablet-10-pulgadas` | `tenInchScreenshots` |
+
+```bash
+# desde la raíz del repo, con bash
+for l in es:es-ES en:en-US; do
+  for f in telefono:phoneScreenshots tablet-7-pulgadas:sevenInchScreenshots tablet-10-pulgadas:tenInchScreenshots; do
+    d=fastlane/metadata/android/${l#*:}/images/${f#*:}; mkdir -p "$d"; i=1
+    for p in docs/store-assets/capturas/${l%%:*}/${f%%:*}/0*.png; do cp "$p" "$d/$i.png"; i=$((i+1)); done
+  done
+done
+```
+
+Luego `fastlane ficha` (o `fastlane validar` para probar) las sube.
+
 ## Las siete escenas
 
 | Fichero | Qué enseña |

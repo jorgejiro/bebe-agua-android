@@ -1,20 +1,25 @@
-Drink Water! is a simple app for tracking your daily water intake and receiving periodic reminders throughout the day.
+Drink Water! is a simple app for logging the water you drink each day and getting reminders throughout the day, with no accounts, no ads and nothing sent off your phone.
 
-The home screen is built for quick use: one tap logs your usual amount, and you can change it whenever you want from your configured sizes or enter a custom amount. Your daily progress is shown in a clear circular view with the amount consumed against your goal.
+The home screen is built for speed: one tap logs the amount you used last time. If you want something different today, switch between the sizes you have set up or type a custom amount with "Other amount…". A progress ring shows what you have drunk against your goal, and below it you will find today's records, which you can delete if you make a mistake.
 
-You can configure your daily goal, reminder start and end time, and how many reminders you want per day. The app calculates reminder times evenly within your selected window and stops reminding you once you reach your daily goal.
+Reminders are spread evenly between the start and end times you choose, with as many alerts as you like. They stop once you reach your goal, are recalculated every time you log water, and the home screen shows when the next one is due. They vibrate without making a sound, so your phone can stay in sound mode without being disturbed; if you wear a paired watch, the alert reaches it too. If you prefer, you can turn on skipping the reminder that would land right after you drink.
 
-It also includes recent history, basic statistics, streaks, Spanish and English support, and quick notification actions to log water or snooze a reminder.
+From the notification itself you can log your usual amount or snooze the alert for 15 minutes. There is also a 1x1 home screen widget: one tap logs your usual amount without opening the app.
 
-Simple privacy: no accounts, no cloud, no ads, and no tracking. Your records stay stored locally on your device.
+History covers the last 30 days with each day's total, the average, your best day and your current streak. You can pick the language (automatic, Spanish or English) and the theme (automatic, light or dark), read what is new in each version inside the app, and email the author from Settings.
+
+Your privacy: there are no accounts, no cloud, no ads and no tracking. Your records and settings are stored only on your device. The code is open source under the MIT license.
 
 Main features:
 
-- One-tap water logging.
-- Configurable daily goal.
-- Reminders within your chosen time window.
-- Quick actions from notifications.
-- Daily history and basic statistics.
-- Configurable intake sizes.
-- Spanish and English language support.
-- Data stored only on your device.
+- One-tap water logging with the last amount you used.
+- Configurable sizes and a custom amount option.
+- Daily progress ring and today's list of records.
+- Reminders spread across your time window, with the number of alerts you choose.
+- Alerts that vibrate without sound, forwarded to a paired watch.
+- Option to skip the reminder right after you drink.
+- Quick notification actions: log your amount or snooze for 15 minutes.
+- 1x1 home screen widget to log with a single tap.
+- 30-day history with average, best day and streaks.
+- Automatic, Spanish or English language; automatic, light or dark theme.
+- No accounts, no ads, no tracking: your data never leaves your device.
