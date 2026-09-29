@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,12 +27,15 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.jjrapps.bebeagua.R
 import com.jjrapps.bebeagua.ui.changelog.ChangelogScreen
+import com.jjrapps.bebeagua.ui.daydetail.DayDetailScreen
 import com.jjrapps.bebeagua.ui.history.HistoryScreen
 import com.jjrapps.bebeagua.ui.home.HomeScreen
 import com.jjrapps.bebeagua.ui.main.MainViewModel
@@ -43,10 +47,12 @@ import com.jjrapps.bebeagua.ui.theme.BackgroundNav
 import com.jjrapps.bebeagua.ui.theme.BorderStrong
 import com.jjrapps.bebeagua.ui.theme.DmSansFontFamily
 import com.jjrapps.bebeagua.ui.theme.TextMuted
+import java.time.LocalDate
 
 @Composable
 fun BebeAguaNavGraph(mainViewModel: MainViewModel = hiltViewModel()) {
     val isOnboardingDone by mainViewModel.isOnboardingDone.collectAsStateWithLifecycle()
+    val pendingSummaryDate by mainViewModel.pendingSummaryDate.collectAsStateWithLifecycle()
 
     when (isOnboardingDone) {
         null -> Box(
@@ -55,19 +61,34 @@ fun BebeAguaNavGraph(mainViewModel: MainViewModel = hiltViewModel()) {
                 .background(BackgroundMain)
         )
         false -> OnboardingScreen(onFinished = {})
-        true -> MainScaffold()
+        true -> MainScaffold(
+            pendingSummaryDate = pendingSummaryDate,
+            onSummaryDateConsumed = mainViewModel::consumePendingSummaryDate
+        )
     }
 }
 
 @Composable
-private fun MainScaffold() {
+private fun MainScaffold(
+    pendingSummaryDate: LocalDate?,
+    onSummaryDateConsumed: () -> Unit
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    // Changelog is reached from Settings, so keep that tab highlighted while it is open.
+    // Open the day detail requested by the daily summary notification, once per tap.
+    LaunchedEffect(pendingSummaryDate) {
+        pendingSummaryDate?.let { date ->
+            navController.navigate(Screen.DayDetail.createRoute(date)) { launchSingleTop = true }
+            onSummaryDateConsumed()
+        }
+    }
+
+    // Changelog is reached from Settings, and day detail from History: keep those tabs highlighted.
     val activeRoute = when (currentRoute) {
         Screen.Changelog.route -> Screen.Settings.route
+        Screen.DayDetail.route -> Screen.History.route
         else -> currentRoute
     }
 
@@ -94,7 +115,13 @@ private fun MainScaffold() {
             modifier = Modifier.padding(padding)
         ) {
             composable(Screen.Home.route)     { HomeScreen() }
-            composable(Screen.History.route)  { HistoryScreen() }
+            composable(Screen.History.route)  {
+                HistoryScreen(
+                    onDayClick = { date ->
+                        navController.navigate(Screen.DayDetail.createRoute(date))
+                    }
+                )
+            }
             composable(Screen.Settings.route) {
                 SettingsScreen(
                     onOpenChangelog = { navController.navigate(Screen.Changelog.route) }
@@ -102,6 +129,12 @@ private fun MainScaffold() {
             }
             composable(Screen.Changelog.route) {
                 ChangelogScreen(onBack = { navController.popBackStack() })
+            }
+            composable(
+                route = Screen.DayDetail.route,
+                arguments = listOf(navArgument(Screen.DayDetail.ARG_DATE) { type = NavType.StringType })
+            ) {
+                DayDetailScreen(onBack = { navController.popBackStack() })
             }
         }
     }

@@ -31,6 +31,9 @@
     <string name="history_streak_label">Current streak</string>
     <string name="history_days_suffix">days</string>
     <string name="history_goal_reached">Goal reached</string>
+    <string name="day_detail_back">Back</string>
+    <string name="day_detail_intakes">Intakes</string>
+    <string name="day_detail_empty">No intakes on this day</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>

@@ -31,6 +31,9 @@
     <string name="history_streak_label">Racha actual</string>
     <string name="history_days_suffix">días</string>
     <string name="history_goal_reached">Objetivo alcanzado</string>
+    <string name="day_detail_back">Volver</string>
+    <string name="day_detail_intakes">Ingestas</string>
+    <string name="day_detail_empty">No hay ingestas este día</string>
 
     <!-- Ajustes -->
     <string name="settings_title">Ajustes</string>

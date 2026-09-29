@@ -47,7 +47,7 @@ delivery since the owner has historically merged straight to `main`.
 - [x] T1 — Settings fields + DataStore/repo, summary scheduler (interface + AlarmManager impl),
       `ScheduleDailySummaryUseCase`, `DailySummaryReceiver`, channel, boot/onboarding hooks, unit
       tests. Route: delegated (writer trigger: 2+ non-trivial files).
-- [ ] T2 — Day-detail screen + route, notification tap → detail, History rows clickable, tests.
+- [x] T2 — Day-detail screen + route, notification tap → detail, History rows clickable, tests.
       Route: delegated (writer trigger).
 - [ ] T3 — Settings UI (switch + time), reschedule on change, strings ES/EN, CLAUDE.md + ADR 006.
       Route: delegated (writer trigger).
@@ -60,8 +60,18 @@ delivery since the owner has historically merged straight to `main`.
   boot or settings change; the use case is idempotent. Extra helper: `DailySummaryNotificationFactory`.
 - `./gradlew lint test compileDebugAndroidTestKotlin`: BUILD SUCCESSFUL (new
   `ScheduleDailySummaryUseCaseTest`, 5 tests, pass).
-- Commit: T1_HASH
+- Commit: 4961584
+
+### T2 (done)
+- Route: delegated writer. Added `GetDaySummaryUseCase` (date-parameterised sibling of
+  `GetTodaySummaryUseCase`) so the ViewModel holds no business logic. The pending date from the
+  notification lives in `MainViewModel` (`pendingSummaryDate`, `onSummaryDateReceived`,
+  `consumePendingSummaryDate`); `MainActivity` only forwards the extra (onCreate only when
+  `savedInstanceState == null`, and onNewIntent).
+- `./gradlew lint test compileDebugAndroidTestKotlin`: BUILD SUCCESSFUL (new
+  `DayDetailViewModelTest` 6 tests, `MainViewModelTest` 4 tests, pass).
+- Commit: T2_HASH
 
 ## Next step
 
-T2.
+T3.

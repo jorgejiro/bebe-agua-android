@@ -2,6 +2,7 @@ package com.jjrapps.bebeagua.ui.history
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,12 +53,16 @@ import com.jjrapps.bebeagua.ui.theme.SuccessGreen
 import com.jjrapps.bebeagua.ui.theme.TextMuted
 import com.jjrapps.bebeagua.ui.theme.TextPrimary
 import com.jjrapps.bebeagua.ui.theme.TextSecondary
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
 @Composable
-fun HistoryScreen(viewModel: HistoryViewModel = hiltViewModel()) {
+fun HistoryScreen(
+    onDayClick: (LocalDate) -> Unit,
+    viewModel: HistoryViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
@@ -75,13 +80,13 @@ fun HistoryScreen(viewModel: HistoryViewModel = hiltViewModel()) {
                 color = AccentLight,
                 modifier = Modifier.align(Alignment.Center)
             )
-            is HistoryUiState.Success -> HistoryContent(state)
+            is HistoryUiState.Success -> HistoryContent(state, onDayClick)
         }
     }
 }
 
 @Composable
-private fun HistoryContent(state: HistoryUiState.Success) {
+private fun HistoryContent(state: HistoryUiState.Success, onDayClick: (LocalDate) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 24.dp),
@@ -125,7 +130,7 @@ private fun HistoryContent(state: HistoryUiState.Success) {
                 ) {
                     Column {
                         state.days.filter { it.totalMl > 0 }.forEachIndexed { index, day ->
-                            DayHistoryItem(day)
+                            DayHistoryItem(day, onClick = { onDayClick(day.date) })
                             if (index < state.days.filter { it.totalMl > 0 }.lastIndex) {
                                 HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
                             }
@@ -190,10 +195,11 @@ private fun StatCard(label: String, value: String, modifier: Modifier = Modifier
 private val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
 
 @Composable
-private fun DayHistoryItem(day: DayHistory) {
+private fun DayHistoryItem(day: DayHistory, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable(onClick = onClick)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
