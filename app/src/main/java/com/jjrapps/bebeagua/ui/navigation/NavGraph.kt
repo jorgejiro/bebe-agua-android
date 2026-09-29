@@ -77,10 +77,17 @@ private fun MainScaffold(
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    // Open the day detail requested by the daily summary notification, once per tap.
-    LaunchedEffect(pendingSummaryDate) {
+    // Open the day detail requested by the daily summary notification, once per tap. Wait for the
+    // NavHost (composed later, inside the Scaffold content) to set the graph: a non-null back stack
+    // entry means it has. Any day detail already open is replaced, since launchSingleTop would
+    // match on the route pattern and keep showing the previous date.
+    val graphReady = backStackEntry != null
+    LaunchedEffect(pendingSummaryDate, graphReady) {
+        if (!graphReady) return@LaunchedEffect
         pendingSummaryDate?.let { date ->
-            navController.navigate(Screen.DayDetail.createRoute(date)) { launchSingleTop = true }
+            navController.navigate(Screen.DayDetail.createRoute(date)) {
+                popUpTo(Screen.DayDetail.route) { inclusive = true }
+            }
             onSummaryDateConsumed()
         }
     }
