@@ -384,7 +384,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - [x] Boot persistence.
 - [x] Persistencia con Room + DataStore.
 - [x] i18n ES/EN.
-- [x] Material 3 con dynamic color.
+- [x] Material 3 con paleta propia (sin dynamic color).
 - [x] Suite de tests (40 tests: unitarios + instrumentados).
 - [x] Release signing + R8 minification.
 
@@ -415,7 +415,7 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 
 - **Nombre**: ¡Bebe agua! (ES) / Drink Water! (EN). El repo, el package y el `rootProject.name` siguen siendo `Bebe Agua` / `bebeagua`.
 - **Package**: `com.jjrapps.bebeagua`.
-- **Paleta base**: azules acuáticos. Colores semilla en `Theme.kt`; Material 3 dynamic color en Android 12+.
+- **Paleta base**: azules acuáticos. Colores fijos en `Color.kt`/`Theme.kt`; **no** se usa dynamic color de Material 3 (la paleta no cambia con el fondo de pantalla).
 - **Icono adaptativo**: gota estilizada sobre fondo claro.
 - **Capturas para Play**: 7 escenas × 2 idiomas × 3 formatos (teléfono, tablet 7", tablet 10"), generadas
   con el pipeline de `docs/store-assets/generar-capturas/` (ver su `README.md`) y guardadas en
