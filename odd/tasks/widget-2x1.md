@@ -41,7 +41,7 @@ decision. Forecast ~500 authored lines, strategy `ask-on-risk`.
 - [x] T1 — Widget + receiver + provider XML + preview + strings, content reads today's summary.
       Route: delegated (writer trigger). Commit: 57dc639
 - [x] T2 — `WidgetUpdater` + calls at every change point + midnight refresh + tests + docs.
-      Route: delegated (writer trigger). Commit: T2_HASH
+      Route: delegated (writer trigger). Commit: eb3e196
 
 ## Progress / evidence
 
