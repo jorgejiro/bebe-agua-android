@@ -77,7 +77,7 @@ delivery since the owner has historically merged straight to `main`.
   existing `TimePickerDialog`); ViewModel reschedules via `ScheduleDailySummaryUseCase`. Docs:
   CLAUDE.md (2.2, 2.3, 2.5, new 2.9, section 4) and `docs/decisions/006-resumen-de-fin-de-dia.md`.
 - `./gradlew lint test compileDebugAndroidTestKotlin assembleDebug`: BUILD SUCCESSFUL.
-- Commit: T3_HASH
+- Commit: 69653fd
 
 ## Next step
 
