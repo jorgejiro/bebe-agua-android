@@ -28,9 +28,9 @@ Off (release chores). Checks: `./gradlew lint test` (ChangelogCatalogTest), char
 ## Tasks
 
 - [x] T1 — Version bump + all release texts + recipe. Route: delegated (writer trigger).
-- [ ] T2 — Commit, tag `v1.4.0`, push; `fastlane subir track:production release_status:completed`.
+- [x] T2 — Commit, tag `v1.4.0`, push; `fastlane subir track:production release_status:completed`.
       Route: inline (bounded actions).
-- [ ] T3 — Update F-Droid MR branch recipe to 1.4.0 and check pipeline. Route: inline.
+- [x] T3 — Update F-Droid MR branch recipe to 1.4.0 and check pipeline. Route: inline.
 
 ## Progress / evidence
 
@@ -39,3 +39,9 @@ Off (release chores). Checks: `./gradlew lint test` (ChangelogCatalogTest), char
   full descriptions (es-ES 2996, en-US 2825 chars; fastlane copies identical to the doc), CLAUDE.md,
   F-Droid recipe (commit is `COMMIT_PLACEHOLDER`, parent replaces it). `./gradlew lint test`: BUILD SUCCESSFUL.
   Screenshots: no regeneration needed (scenes 4/5 unlikely to show the new Daily summary card).
+- T2: release commit be068cb (RDD assess: medium, under budget), tag `v1.4.0` pushed with `main`.
+  `fastlane subir track:production release_status:completed` (2026-09-29 16:58): "Successfully
+  finished the upload to Google Play" — AAB 12 + changelogs en-US/es-ES + listing texts, sent to
+  review.
+- T3: recipe 1.4.0 → commit be068cbf…; fork branch commit 7e57c1eb on MR !50455; update comment
+  posted for the reviewer (note 3924442027). Pipeline 2893837949 running at time of writing.
