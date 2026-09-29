@@ -45,3 +45,12 @@ Off (release chores). Checks: `./gradlew lint test` (ChangelogCatalogTest), char
   review.
 - T3: recipe 1.4.0 → commit be068cbf…; fork branch commit 7e57c1eb on MR !50455; update comment
   posted for the reviewer (note 3924442027). Pipeline 2893837949: success (fdroid build, checkupdates, lint, rewritemeta, check apk, all green).
+- Reviewer follow-up (2026-09-29): linsui asked to "Remove the old version" and said the MR is
+  mostly ready, pending testing (long queue); update the MR on any new release. 1.3.1 build removed
+  (fork commit 742ead90), reply posted (note 3925633645), pipeline 2894512772: success. Rule
+  recorded in `docs/fdroid/LEEME.md`.
+
+## Next step
+
+Wait for Play review and for F-Droid testing/merge of !50455. If a new version ships first, replace
+the build in the MR recipe (single build while the MR is open).
