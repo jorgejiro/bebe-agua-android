@@ -56,7 +56,20 @@ decision. Forecast ~500 authored lines, strategy `ask-on-risk`.
   TIME_SET/TIMEZONE_CHANGED handled by the midnight receiver (trivial). Docs: CLAUDE.md 2.8/4,
   ADR 007.
 
+- Emulator (Medium_Phone API 36, **release** APK): 2x1 placed from the picker, renders
+  `0 / 2400 ml · 0% of your goal`; `ACTION_WIDGET_MIDNIGHT_REFRESH` alarm present in
+  `dumpsys alarm`. **Bug found:** tapping logged the intake (toast in logcat) but the text stayed
+  at 0 — `provideGlance` did a one-shot `first()` and `updateAll()` on a live session only
+  recomposes. Fixed in 96e1d20 (content observes the Flow with `collectAsState`, ADR 007 §5
+  updated). Re-verified on release: taps → 200/400/600 ml live; after 75 s (session expired) tap →
+  800 ml, 33 %. No FATAL in logcat.
+- Native review (RDD) on `bf53615..96e1d20`: medium, owner granted, reliability lens approved and
+  acknowledged (lineage review-2135af6ddbc64aab). Advisory R3-boot-order-coupling fixed in the
+  next commit (each boot reschedule isolated). Follow-ups left: GlanceWidgetUpdater no-throw
+  contract untested, WidgetMidnightReceiver untested, live-session date staleness at midnight
+  (unlikely: session times out in ~45 s).
+- Not verified: day rollover on the device (needs a clock change), narrow-grid text fit.
+
 ## Next step
 
-Manual emulator check: place the 2x1 (debug and release build), log/delete intakes, change goal,
-change date past midnight, narrow grid text fit. Push / PR are the owner's decision.
+Owner: decide push / PR for `feat/resumen-diario` + `feat/widget-2x1`.

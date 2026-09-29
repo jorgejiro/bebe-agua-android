@@ -31,12 +31,14 @@ class BootReceiver : BroadcastReceiver() {
 
         val pendingResult = goAsync()
         scope.launch {
+            // Independent alarms: one failing must not leave the others unscheduled after a reboot.
             try {
-                scheduleRemindersUseCase()
-                scheduleDailySummaryUseCase()
-                WideWidgetMidnightAlarm.scheduleIfPlaced(context.applicationContext, clock)
-            } catch (e: Exception) {
-                Timber.e(e, "BootReceiver error")
+                runCatching { scheduleRemindersUseCase() }
+                    .onFailure { Timber.e(it, "BootReceiver: reminders not rescheduled") }
+                runCatching { scheduleDailySummaryUseCase() }
+                    .onFailure { Timber.e(it, "BootReceiver: daily summary not rescheduled") }
+                runCatching { WideWidgetMidnightAlarm.scheduleIfPlaced(context.applicationContext, clock) }
+                    .onFailure { Timber.e(it, "BootReceiver: widget midnight refresh not rescheduled") }
             } finally {
                 pendingResult.finish()
             }
