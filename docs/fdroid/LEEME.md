@@ -31,6 +31,9 @@ abrir un merge request allí con la receta.
   (`dependenciesInfo`) y el plugin foojay. Por eso `v1.3.1` se puso sobre ese commit. La app es la
   misma: solo cambia la configuración del build. Sin ese tag, `checkupdates` falla en la CI del
   merge request: el último tag tendría un `versionCode` menor que el de la receta.
+- **Mientras el MR de alta siga abierto, la receta lleva un solo build: el de la última versión.**
+  Al actualizar el MR a una versión nueva, se sustituye el build anterior en vez de añadir otro
+  (el revisor lo pidió en !50455: «Remove the old version»).
 - **Las versiones siguientes se publican solas.** Con `UpdateCheckMode: Tags` y
   `AutoUpdateMode: Version`, F-Droid detecta cada tag `vX.Y.Z` nuevo, lee `versionCode` y
   `versionName` de `app/build.gradle.kts` y añade el build. Basta con etiquetar cada release.
