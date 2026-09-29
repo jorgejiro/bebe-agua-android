@@ -134,6 +134,12 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_4_0">
+        <item>End-of-day summary: a notification (11:00 PM by default, time configurable) with what you drank against your goal. It vibrates without a sound and can be turned off in Settings → Daily summary.</item>
+        <item>New day detail screen: tap a day in History to see its total, goal and entries, and delete any of them.</item>
+        <item>New 2x1 home screen widget: the app icon with a \"+\" (one tap logs your default amount) plus today\'s progress, kept up to date and reset at midnight.</item>
+        <item>Reminders are now rescheduled reliably after restarting the phone.</item>
+    </string-array>
     <string-array name="changelog_1_3_1">
         <item>Reminders now vibrate instead of making a sound, so you can leave the phone in ring mode without this one interrupting you.</item>
         <item>New \"Notification settings\" row in Settings → Permissions: it opens the reminder channel in the system settings, where the sound can be turned back on.</item>

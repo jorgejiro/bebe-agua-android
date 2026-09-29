@@ -11,6 +11,22 @@ Al publicar una versión nueva hay que tocar los tres sitios: este archivo, los 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y las versiones
 [Semantic Versioning](https://semver.org/lang/es/).
 
+## [1.4.0] — 2026-09-29 (versionCode 12)
+
+### Añadido
+- **Resumen de fin de día**: una notificación (por defecto a las 23:00, con la hora configurable en
+  Ajustes → Resumen diario) con lo bebido frente al objetivo. Vibra y no suena, como los
+  recordatorios, se puede desactivar y al tocarla abre el detalle del día.
+- **Pantalla de detalle del día**: total, objetivo y registros de ese día, con opción de borrarlos.
+  Los días del Historial ahora son pulsables y la abren.
+- **Widget de escritorio de 2×1**: el icono de la app con un «+» (una pulsación registra la cantidad
+  por defecto) más el progreso de hoy (p. ej. `1250 / 2400 ml · 52 %`). Se mantiene al día al
+  registrar o borrar y se pone a cero a medianoche.
+
+### Corregido
+- Los recordatorios se reprograman cada uno por separado tras reiniciar el dispositivo, de modo que
+  el fallo de uno no impide programar el resto.
+
 ## [1.3.1] — 2026-08-21 (versionCode 11)
 
 ### Cambiado

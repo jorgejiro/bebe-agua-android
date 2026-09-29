@@ -131,6 +131,12 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_4_0">
+        <item>Resumen al final del día: una notificación (por defecto a las 23:00, con la hora configurable) con lo que has bebido frente a tu objetivo. Vibra sin sonar y se puede desactivar en Ajustes → Resumen diario.</item>
+        <item>Nueva pantalla de detalle del día: toca un día del historial para ver su total, su objetivo y sus registros, y borrar los que quieras.</item>
+        <item>Nuevo widget de escritorio de 2×1: el icono de la app con un «+» (una pulsación registra tu cantidad habitual) y el progreso de hoy, siempre al día y a cero a medianoche.</item>
+        <item>Los recordatorios se reprograman de forma fiable tras reiniciar el móvil.</item>
+    </string-array>
     <string-array name="changelog_1_3_1">
         <item>Los recordatorios vibran en vez de sonar, así puedes dejar el móvil en modo sonido sin que este te interrumpa.</item>
         <item>Nueva fila «Ajustes de notificación» en Ajustes → Permisos: abre el canal de los recordatorios en los ajustes del sistema, donde puedes devolverle el sonido.</item>

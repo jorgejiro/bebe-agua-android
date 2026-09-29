@@ -4,7 +4,9 @@ La pantalla principal está pensada para ser rápida: un toque registra la canti
 
 Los recordatorios se reparten de forma uniforme entre la hora de inicio y la de fin que elijas, con el número de avisos que prefieras. Dejan de llegar cuando alcanzas el objetivo, se recalculan cada vez que registras agua y en la pantalla principal ves cuándo será el siguiente. Vibran sin sonar, así que puedes tener el móvil en modo sonido sin que te molesten; si llevas un reloj emparejado, el aviso también le llega. Si lo prefieres, puedes activar que se salte el aviso que caiga justo después de beber.
 
-Desde la propia notificación puedes registrar la cantidad habitual o posponer el aviso 15 minutos. También hay un widget de 1×1 para el escritorio: una pulsación registra tu cantidad habitual sin abrir la app.
+Desde la propia notificación puedes registrar la cantidad habitual o posponer el aviso 15 minutos. También hay dos widgets para el escritorio: uno de 1×1 y otro de 2×1 que además muestra el progreso de hoy. Con una pulsación registran tu cantidad habitual sin abrir la app.
+
+Al final del día puedes recibir un resumen en una notificación (a las 23:00 por defecto, con la hora configurable y desactivable) con lo que has bebido frente a tu objetivo. Además, cada día del historial se abre en una pantalla de detalle con sus registros, donde también puedes borrar los que quieras.
 
 El historial recoge los últimos 30 días con el total de cada jornada, la media, el mejor día y tu racha actual. Puedes elegir el idioma (automático, español o inglés) y el tema (automático, claro u oscuro), consultar las novedades de cada versión dentro de la app y escribir al autor desde Ajustes.
 
@@ -19,7 +21,8 @@ Funciones principales:
 - Aviso que vibra sin sonar, compatible con relojes emparejados.
 - Opción de saltar el recordatorio justo después de beber.
 - Acciones rápidas en la notificación: registrar o posponer 15 minutos.
-- Widget de escritorio de 1×1 para registrar con una pulsación.
-- Historial de 30 días con media, mejor día y rachas.
+- Widgets de escritorio de 1×1 y 2×1 (con el progreso de hoy) para registrar con una pulsación.
+- Resumen de fin de día en una notificación, a la hora que elijas.
+- Historial de 30 días con media, mejor día y rachas, y detalle de cada día.
 - Idioma automático, español o inglés; tema automático, claro u oscuro.
 - Sin cuentas, sin anuncios y sin seguimiento: los datos no salen de tu dispositivo.

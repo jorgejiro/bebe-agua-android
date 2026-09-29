@@ -1,0 +1,8 @@
+What's new in 1.4.0
+
+• End-of-day summary: a notification (11:00 PM by default, configurable) with what you drank against your goal. It vibrates without a sound and you can turn it off.
+• New day detail screen: tap a day in History to see its entries and delete any you like.
+• New 2x1 widget: log your usual amount with one tap and see today's progress.
+• Reminders are now rescheduled reliably after restarting your phone.
+
+No accounts, no cloud, no ads, no tracking.

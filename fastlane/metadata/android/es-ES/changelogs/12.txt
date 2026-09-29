@@ -1,0 +1,8 @@
+Novedades de la versión 1.4.0
+
+• Resumen al final del día: una notificación (23:00 por defecto) con lo bebido frente a tu objetivo. Vibra sin sonar; puedes desactivarla.
+• Nuevo detalle del día: toca un día del historial para ver sus registros y borrar los que quieras.
+• Nuevo widget 2×1: registra tu cantidad habitual con un toque y muestra el progreso de hoy.
+• Recordatorios más fiables tras reiniciar el móvil.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.

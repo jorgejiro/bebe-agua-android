@@ -20,6 +20,61 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
+## 1.4.0 (versionCode 12) — 2026-09-29
+
+### es-ES (471 caracteres)
+
+```text
+Novedades de la versión 1.4.0
+
+• Resumen al final del día: una notificación (23:00 por defecto) con lo bebido frente a tu objetivo. Vibra sin sonar; puedes desactivarla.
+• Nuevo detalle del día: toca un día del historial para ver sus registros y borrar los que quieras.
+• Nuevo widget 2×1: registra tu cantidad habitual con un toque y muestra el progreso de hoy.
+• Recordatorios más fiables tras reiniciar el móvil.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+```
+
+### en-US (469 caracteres)
+
+```text
+What's new in 1.4.0
+
+• End-of-day summary: a notification (11:00 PM by default, configurable) with what you drank against your goal. It vibrates without a sound and you can turn it off.
+• New day detail screen: tap a day in History to see its entries and delete any you like.
+• New 2x1 widget: log your usual amount with one tap and see today's progress.
+• Reminders are now rescheduled reliably after restarting your phone.
+
+No accounts, no cloud, no ads, no tracking.
+```
+
+### Formato con etiquetas de idioma
+
+```xml
+<es-ES>
+Novedades de la versión 1.4.0
+
+• Resumen al final del día: una notificación (23:00 por defecto) con lo bebido frente a tu objetivo. Vibra sin sonar; puedes desactivarla.
+• Nuevo detalle del día: toca un día del historial para ver sus registros y borrar los que quieras.
+• Nuevo widget 2×1: registra tu cantidad habitual con un toque y muestra el progreso de hoy.
+• Recordatorios más fiables tras reiniciar el móvil.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+</es-ES>
+<en-US>
+What's new in 1.4.0
+
+• End-of-day summary: a notification (11:00 PM by default, configurable) with what you drank against your goal. It vibrates without a sound and you can turn it off.
+• New day detail screen: tap a day in History to see its entries and delete any you like.
+• New 2x1 widget: log your usual amount with one tap and see today's progress.
+• Reminders are now rescheduled reliably after restarting your phone.
+
+No accounts, no cloud, no ads, no tracking.
+</en-US>
+```
+
+---
+
 ## 1.3.1 (versionCode 11) — 2026-08-21
 
 ### es-ES (388 caracteres)
