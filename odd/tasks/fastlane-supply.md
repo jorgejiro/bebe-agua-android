@@ -36,7 +36,7 @@ screenshot copies byte-equal to `docs/store-assets/capturas/`.
 
 - [x] T1 — Appfile, Fastfile, `.gitignore`; validate against the API. Route: inline (mechanical
       copy of Constanza's files).
-- [ ] T2 — Refresh ES/EN listing texts + tablet screenshot copies + runbook. Route: delegated
+- [x] T2 — Refresh ES/EN listing texts + tablet screenshot copies + runbook. Route: delegated
       (writer trigger: 2+ non-trivial files).
 - [ ] T3 — `fastlane validar` then, after owner confirmation, `fastlane ficha`. Route: inline,
       bounded action.
@@ -46,7 +46,11 @@ screenshot copies byte-equal to `docs/store-assets/capturas/`.
 - T1: `fastlane lanes` lists `validar`, `ficha`, `subir`. `fastlane validar` (2026-09-29):
   "Successfully validated the upload to Google Play" — the service account already has access to
   `com.jjrapps.bebeagua`. Keystore points to `bebeagua.jks` (the accepted upload key).
+- T2 (a2e868a): texts within limits (es full 2505, en full 2364, short 75/64, titles 11/12); 28 tablet
+  copies and 14 phone screenshots byte-equal to `docs/store-assets/capturas/` (cmp). Runbook added to
+  `docs/play-store-publication-texts.md`, CLAUDE.md bullet, capture README documents the copy step.
+  Dynamic color claim omitted from the listing: not found in `ui/theme` (CLAUDE.md says otherwise).
 
 ## Next step
 
-T2.
+T3.
