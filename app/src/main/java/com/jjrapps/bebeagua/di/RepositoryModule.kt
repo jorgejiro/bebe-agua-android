@@ -6,8 +6,10 @@ import com.jjrapps.bebeagua.domain.repository.DailySummaryScheduler
 import com.jjrapps.bebeagua.domain.repository.IntakeRepository
 import com.jjrapps.bebeagua.domain.repository.ReminderScheduler
 import com.jjrapps.bebeagua.domain.repository.SettingsRepository
+import com.jjrapps.bebeagua.domain.repository.WidgetUpdater
 import com.jjrapps.bebeagua.reminder.AlarmManagerDailySummaryScheduler
 import com.jjrapps.bebeagua.reminder.AlarmManagerReminderScheduler
+import com.jjrapps.bebeagua.widget.GlanceWidgetUpdater
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -35,4 +37,8 @@ abstract class RepositoryModule {
     abstract fun bindDailySummaryScheduler(
         impl: AlarmManagerDailySummaryScheduler
     ): DailySummaryScheduler
+
+    @Binds
+    @Singleton
+    abstract fun bindWidgetUpdater(impl: GlanceWidgetUpdater): WidgetUpdater
 }

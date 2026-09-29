@@ -39,9 +39,9 @@ decision. Forecast ~500 authored lines, strategy `ask-on-risk`.
 ## Tasks
 
 - [x] T1 — Widget + receiver + provider XML + preview + strings, content reads today's summary.
-      Route: delegated (writer trigger). Commit: T1_HASH
-- [ ] T2 — `WidgetUpdater` + calls at every change point + midnight refresh + tests + docs.
-      Route: delegated (writer trigger).
+      Route: delegated (writer trigger). Commit: 57dc639
+- [x] T2 — `WidgetUpdater` + calls at every change point + midnight refresh + tests + docs.
+      Route: delegated (writer trigger). Commit: T2_HASH
 
 ## Progress / evidence
 
@@ -50,6 +50,13 @@ decision. Forecast ~500 authored lines, strategy `ask-on-risk`.
   adds nothing; width may grow). Card uses the app's fixed palette (`BackgroundMain`), like the app
   has no dynamic/light variant for the widget. Manual emulator check pending (narrow grids).
 
+- T2: `./gradlew lint test`: BUILD SUCCESSFUL (new `WidgetRefreshUseCasesTest`, `WidgetMidnightTest`
+  incl. DST 2026-03-29 / 2026-10-25). `./gradlew assembleDebug assembleRelease`: BUILD SUCCESSFUL.
+  Goal path: new `UpdateDailyGoalUseCase` used by `SettingsViewModel` and `OnboardingViewModel`.
+  TIME_SET/TIMEZONE_CHANGED handled by the midnight receiver (trivial). Docs: CLAUDE.md 2.8/4,
+  ADR 007.
+
 ## Next step
 
-Starts after `resumen-diario`.
+Manual emulator check: place the 2x1 (debug and release build), log/delete intakes, change goal,
+change date past midnight, narrow grid text fit. Push / PR are the owner's decision.

@@ -74,6 +74,16 @@
         </receiver>
 
         <receiver
+            android:name=".widget.WidgetMidnightReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.jjrapps.bebeagua.ACTION_WIDGET_MIDNIGHT_REFRESH" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".reminder.BootReceiver"
             android:exported="true">
             <intent-filter>

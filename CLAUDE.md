@@ -98,7 +98,11 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 
 ---
 
-### 2.8 Widget de escritorio ✅ Implementado
+### 2.8 Widgets de escritorio ✅ Implementados
+Hay dos widgets Glance. El **1x1** es solo un botón y no se invalida nunca; el **2x1** muestra el
+progreso de hoy y sí se invalida (ver «Widget 2x1» al final de esta sección).
+
+**Widget 1x1**
 - Widget de **1x1** (`resizeMode="none"`, `targetCellWidth/Height=1`): el icono de la app con un
   distintivo «+» en la esquina. No muestra datos, es solo un botón.
 - Una pulsación = una ingesta de la cantidad por defecto (la última usada), igual que el botón
@@ -120,6 +124,23 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
   zona de seguridad del icono adaptativo, para que la gota se vea igual de grande que en el icono de
   la app. Si se cambia el icono, **hay que regenerar el recorte** (`sips -c 304 304`).
 
+**Widget 2x1 (progreso de hoy)**
+- `DrinkWideWidget` (`resizeMode="horizontal"`, `targetCellWidth=2`, `targetCellHeight=1`): el mismo
+  icono con distintivo «+» del 1x1 (composable compartido `DrinkIconWithBadge`) y, a la derecha,
+  `consumido / objetivo ml` más una línea secundaria (porcentaje u «Objetivo cumplido»). Un toque
+  sobre cualquier parte registra la cantidad por defecto (`AddDefaultIntakeAction`, compartida).
+- Es el **único widget que renderiza datos**, así que se invalida en cada cambio: la interfaz de
+  dominio `WidgetUpdater.refresh()` (impl. `GlanceWidgetUpdater`, solo refresca el 2x1) se llama
+  desde `AddIntakeUseCase`, `DeleteIntakeUseCase` y `UpdateDailyGoalUseCase`, que son los puntos por
+  los que pasan Home, la notificación, el widget y el detalle del día. Nunca lanza: un fallo del
+  widget no puede romper un registro.
+- Al cambiar de día se refresca con una alarma **inexacta** (`setAndAllowWhileIdle`, request code 5)
+  a medianoche local, gestionada por `WideWidgetMidnightAlarm` y `WidgetMidnightReceiver`. Se
+  programa al colocar el primer 2x1 (`onEnabled`/`onUpdate`) y en `BootReceiver`, y se cancela en
+  `onDisabled`. El receptor también refresca ante `TIME_SET`/`TIMEZONE_CHANGED`.
+- Tamaños de texto e icono derivados de la celda (`wideLayout`), sin dp fijos. Ver
+  `docs/decisions/007-widget-2x1-con-progreso.md`.
+
 ## 3. Stack técnico
 
 **Vinculante** (no cambiar sin justificarlo):
@@ -140,7 +161,7 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 | Persistencia | **Room 2.7.1** para registros de ingesta; **DataStore Preferences 1.1.4** para ajustes |
 | Navegación | **Navigation Compose 2.9.0** (Nav3 no estaba maduro; se descartó) |
 | Background | **`AlarmManager.setExactAndAllowWhileIdle()`** + `BroadcastReceiver`. **No usar WorkManager** para recordatorios (Glance lo arrastra como dependencia transitiva, pero no lo usamos nosotros). |
-| Widget | **Glance 1.1.1** (`androidx.glance:glance-appwidget`). No usar `RemoteViews` con layouts XML. Ver `docs/decisions/002-widget-de-escritorio-con-glance.md`. |
+| Widget | **Glance 1.1.1** (`androidx.glance:glance-appwidget`). No usar `RemoteViews` con layouts XML. Ver `docs/decisions/002-widget-de-escritorio-con-glance.md` y, para el 2x1 con datos, `007-widget-2x1-con-progreso.md`. |
 | Notificaciones | `NotificationManagerCompat` + canal `reminders_vibrate` con `IMPORTANCE_DEFAULT`, sin sonido y con vibración |
 | Concurrencia | Coroutines **1.10.2** + Flow |
 | i18n | Recursos `strings.xml` (`values/`, `values-es/`); cambio de idioma en runtime con `AppCompatDelegate.setApplicationLocales` |
@@ -214,6 +235,7 @@ app/
           IntakeRepository.kt
           SettingsRepository.kt
           ReminderScheduler.kt    # interfaz
+          WidgetUpdater.kt        # interfaz: redibuja el widget 2x1
           DailySummaryScheduler.kt # interfaz de la alarma del resumen de fin de día
         usecase/
           AddIntakeUseCase.kt
@@ -227,6 +249,7 @@ app/
           ObserveSettingsUseCase.kt
           GetDefaultIntakeSizeUseCase.kt     # lectura puntual de la cantidad por defecto (widget)
           RecordDefaultIntakeUseCase.kt      # registrar por defecto + reprogramar (widget)
+          UpdateDailyGoalUseCase.kt          # guardar objetivo + refrescar widget 2x1
           ReminderWindow.kt          # funciones puras de corte (snooze + ventana de cortesía)
           IntakeDefaults.kt          # función pura: precedencia de la cantidad por defecto
       ui/
@@ -282,6 +305,12 @@ app/
         DrinkWidget.kt                     # GlanceAppWidget 1x1 (icono + badge «+»)
         DrinkWidgetReceiver.kt
         AddDefaultIntakeAction.kt          # ActionCallback; Hilt vía @EntryPoint
+        DrinkWideWidget.kt                 # GlanceAppWidget 2x1 (icono + progreso de hoy)
+        DrinkWideWidgetReceiver.kt         # programa/cancela la alarma de medianoche
+        GlanceWidgetUpdater.kt             # WidgetUpdater: refresca solo el 2x1
+        WidgetMidnight.kt                  # función pura: próxima medianoche local
+        WideWidgetMidnightAlarm.kt         # alarma inexacta (request code 5)
+        WidgetMidnightReceiver.kt          # refresca y reprograma; también TIME_SET/TIMEZONE
     res/
       values/strings.xml
       values-es/strings.xml

@@ -12,6 +12,7 @@ import com.jjrapps.bebeagua.domain.repository.SettingsRepository
 import com.jjrapps.bebeagua.domain.usecase.CalculateReminderTimesUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleDailySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
+import com.jjrapps.bebeagua.domain.usecase.UpdateDailyGoalUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.Channel
@@ -30,7 +31,8 @@ class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val calculateReminderTimesUseCase: CalculateReminderTimesUseCase,
     private val scheduleRemindersUseCase: ScheduleRemindersUseCase,
-    private val scheduleDailySummaryUseCase: ScheduleDailySummaryUseCase
+    private val scheduleDailySummaryUseCase: ScheduleDailySummaryUseCase,
+    private val updateDailyGoalUseCase: UpdateDailyGoalUseCase
 ) : ViewModel() {
 
     private val _events = Channel<SettingsEvent>(Channel.BUFFERED)
@@ -60,7 +62,7 @@ class SettingsViewModel @Inject constructor(
         .catch<SettingsUiState> { emit(SettingsUiState.Error(it.message ?: "Error")) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SettingsUiState.Loading)
 
-    fun updateDailyGoal(ml: Int) = update { settingsRepository.updateDailyGoal(ml) }
+    fun updateDailyGoal(ml: Int) = update { updateDailyGoalUseCase(ml) }
 
     fun updateDayWindow(startMinutes: Int, endMinutes: Int) = update {
         settingsRepository.updateDayWindow(startMinutes, endMinutes)
