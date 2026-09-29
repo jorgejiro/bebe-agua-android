@@ -145,6 +145,8 @@ fun SettingsScreen(
                 onUpdateLanguage = viewModel::updateLanguage,
                 onUpdateSkipImminent = viewModel::updateSkipImminentReminder,
                 onUpdateSkipImminentWindow = viewModel::updateSkipImminentWindowMinutes,
+                onUpdateDailySummaryEnabled = viewModel::updateDailySummaryEnabled,
+                onUpdateDailySummaryTime = viewModel::updateDailySummaryTime,
                 onOpenChangelog = onOpenChangelog
             )
         }
@@ -166,6 +168,8 @@ private fun SettingsContent(
     onUpdateLanguage: (String) -> Unit,
     onUpdateSkipImminent: (Boolean) -> Unit,
     onUpdateSkipImminentWindow: (Int) -> Unit,
+    onUpdateDailySummaryEnabled: (Boolean) -> Unit,
+    onUpdateDailySummaryTime: (Int) -> Unit,
     onOpenChangelog: () -> Unit
 ) {
     val context = LocalContext.current
@@ -178,6 +182,7 @@ private fun SettingsContent(
     var showAddSizeDialog by rememberSaveable { mutableStateOf(false) }
     var showLanguageDialog by rememberSaveable { mutableStateOf(false) }
     var showSkipWindowDialog by rememberSaveable { mutableStateOf(false) }
+    var showSummaryTimePicker by rememberSaveable { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -244,6 +249,28 @@ private fun SettingsContent(
                     SchedulePreview(
                         times = state.calculatedTimes,
                         suggestedAmountMl = settings.dailyGoalMl / settings.remindersPerDay
+                    )
+                }
+            }
+        }
+
+        // Daily summary section
+        item {
+            SectionHeader(stringResource(R.string.settings_section_daily_summary))
+            Spacer(Modifier.height(8.dp))
+            SettingsCard {
+                SwitchRow(
+                    label = stringResource(R.string.settings_daily_summary),
+                    subtitle = stringResource(R.string.settings_daily_summary_subtitle),
+                    checked = settings.dailySummaryEnabled,
+                    onCheckedChange = onUpdateDailySummaryEnabled
+                )
+                if (settings.dailySummaryEnabled) {
+                    HorizontalDivider(thickness = 0.5.dp, color = BorderSubtle)
+                    SettingRow(
+                        label = stringResource(R.string.settings_daily_summary_time),
+                        value = settings.dailySummaryTime.toHhMm(),
+                        onClick = { showSummaryTimePicker = true }
                     )
                 }
             }
@@ -426,6 +453,21 @@ private fun SettingsContent(
             },
             onDismiss = { showStartTimePicker = false }
         ) { TimePicker(state = state2) }
+    }
+
+    if (showSummaryTimePicker) {
+        val summaryState = rememberTimePickerState(
+            initialHour = settings.dailySummaryTime.hour,
+            initialMinute = settings.dailySummaryTime.minute,
+            is24Hour = true
+        )
+        TimePickerDialog(
+            onConfirm = {
+                onUpdateDailySummaryTime(summaryState.hour * 60 + summaryState.minute)
+                showSummaryTimePicker = false
+            },
+            onDismiss = { showSummaryTimePicker = false }
+        ) { TimePicker(state = summaryState) }
     }
 
     if (showEndTimePicker) {

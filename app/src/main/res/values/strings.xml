@@ -42,6 +42,10 @@
     <string name="settings_section_sizes">Intake sizes</string>
     <string name="settings_section_appearance">Appearance</string>
     <string name="settings_section_permissions">Permissions</string>
+    <string name="settings_section_daily_summary">Daily summary</string>
+    <string name="settings_daily_summary">End-of-day summary</string>
+    <string name="settings_daily_summary_subtitle">A notification with how much you drank today</string>
+    <string name="settings_daily_summary_time">Summary time</string>
     <string name="settings_daily_goal">Daily goal</string>
     <string name="settings_daily_goal_subtitle">ml per day</string>
     <string name="settings_start_time">Start time</string>

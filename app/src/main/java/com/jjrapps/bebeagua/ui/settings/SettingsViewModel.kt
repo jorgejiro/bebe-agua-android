@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jjrapps.bebeagua.domain.repository.SettingsRepository
 import com.jjrapps.bebeagua.domain.usecase.CalculateReminderTimesUseCase
+import com.jjrapps.bebeagua.domain.usecase.ScheduleDailySummaryUseCase
 import com.jjrapps.bebeagua.domain.usecase.ScheduleRemindersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -28,7 +29,8 @@ class SettingsViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepository,
     private val calculateReminderTimesUseCase: CalculateReminderTimesUseCase,
-    private val scheduleRemindersUseCase: ScheduleRemindersUseCase
+    private val scheduleRemindersUseCase: ScheduleRemindersUseCase,
+    private val scheduleDailySummaryUseCase: ScheduleDailySummaryUseCase
 ) : ViewModel() {
 
     private val _events = Channel<SettingsEvent>(Channel.BUFFERED)
@@ -80,6 +82,16 @@ class SettingsViewModel @Inject constructor(
     fun updateSkipImminentWindowMinutes(minutes: Int) = update {
         settingsRepository.updateSkipImminentWindowMinutes(minutes)
         scheduleRemindersUseCase()
+    }
+
+    fun updateDailySummaryEnabled(enabled: Boolean) = update {
+        settingsRepository.updateDailySummaryEnabled(enabled)
+        scheduleDailySummaryUseCase()
+    }
+
+    fun updateDailySummaryTime(minutes: Int) = update {
+        settingsRepository.updateDailySummaryTime(minutes)
+        scheduleDailySummaryUseCase()
     }
 
     fun updateLanguage(language: String) = update {

@@ -42,6 +42,10 @@
     <string name="settings_section_sizes">Tamaños de ingesta</string>
     <string name="settings_section_appearance">Apariencia</string>
     <string name="settings_section_permissions">Permisos</string>
+    <string name="settings_section_daily_summary">Resumen diario</string>
+    <string name="settings_daily_summary">Resumen de fin de día</string>
+    <string name="settings_daily_summary_subtitle">Una notificación con lo que has bebido hoy</string>
+    <string name="settings_daily_summary_time">Hora del resumen</string>
     <string name="settings_daily_goal">Objetivo diario</string>
     <string name="settings_daily_goal_subtitle">ml al día</string>
     <string name="settings_start_time">Hora de inicio</string>

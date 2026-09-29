@@ -49,7 +49,7 @@ delivery since the owner has historically merged straight to `main`.
       tests. Route: delegated (writer trigger: 2+ non-trivial files).
 - [x] T2 — Day-detail screen + route, notification tap → detail, History rows clickable, tests.
       Route: delegated (writer trigger).
-- [ ] T3 — Settings UI (switch + time), reschedule on change, strings ES/EN, CLAUDE.md + ADR 006.
+- [x] T3 — Settings UI (switch + time), reschedule on change, strings ES/EN, CLAUDE.md + ADR 006.
       Route: delegated (writer trigger).
 
 ## Progress / evidence
@@ -70,8 +70,15 @@ delivery since the owner has historically merged straight to `main`.
   `savedInstanceState == null`, and onNewIntent).
 - `./gradlew lint test compileDebugAndroidTestKotlin`: BUILD SUCCESSFUL (new
   `DayDetailViewModelTest` 6 tests, `MainViewModelTest` 4 tests, pass).
-- Commit: T2_HASH
+- Commit: f147516
+
+### T3 (done)
+- Route: delegated writer. Settings UI is a new small "Daily summary" card (switch + time row,
+  existing `TimePickerDialog`); ViewModel reschedules via `ScheduleDailySummaryUseCase`. Docs:
+  CLAUDE.md (2.2, 2.3, 2.5, new 2.9, section 4) and `docs/decisions/006-resumen-de-fin-de-dia.md`.
+- `./gradlew lint test compileDebugAndroidTestKotlin assembleDebug`: BUILD SUCCESSFUL.
+- Commit: T3_HASH
 
 ## Next step
 
-T3.
+Owner: review, manual check on emulator (notification tap, exact-alarm denied), then decide push/PR.

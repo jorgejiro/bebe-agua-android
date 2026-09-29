@@ -38,6 +38,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 ### 2.2 Pantalla Historial ✅ Implementada
 - Vista por días (últimos 30) con total diario y barra de progreso vs objetivo.
 - Streaks y estadísticas básicas.
+- Cada fila de día es pulsable y abre el **detalle del día** (ver 2.9).
 - (v1.1, no v1) Gráfico semanal/mensual.
 
 ### 2.3 Pantalla Configuración ✅ Implementada
@@ -48,6 +49,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - **Saltar recordatorio tras beber** (opcional, **desactivada por defecto**). Si se activa, un recordatorio que caiga dentro de la ventana de cortesía posterior a una ingesta no se envía: se programa el siguiente horario de la agenda. Ventana configurable, 15 min por defecto (rango 5–120). Ver `docs/decisions/001-ventana-de-cortesia-tras-ingesta.md`.
 - **Lista editable de tamaños de ingesta**. Por defecto: `[200 ml]`. El usuario puede añadir, editar y eliminar (mínimo siempre debe quedar uno).
 - **Tamaño por defecto al iniciar**: el último usado (no se configura, se infiere).
+- **Resumen de fin de día** (activado por defecto): interruptor y, si está activo, hora del resumen (por defecto 23:00). Ver 2.5 y `docs/decisions/006-resumen-de-fin-de-dia.md`.
 - **Idioma**: Auto / Español / English.
 - **Tema**: Auto / Claro / Oscuro.
 - **Vista previa de horarios de recordatorio calculados**.
@@ -65,6 +67,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - Acción rápida: "Posponer 15 min".
 - **Vibran y no suenan** (canal con `setSound(null, null)` + `enableVibration(true)`), para que el móvil pueda quedarse en modo sonido sin que el recordatorio moleste. Si hay un reloj emparejado, el reenvío lo hace el sistema (no marcamos `setLocalOnly`) y la vibración de la muñeca la decide el reloj.
 - El sonido, la vibración y la importancia de un canal se congelan en su primera creación: recrearlo con otros valores es un no-op en los móviles que ya lo tienen. Cambiar ese comportamiento obliga a **estrenar id de canal** y borrar el viejo (`BebeAguaApplication.createNotificationChannels`). Historial de ids: `reminders` (≤ 1.3.0, sonaba y no vibraba) → `reminders_vibrate` (1.3.1+). Ver `docs/decisions/005-recordatorios-que-vibran-sin-sonar.md`.
+- **Resumen de fin de día**: notificación aparte (id 1002, canal `daily_summary`, mismo comportamiento que los recordatorios: vibra y no suena) a la hora configurada, con lo bebido frente al objetivo. **Se envía aunque se haya alcanzado el objetivo** (es un resumen, no un recordatorio). Usa su propia alarma (`DailySummaryScheduler`, request code 3, acción `ACTION_DAILY_SUMMARY_ALARM`) y su propio `DailySummaryReceiver`, independientes de la alarma de recordatorios. `ScheduleDailySummaryUseCase` programa la siguiente ocurrencia estrictamente posterior a ahora (o cancela si está desactivado) y se llama desde `BootReceiver`, el fin del onboarding, el arranque de la app, los cambios en Ajustes y el propio receiver. Sin permiso de alarmas exactas se omite en silencio, igual que los recordatorios. Al pulsarla abre el detalle del día resumido (la fecha viaja en el intent como `EXTRA_SUMMARY_DATE`, ISO, calculada al disparar: si se pulsa pasada la medianoche sigue mostrando el día resumido).
 - Solo se envían entre `horaInicio` y `horaFin`.
 - Dejan de enviarse al alcanzar el objetivo diario.
 - Al registrar manualmente una ingesta, se reprograma el siguiente recordatorio desde ese momento.
@@ -86,6 +89,12 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
   3. `ui/changelog/ChangelogCatalog.kt` (versión, `versionCode`, fecha y referencia al array).
 - El test unitario `ChangelogCatalogTest` falla si el `versionCode` compilado no tiene entrada en el catálogo; el instrumentado `ChangelogResourcesTest` falla si falta el array en ES o EN.
 - No se muestra automáticamente al actualizar: es solo consultable.
+
+### 2.9 Pantalla Detalle del día ✅ Implementada
+- Ruta `day/{date}` (fecha ISO `yyyy-MM-dd`), no es una pestaña: mientras está abierta se mantiene resaltada la pestaña de Historial.
+- Se abre desde las filas de Historial y desde la notificación de resumen de fin de día. `MainActivity` solo reenvía el extra `EXTRA_SUMMARY_DATE` a `MainViewModel.pendingSummaryDate`; el `NavGraph` navega cuando el onboarding está hecho y lo consume, de modo que girar el móvil no vuelve a navegar.
+- Muestra la fecha completa, el círculo de progreso `consumido / objetivo`, la lista de ingestas de ese día (con opción de eliminar, igual que en Casa) y un estado vacío.
+- Datos: `GetDaySummaryUseCase(date)` (equivalente por fecha de `GetTodaySummaryUseCase`). Fecha inválida → estado `Error`.
 
 ---
 
@@ -205,11 +214,14 @@ app/
           IntakeRepository.kt
           SettingsRepository.kt
           ReminderScheduler.kt    # interfaz
+          DailySummaryScheduler.kt # interfaz de la alarma del resumen de fin de día
         usecase/
           AddIntakeUseCase.kt
           DeleteIntakeUseCase.kt
           GetTodaySummaryUseCase.kt
           GetDailyHistoryUseCase.kt
+          GetDaySummaryUseCase.kt            # resumen (total, objetivo, ingestas) de una fecha
+          ScheduleDailySummaryUseCase.kt     # programa/cancela la alarma del resumen de fin de día
           CalculateReminderTimesUseCase.kt
           ScheduleRemindersUseCase.kt
           ObserveSettingsUseCase.kt
@@ -230,6 +242,10 @@ app/
           HomeScreen.kt
           HomeViewModel.kt
           HomeUiState.kt
+        daydetail/
+          DayDetailScreen.kt
+          DayDetailViewModel.kt
+          DayDetailUiState.kt
         history/
           HistoryScreen.kt
           HistoryViewModel.kt
@@ -247,10 +263,10 @@ app/
           OnboardingScreen.kt
           OnboardingViewModel.kt
         main/
-          MainViewModel.kt        # gestiona el estado de onboarding completado
+          MainViewModel.kt        # onboarding completado + fecha pendiente del resumen + reprograma el resumen
         navigation/
           NavGraph.kt
-          Screen.kt               # sealed class con rutas Home / History / Settings / Changelog
+          Screen.kt               # sealed class con rutas Home / History / Settings / Changelog / DayDetail
       reminder/
         AlarmManagerReminderScheduler.kt   # implementación producción
         NoOpReminderScheduler.kt           # stub para tests
@@ -258,6 +274,10 @@ app/
         NotificationActionReceiver.kt      # maneja acciones de notificación
         BootReceiver.kt
         NotificationFactory.kt
+        AlarmManagerDailySummaryScheduler.kt  # alarma del resumen (request code 3)
+        NoOpDailySummaryScheduler.kt          # stub para tests
+        DailySummaryReceiver.kt               # dispara el resumen y reprograma el siguiente
+        DailySummaryNotificationFactory.kt    # notificación 1002, canal daily_summary
       widget/
         DrinkWidget.kt                     # GlanceAppWidget 1x1 (icono + badge «+»)
         DrinkWidgetReceiver.kt
