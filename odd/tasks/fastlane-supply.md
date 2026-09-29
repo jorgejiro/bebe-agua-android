@@ -38,7 +38,7 @@ screenshot copies byte-equal to `docs/store-assets/capturas/`.
       copy of Constanza's files).
 - [x] T2 — Refresh ES/EN listing texts + tablet screenshot copies + runbook. Route: delegated
       (writer trigger: 2+ non-trivial files).
-- [ ] T3 — `fastlane validar` then, after owner confirmation, `fastlane ficha`. Route: inline,
+- [x] T3 — `fastlane validar` then, after owner confirmation, `fastlane ficha`. Route: inline,
       bounded action.
 
 ## Progress / evidence
@@ -51,6 +51,10 @@ screenshot copies byte-equal to `docs/store-assets/capturas/`.
   `docs/play-store-publication-texts.md`, CLAUDE.md bullet, capture README documents the copy step.
   Dynamic color claim omitted from the listing: not found in `ui/theme` (CLAUDE.md says otherwise).
 
+- T3 (2026-09-29): `fastlane validar` OK with the new texts; owner confirmed; `fastlane ficha` with
+  `changes_not_sent_for_review: false` → "Successfully finished the upload to Google Play" (texts +
+  phone/7"/10" screenshots, en-US and es-ES; edit committed and sent to review).
+
 ## Next step
 
-T3.
+Future releases: `fastlane subir track:<track>` (default internal, draft). Nothing pushed yet.
