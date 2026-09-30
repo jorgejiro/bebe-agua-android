@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.jjrapps.bebeagua.reminder.DailySummaryNotificationFactory
+import com.jjrapps.bebeagua.reminder.NotificationFactory
 import com.jjrapps.bebeagua.ui.main.MainViewModel
 import com.jjrapps.bebeagua.ui.navigation.BebeAguaNavGraph
 import com.jjrapps.bebeagua.ui.theme.BebeAguaTheme
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         // After a configuration change the original intent is still attached: only a fresh
         // launch must forward it, otherwise rotating would reopen the detail screen.
-        if (savedInstanceState == null) forwardSummaryDate(intent)
+        if (savedInstanceState == null) forwardNotificationIntent(intent)
         setContent {
             BebeAguaTheme {
                 BebeAguaNavGraph()
@@ -34,12 +35,13 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        forwardSummaryDate(intent)
+        forwardNotificationIntent(intent)
     }
 
-    private fun forwardSummaryDate(intent: Intent?) {
-        mainViewModel.onSummaryDateReceived(
-            intent?.getStringExtra(DailySummaryNotificationFactory.EXTRA_SUMMARY_DATE)
+    private fun forwardNotificationIntent(intent: Intent?) {
+        mainViewModel.onNotificationIntentReceived(
+            summaryIsoDate = intent?.getStringExtra(DailySummaryNotificationFactory.EXTRA_SUMMARY_DATE),
+            openHome = intent?.getBooleanExtra(NotificationFactory.EXTRA_OPEN_HOME, false) == true
         )
     }
 }

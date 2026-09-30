@@ -39,6 +39,7 @@ import com.jjrapps.bebeagua.ui.daydetail.DayDetailScreen
 import com.jjrapps.bebeagua.ui.history.HistoryScreen
 import com.jjrapps.bebeagua.ui.home.HomeScreen
 import com.jjrapps.bebeagua.ui.main.MainViewModel
+import com.jjrapps.bebeagua.ui.main.PendingNavigation
 import com.jjrapps.bebeagua.ui.onboarding.OnboardingScreen
 import com.jjrapps.bebeagua.ui.settings.SettingsScreen
 import com.jjrapps.bebeagua.ui.theme.AccentLight
@@ -47,12 +48,11 @@ import com.jjrapps.bebeagua.ui.theme.BackgroundNav
 import com.jjrapps.bebeagua.ui.theme.BorderStrong
 import com.jjrapps.bebeagua.ui.theme.DmSansFontFamily
 import com.jjrapps.bebeagua.ui.theme.TextMuted
-import java.time.LocalDate
 
 @Composable
 fun BebeAguaNavGraph(mainViewModel: MainViewModel = hiltViewModel()) {
     val isOnboardingDone by mainViewModel.isOnboardingDone.collectAsStateWithLifecycle()
-    val pendingSummaryDate by mainViewModel.pendingSummaryDate.collectAsStateWithLifecycle()
+    val pendingNavigation by mainViewModel.pendingNavigation.collectAsStateWithLifecycle()
 
     when (isOnboardingDone) {
         null -> Box(
@@ -62,34 +62,41 @@ fun BebeAguaNavGraph(mainViewModel: MainViewModel = hiltViewModel()) {
         )
         false -> OnboardingScreen(onFinished = {})
         true -> MainScaffold(
-            pendingSummaryDate = pendingSummaryDate,
-            onSummaryDateConsumed = mainViewModel::consumePendingSummaryDate
+            pendingNavigation = pendingNavigation,
+            onNavigationConsumed = mainViewModel::consumePendingNavigation
         )
     }
 }
 
 @Composable
 private fun MainScaffold(
-    pendingSummaryDate: LocalDate?,
-    onSummaryDateConsumed: () -> Unit
+    pendingNavigation: PendingNavigation?,
+    onNavigationConsumed: () -> Unit
 ) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route
 
-    // Open the day detail requested by the daily summary notification, once per tap. Wait for the
+    // Open the destination requested by a notification tap, once per tap. Wait for the
     // NavHost (composed later, inside the Scaffold content) to set the graph: a non-null back stack
     // entry means it has. Any day detail already open is replaced, since launchSingleTop would
-    // match on the route pattern and keep showing the previous date.
+    // match on the route pattern and keep showing the previous date. Home pops everything above the
+    // start destination, so a reminder tap never leaves a stale detail screen on top.
     val graphReady = backStackEntry != null
-    LaunchedEffect(pendingSummaryDate, graphReady) {
+    LaunchedEffect(pendingNavigation, graphReady) {
         if (!graphReady) return@LaunchedEffect
-        pendingSummaryDate?.let { date ->
-            navController.navigate(Screen.DayDetail.createRoute(date)) {
-                popUpTo(Screen.DayDetail.route) { inclusive = true }
-            }
-            onSummaryDateConsumed()
+        when (val request = pendingNavigation) {
+            null -> return@LaunchedEffect
+            PendingNavigation.Home -> navController.popBackStack(
+                navController.graph.findStartDestination().id,
+                inclusive = false
+            )
+            is PendingNavigation.DayDetail ->
+                navController.navigate(Screen.DayDetail.createRoute(request.date)) {
+                    popUpTo(Screen.DayDetail.route) { inclusive = true }
+                }
         }
+        onNavigationConsumed()
     }
 
     // Changelog is reached from Settings, and day detail from History: keep those tabs highlighted.

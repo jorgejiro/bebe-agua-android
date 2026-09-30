@@ -32,21 +32,50 @@ class MainViewModelTest {
     fun `stores the date carried by the notification until it is consumed`() {
         val vm = viewModel()
 
-        vm.onSummaryDateReceived("2026-07-24")
-        assertEquals(LocalDate.of(2026, 7, 24), vm.pendingSummaryDate.value)
+        vm.onNotificationIntentReceived("2026-07-24", openHome = false)
+        assertEquals(PendingNavigation.DayDetail(LocalDate.of(2026, 7, 24)), vm.pendingNavigation.value)
 
-        vm.consumePendingSummaryDate()
-        assertNull(vm.pendingSummaryDate.value)
+        vm.consumePendingNavigation()
+        assertNull(vm.pendingNavigation.value)
     }
 
     @Test
-    fun `ignores null and malformed dates`() {
+    fun `requests home when a reminder notification asks for it`() {
         val vm = viewModel()
 
-        vm.onSummaryDateReceived(null)
-        vm.onSummaryDateReceived("garbage")
+        vm.onNotificationIntentReceived(null, openHome = true)
+        assertEquals(PendingNavigation.Home, vm.pendingNavigation.value)
 
-        assertNull(vm.pendingSummaryDate.value)
+        vm.consumePendingNavigation()
+        assertNull(vm.pendingNavigation.value)
+    }
+
+    @Test
+    fun `summary date wins over the home request`() {
+        val vm = viewModel()
+
+        vm.onNotificationIntentReceived("2026-07-24", openHome = true)
+
+        assertEquals(PendingNavigation.DayDetail(LocalDate.of(2026, 7, 24)), vm.pendingNavigation.value)
+    }
+
+    @Test
+    fun `malformed date with a home request falls back to home`() {
+        val vm = viewModel()
+
+        vm.onNotificationIntentReceived("garbage", openHome = true)
+
+        assertEquals(PendingNavigation.Home, vm.pendingNavigation.value)
+    }
+
+    @Test
+    fun `requests nothing for null or malformed dates without a home request`() {
+        val vm = viewModel()
+
+        vm.onNotificationIntentReceived(null, openHome = false)
+        vm.onNotificationIntentReceived("garbage", openHome = false)
+
+        assertNull(vm.pendingNavigation.value)
     }
 
     @Test

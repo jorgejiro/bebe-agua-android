@@ -12,6 +12,7 @@ import com.jjrapps.bebeagua.R
 object NotificationFactory {
 
     const val NOTIFICATION_ID = 1001
+    const val EXTRA_OPEN_HOME = "extra_open_home"
     const val EXTRA_AMOUNT_ML = "extra_amount_ml"
     const val ACTION_DRINK = "com.jjrapps.bebeagua.ACTION_DRINK"
     const val ACTION_SNOOZE = "com.jjrapps.bebeagua.ACTION_SNOOZE"
@@ -27,6 +28,8 @@ object NotificationFactory {
             0,
             Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                // Without this a tap would keep whatever screen a previous notification opened.
+                putExtra(EXTRA_OPEN_HOME, true)
             },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )

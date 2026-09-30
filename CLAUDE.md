@@ -62,7 +62,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 - Solicita permisos (notificaciones, alarmas exactas).
 
 ### 2.5 Notificaciones ✅ Implementadas
-- Tap en la notificación → abre la app en la pantalla principal.
+- Tap en la notificación de recordatorio → abre la app en la pantalla principal, siempre: el intent lleva `EXTRA_OPEN_HOME` y el `NavGraph` desapila cualquier pantalla (p. ej. un detalle del día abierto por el resumen anterior) hasta Casa.
 - Acción rápida en la notificación: "He bebido X ml" (medida por defecto actual) que registra sin abrir la app.
 - Acción rápida: "Posponer 15 min".
 - **Vibran y no suenan** (canal con `setSound(null, null)` + `enableVibration(true)`), para que el móvil pueda quedarse en modo sonido sin que el recordatorio moleste. Si hay un reloj emparejado, el reenvío lo hace el sistema (no marcamos `setLocalOnly`) y la vibración de la muñeca la decide el reloj.
@@ -92,7 +92,7 @@ Dada la ventana `[horaInicio, horaFin]` y `N` recordatorios elegidos por el usua
 
 ### 2.9 Pantalla Detalle del día ✅ Implementada
 - Ruta `day/{date}` (fecha ISO `yyyy-MM-dd`), no es una pestaña: mientras está abierta se mantiene resaltada la pestaña de Historial.
-- Se abre desde las filas de Historial y desde la notificación de resumen de fin de día. `MainActivity` solo reenvía el extra `EXTRA_SUMMARY_DATE` a `MainViewModel.pendingSummaryDate`; el `NavGraph` navega cuando el onboarding está hecho y lo consume, de modo que girar el móvil no vuelve a navegar.
+- Se abre desde las filas de Historial y desde la notificación de resumen de fin de día. `MainActivity` solo reenvía los extras `EXTRA_SUMMARY_DATE` y `EXTRA_OPEN_HOME` a `MainViewModel.onNotificationIntentReceived`, que deja una única petición en `pendingNavigation` (`PendingNavigation.DayDetail(fecha)` o `Home`; la fecha gana si vienen las dos); el `NavGraph` navega cuando el onboarding está hecho y la consume, de modo que girar el móvil no vuelve a navegar.
 - Muestra la fecha completa, el círculo de progreso `consumido / objetivo`, la lista de ingestas de ese día (con opción de eliminar, igual que en Casa) y un estado vacío.
 - Datos: `GetDaySummaryUseCase(date)` (equivalente por fecha de `GetTodaySummaryUseCase`). Fecha inválida → estado `Error`.
 

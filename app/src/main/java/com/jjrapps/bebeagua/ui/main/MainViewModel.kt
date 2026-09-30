@@ -31,21 +31,33 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val _pendingSummaryDate = MutableStateFlow<LocalDate?>(null)
+    private val _pendingNavigation = MutableStateFlow<PendingNavigation?>(null)
 
-    /** Day the user asked to open by tapping the daily summary notification; null once consumed. */
-    val pendingSummaryDate: StateFlow<LocalDate?> = _pendingSummaryDate.asStateFlow()
+    /** Destination requested by the tapped notification; null once consumed. */
+    val pendingNavigation: StateFlow<PendingNavigation?> = _pendingNavigation.asStateFlow()
 
-    /** Forwards the raw ISO date carried by the notification intent; malformed values are ignored. */
-    fun onSummaryDateReceived(isoDate: String?) {
-        isoDate ?: return
-        runCatching { LocalDate.parse(isoDate) }.getOrNull()?.let { _pendingSummaryDate.value = it }
+    /**
+     * Forwards the raw notification intent values. A valid summary date wins over [openHome];
+     * malformed dates are ignored.
+     */
+    fun onNotificationIntentReceived(summaryIsoDate: String?, openHome: Boolean) {
+        val date = summaryIsoDate?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+        when {
+            date != null -> _pendingNavigation.value = PendingNavigation.DayDetail(date)
+            openHome -> _pendingNavigation.value = PendingNavigation.Home
+        }
     }
 
-    fun consumePendingSummaryDate() {
-        _pendingSummaryDate.value = null
+    fun consumePendingNavigation() {
+        _pendingNavigation.value = null
     }
 
     val isOnboardingDone: StateFlow<Boolean?> = settingsRepository.isOnboardingDone()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+}
+
+/** Screen a tapped notification asks the nav graph to show. */
+sealed interface PendingNavigation {
+    data object Home : PendingNavigation
+    data class DayDetail(val date: LocalDate) : PendingNavigation
 }
