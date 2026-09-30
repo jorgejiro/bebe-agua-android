@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- Merged from androidx.work (a transitive dependency of Glance), which only needs it for
+         network constraints. The app has no INTERNET permission and schedules no such work. -->
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"
+        tools:node="remove" />
+
     <application
         android:name=".BebeAguaApplication"
         android:allowBackup="false"
