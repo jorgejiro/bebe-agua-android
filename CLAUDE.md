@@ -26,7 +26,7 @@ La app tomada como referencia visual (no funcional) por el usuario es *Water Tra
 
 ---
 
-## 2. Funcionalidad (estado actual v1.4.0)
+## 2. Funcionalidad (estado actual v1.4.1)
 
 ### 2.1 Pantalla principal (Casa) ✅ Implementada
 - Círculo de progreso central mostrando `consumido / objetivo` en ml.
@@ -458,6 +458,10 @@ Al subir la versión del schema → escribir migration + test en `androidTest/`.
 - [x] Notificación de resumen al final del día (23:00 por defecto, configurable y desactivable).
 - [x] Pantalla de detalle del día, accesible desde el Historial.
 - [x] Widget de escritorio 2x1 con el progreso de hoy.
+
+**v1.4.1 — Cerrada** (`versionCode 13`, `versionName 1.4.1`)
+- [x] Al tocar un recordatorio se abre siempre Casa (antes podía quedarse en el detalle del día).
+- [x] Eliminado el permiso `ACCESS_NETWORK_STATE`, heredado de WorkManager y sin uso.
 
 **v1.5 (eventual)**
 - [ ] Wear OS companion.

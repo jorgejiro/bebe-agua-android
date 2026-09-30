@@ -1,0 +1,6 @@
+What's new in 1.4.1
+
+• Tapping a reminder notification now always opens Home, even if you had opened the day detail from the summary before.
+• One unused permission was removed.
+
+No accounts, no cloud, no ads, no tracking.

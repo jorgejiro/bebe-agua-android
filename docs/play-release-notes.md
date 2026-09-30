@@ -20,6 +20,53 @@ release: *Producción → Crear nueva versión → Notas de la versión*, una pe
 
 ---
 
+## 1.4.1 (versionCode 13) — 2026-09-30
+
+### es-ES (271 caracteres)
+
+```text
+Novedades de la versión 1.4.1
+
+• Al tocar un recordatorio se abre siempre la pantalla principal, también si antes habías abierto el detalle del día desde el resumen.
+• Se ha eliminado un permiso que la app no usaba.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+```
+
+### en-US (222 caracteres)
+
+```text
+What's new in 1.4.1
+
+• Tapping a reminder notification now always opens Home, even if you had opened the day detail from the summary before.
+• One unused permission was removed.
+
+No accounts, no cloud, no ads, no tracking.
+```
+
+### Formato con etiquetas de idioma
+
+```xml
+<es-ES>
+Novedades de la versión 1.4.1
+
+• Al tocar un recordatorio se abre siempre la pantalla principal, también si antes habías abierto el detalle del día desde el resumen.
+• Se ha eliminado un permiso que la app no usaba.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.
+</es-ES>
+<en-US>
+What's new in 1.4.1
+
+• Tapping a reminder notification now always opens Home, even if you had opened the day detail from the summary before.
+• One unused permission was removed.
+
+No accounts, no cloud, no ads, no tracking.
+</en-US>
+```
+
+---
+
 ## 1.4.0 (versionCode 12) — 2026-09-29
 
 ### es-ES (471 caracteres)

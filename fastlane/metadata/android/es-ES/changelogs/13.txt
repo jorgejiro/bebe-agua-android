@@ -1,0 +1,6 @@
+Novedades de la versión 1.4.1
+
+• Al tocar un recordatorio se abre siempre la pantalla principal, también si antes habías abierto el detalle del día desde el resumen.
+• Se ha eliminado un permiso que la app no usaba.
+
+Sin cuentas, sin nube, sin anuncios y sin seguimiento.

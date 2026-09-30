@@ -134,6 +134,10 @@
     <string name="changelog_back">Back</string>
     <string name="changelog_current">Current</string>
     <string name="changelog_empty">No versions to show</string>
+    <string-array name="changelog_1_4_1">
+        <item>Tapping a reminder notification now always opens Home. Before, after opening the day detail from the end-of-day summary, the next reminder left the app on that screen.</item>
+        <item>One unused permission was removed.</item>
+    </string-array>
     <string-array name="changelog_1_4_0">
         <item>End-of-day summary: a notification (11:00 PM by default, time configurable) with what you drank against your goal. It vibrates without a sound and can be turned off in Settings → Daily summary.</item>
         <item>New day detail screen: tap a day in History to see its total, goal and entries, and delete any of them.</item>

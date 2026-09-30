@@ -131,6 +131,10 @@
     <string name="changelog_back">Volver</string>
     <string name="changelog_current">Actual</string>
     <string name="changelog_empty">No hay versiones que mostrar</string>
+    <string-array name="changelog_1_4_1">
+        <item>Al tocar un recordatorio se abre siempre la pantalla principal. Antes, si habías abierto el detalle del día desde el resumen de fin de día, el siguiente recordatorio dejaba la app en esa pantalla.</item>
+        <item>Se ha eliminado un permiso que la app no usaba.</item>
+    </string-array>
     <string-array name="changelog_1_4_0">
         <item>Resumen al final del día: una notificación (por defecto a las 23:00, con la hora configurable) con lo que has bebido frente a tu objetivo. Vibra sin sonar y se puede desactivar en Ajustes → Resumen diario.</item>
         <item>Nueva pantalla de detalle del día: toca un día del historial para ver su total, su objetivo y sus registros, y borrar los que quieras.</item>
