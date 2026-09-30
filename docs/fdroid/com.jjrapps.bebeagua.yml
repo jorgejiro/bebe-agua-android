@@ -14,14 +14,14 @@ RepoType: git
 Repo: https://github.com/jorgejiro/bebe-agua-android.git
 
 Builds:
-  - versionName: 1.4.0
-    versionCode: 12
-    commit: be068cbf4c27f9d6bfae6c1d3c700920b29f8791
+  - versionName: 1.4.1
+    versionCode: 13
+    commit: 1f0e53da89a7212816393e7d62145445a7d5b6d1
     subdir: app
     gradle:
       - yes
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
-CurrentVersion: 1.4.0
-CurrentVersionCode: 12
+CurrentVersion: 1.4.1
+CurrentVersionCode: 13
