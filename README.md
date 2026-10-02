@@ -166,7 +166,20 @@ cd bebe-agua-android
 ./gradlew lint test
 ```
 
-Release builds are signed with a private key that is not part of this repository.
+### Release signing
+
+The signing key is not in this repository. It lives in Bitwarden Secrets Manager as
+`BEBE_AGUA_KEYSTORE_B64` (the `.jks`, base64), `BEBE_AGUA_STORE_PASSWORD`, `BEBE_AGUA_KEY_ALIAS` and
+`BEBE_AGUA_KEY_PASSWORD`. `con-claves` injects them and the build decodes the keystore into
+`app/build/signing/` (owner-only), so any machine with access to the secrets can build a release:
+
+```bash
+con-claves './gradlew :app:assembleRelease'
+```
+
+No local copy of the keystore is kept. Without those variables the build falls back to a
+git-ignored `keystore.properties` at the repo root; with neither, the release APK is left unsigned
+and debug builds are unaffected.
 
 ---
 

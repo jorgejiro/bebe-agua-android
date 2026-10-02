@@ -16,7 +16,7 @@ Repo: https://github.com/jorgejiro/bebe-agua-android.git
 Builds:
   - versionName: 1.4.1
     versionCode: 13
-    commit: 1f0e53da89a7212816393e7d62145445a7d5b6d1
+    commit: c00b1e2a78a5b0a9421726c065b8891a058a05bb
     subdir: app
     gradle:
       - yes
