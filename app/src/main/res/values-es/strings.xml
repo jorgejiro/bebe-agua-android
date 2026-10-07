@@ -81,6 +81,7 @@
     <string name="language_auto">Predeterminado del sistema</string>
     <string name="language_es">Español</string>
     <string name="language_en">English</string>
+    <string name="language_ru">Русский</string>
 
     <!-- Opciones de tema -->
     <string name="theme_auto">Predeterminado del sistema</string>
@@ -200,6 +201,7 @@
     <string name="widget_wide_no_data">Abre la app</string>
 
     <!-- Comunes -->
+    <string name="unit_ml">ml</string>
     <string name="ok">Aceptar</string>
     <string name="cancel">Cancelar</string>
     <string name="save">Guardar</string>

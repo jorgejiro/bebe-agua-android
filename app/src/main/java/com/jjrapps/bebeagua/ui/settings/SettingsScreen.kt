@@ -197,7 +197,7 @@ private fun SettingsContent(
                 SettingRow(
                     label = stringResource(R.string.settings_daily_goal),
                     subtitle = stringResource(R.string.settings_daily_goal_subtitle),
-                    value = "${settings.dailyGoalMl} ml",
+                    value = "${settings.dailyGoalMl} ${stringResource(R.string.unit_ml)}",
                     onClick = { showGoalDialog = true }
                 )
             }
@@ -512,11 +512,18 @@ private fun SettingsContent(
             title = stringResource(R.string.settings_language),
             options = listOf(
                 "es" to stringResource(R.string.language_es),
-                "en" to stringResource(R.string.language_en)
+                "en" to stringResource(R.string.language_en),
+                "ru" to stringResource(R.string.language_ru)
             ),
-            selected = if (settings.language == "auto")
-                if (currentLanguage == "es") "es" else "en"
-            else settings.language,
+            selected = if (settings.language == "auto") {
+                when (currentLanguage) {
+                    "es" -> "es"
+                    "ru" -> "ru"
+                    else -> "en"
+                }
+            } else {
+                settings.language
+            },
             onSelect = { onUpdateLanguage(it); showLanguageDialog = false },
             onDismiss = { showLanguageDialog = false }
         )
@@ -786,7 +793,7 @@ private fun GoalDialog(current: Int, onConfirm: (Int) -> Unit, onDismiss: () -> 
                     label = { Text(stringResource(R.string.settings_daily_goal_subtitle)) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    suffix = { Text("ml") },
+                    suffix = { Text(stringResource(R.string.unit_ml)) },
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(
@@ -871,7 +878,7 @@ private fun SizeInputDialog(title: String, onConfirm: (Int) -> Unit, onDismiss: 
                 label = { Text(stringResource(R.string.home_custom_amount_hint)) },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                suffix = { Text("ml") }
+                suffix = { Text(stringResource(R.string.unit_ml)) }
             )
         },
         confirmButton = {
@@ -972,8 +979,10 @@ private fun languageLabel(language: String): String {
     return when (language) {
         "es" -> stringResource(R.string.language_es)
         "en" -> stringResource(R.string.language_en)
+        "ru" -> stringResource(R.string.language_ru)
         else -> when (currentLanguage) {
             "es" -> stringResource(R.string.language_es)
+            "ru" -> stringResource(R.string.language_ru)
             else -> stringResource(R.string.language_en)
         }
     }
