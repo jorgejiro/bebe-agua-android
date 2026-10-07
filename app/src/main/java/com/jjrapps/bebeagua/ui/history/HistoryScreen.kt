@@ -150,12 +150,12 @@ private fun StatsRow(averageMl: Int, bestDayMl: Int, streakDays: Int) {
     ) {
         StatCard(
             label = stringResource(R.string.history_average_label),
-            value = "$averageMl ml",
+            value = "$averageMl ${stringResource(R.string.unit_ml)}",
             modifier = Modifier.weight(1f)
         )
         StatCard(
             label = stringResource(R.string.history_best_label),
-            value = "$bestDayMl ml",
+            value = "$bestDayMl ${stringResource(R.string.unit_ml)}",
             modifier = Modifier.weight(1f)
         )
         StatCard(
@@ -234,7 +234,7 @@ private fun DayHistoryItem(day: DayHistory, onClick: () -> Unit) {
             Spacer(Modifier.width(6.dp))
         }
         Text(
-            text = "${day.totalMl} ml",
+            text = "${day.totalMl} ${stringResource(R.string.unit_ml)}",
             fontFamily = DmMonoFontFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,

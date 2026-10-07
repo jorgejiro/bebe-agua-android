@@ -270,7 +270,7 @@ private fun SetupPage(viewModel: OnboardingViewModel) {
                 Icon(Icons.Outlined.Remove, contentDescription = null, tint = AccentLight)
             }
             Text(
-                text = "${viewModel.goalMl} ml",
+                text = "${viewModel.goalMl} ${stringResource(R.string.unit_ml)}",
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
                 fontFamily = DmMonoFontFamily,

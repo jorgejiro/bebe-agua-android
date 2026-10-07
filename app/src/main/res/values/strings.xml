@@ -81,6 +81,7 @@
     <string name="language_auto">System default</string>
     <string name="language_es">Español</string>
     <string name="language_en">English</string>
+    <string name="language_ru">Русский</string>
 
     <!-- Theme options -->
     <string name="theme_auto">System default</string>
@@ -203,6 +204,7 @@
     <string name="widget_wide_no_data">Open the app</string>
 
     <!-- Common -->
+    <string name="unit_ml">ml</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>

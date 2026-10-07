@@ -43,4 +43,7 @@ class ChangelogResourcesTest {
 
     @Test
     fun spanishHighlightsArePresent() = assertHighlightsPresent("es")
+
+    @Test
+    fun russianHighlightsArePresent() = assertHighlightsPresent("ru")
 }

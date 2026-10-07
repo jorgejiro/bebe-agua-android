@@ -1,0 +1,210 @@
+<resources>
+    <string name="app_name">Пей воду!</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_history">История</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Home -->
+    <string name="home_daily_goal_label">дневная цель</string>
+    <string name="home_goal_format">/ %1$d мл</string>
+    <string name="home_next_reminder">Следующее напоминание</string>
+    <string name="home_no_reminder">—</string>
+    <string name="home_today_intakes">Записи за сегодня</string>
+    <string name="home_no_intakes">Пока нет записей</string>
+    <string name="home_upcoming_reminder">следующее напоминание</string>
+    <string name="home_measure">объём</string>
+    <string name="home_select_size">Выберите объём</string>
+    <string name="home_add_custom">Другой объём…</string>
+    <string name="home_custom_amount_title">Свой объём</string>
+    <string name="home_custom_amount_hint">Количество в мл</string>
+    <string name="home_delete">Удалить</string>
+    <string name="home_intake_label">стакан воды</string>
+    <string name="home_ml_format">%1$d мл</string>
+
+    <!-- History -->
+    <string name="history_title">История</string>
+    <string name="history_no_data">Нет данных за этот период</string>
+    <string name="history_average_label">Среднее за день</string>
+    <string name="history_best_label">Лучший день</string>
+    <string name="history_streak_label">Текущая серия</string>
+    <string name="history_days_suffix">д</string>
+    <string name="history_goal_reached">Цель достигнута</string>
+    <string name="day_detail_back">Назад</string>
+    <string name="day_detail_intakes">Записи</string>
+    <string name="day_detail_empty">В этот день нет записей</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_section_goal">Цель</string>
+    <string name="settings_section_reminders">Напоминания</string>
+    <string name="settings_section_sizes">Объёмы порций</string>
+    <string name="settings_section_appearance">Внешний вид</string>
+    <string name="settings_section_permissions">Разрешения</string>
+    <string name="settings_section_daily_summary">Итог дня</string>
+    <string name="settings_daily_summary">Итог в конце дня</string>
+    <string name="settings_daily_summary_subtitle">Уведомление о том, сколько вы выпили за день</string>
+    <string name="settings_daily_summary_time">Время итога</string>
+    <string name="settings_daily_goal">Дневная цель</string>
+    <string name="settings_daily_goal_subtitle">мл в день</string>
+    <string name="settings_start_time">Время начала</string>
+    <string name="settings_end_time">Время окончания</string>
+    <string name="settings_reminders_per_day">Напоминаний в день</string>
+    <string name="settings_reminders_less">меньше</string>
+    <string name="settings_reminders_more">больше</string>
+    <string name="settings_schedule_preview">Рассчитанное расписание</string>
+    <string name="settings_skip_imminent">Пропускать напоминание после питья</string>
+    <string name="settings_skip_imminent_subtitle">Если следующее напоминание приходится вскоре после записи, оно пропускается</string>
+    <string name="settings_skip_imminent_window">Окно тишины</string>
+    <string name="settings_skip_imminent_window_subtitle">Минуты тишины после записи порции</string>
+    <string name="settings_minutes_format">%1$d мин</string>
+    <string name="settings_intake_sizes">Объёмы порций</string>
+    <string name="settings_add_size">+ Добавить объём</string>
+    <string name="settings_add_size_title">Добавить объём</string>
+    <string name="settings_edit_size_title">Изменить объём</string>
+    <string name="settings_delete_size">Удалить</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_exact_alarms">Точные будильники</string>
+    <string name="settings_exact_alarms_subtitle">Нужны для своевременных напоминаний</string>
+    <string name="settings_notification_settings">Настройки уведомлений</string>
+    <string name="settings_notification_settings_subtitle">Напоминания вибрируют и не издают звука</string>
+    <string name="settings_permission_granted">Разрешено</string>
+    <string name="settings_permission_denied">Запрещено — нажмите, чтобы включить</string>
+    <string name="settings_ml_format">%1$d мл</string>
+    <string name="settings_time_format">%1$02d:%2$02d</string>
+    <string name="settings_reminder_at_format">%1$s · %2$d мл</string>
+
+    <!-- Language options -->
+    <string name="language_auto">Как в системе</string>
+    <string name="language_es">Español</string>
+    <string name="language_en">English</string>
+    <string name="language_ru">Русский</string>
+
+    <!-- Theme options -->
+    <string name="theme_auto">Как в системе</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_light">Светлая</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Напоминания о воде</string>
+    <string name="notification_channel_desc">Периодические напоминания выпить воды</string>
+    <string name="notification_title">Пора выпить воды!</string>
+    <string name="notification_text">Сегодня вы выпили %1$d мл из %2$d мл</string>
+    <string name="notification_action_drink">Выпить %1$d мл</string>
+    <string name="daily_summary_channel_name">Итог дня</string>
+    <string name="daily_summary_channel_desc">Сколько воды вы выпили за день</string>
+    <string name="daily_summary_title">Итог за сегодня</string>
+    <string name="daily_summary_text">Вы выпили %1$d мл из %2$d мл (%3$d%%)</string>
+    <string name="daily_summary_text_goal_reached">Цель достигнута: %1$d мл из %2$d мл</string>
+    <string name="notification_action_snooze">Отложить на 15 мин</string>
+
+    <!-- Permissions warning -->
+    <string name="permission_alarm_warning">Точные будильники отключены. Напоминания могут задерживаться.</string>
+    <string name="permission_notification_warning">Уведомления отключены.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome_title">Пейте достаточно воды</string>
+    <string name="onboarding_welcome_body">Следите за количеством выпитой воды и получайте своевременные напоминания, чтобы не забывать пить.</string>
+    <string name="onboarding_setup_title">Настройте цель</string>
+    <string name="onboarding_setup_subtitle">Выберите, сколько воды хотите пить каждый день и когда должны приходить напоминания.</string>
+    <string name="onboarding_goal_label">ДНЕВНАЯ ЦЕЛЬ</string>
+    <string name="onboarding_time_label">ВРЕМЯ НАПОМИНАНИЙ</string>
+    <string name="onboarding_reminders_label">НАПОМИНАНИЙ В ДЕНЬ</string>
+    <string name="onboarding_permissions_title">Включите напоминания</string>
+    <string name="onboarding_permissions_subtitle">Предоставьте эти разрешения, чтобы приложение могло присылать напоминания вовремя.</string>
+    <string name="onboarding_grant">Включить</string>
+    <string name="onboarding_next">Далее</string>
+    <string name="onboarding_finish">Начать</string>
+
+    <!-- About -->
+    <string name="settings_section_about">О приложении</string>
+    <string name="settings_feedback">Отправить отзыв</string>
+    <string name="settings_version">Версия</string>
+    <string name="settings_version_format">%1$s (%2$d)</string>
+    <string name="settings_changelog">Что нового</string>
+    <string name="settings_changelog_subtitle">Изменения в каждой версии</string>
+
+    <!-- Changelog -->
+    <string name="changelog_title">Что нового</string>
+    <string name="changelog_back">Назад</string>
+    <string name="changelog_current">Текущая</string>
+    <string name="changelog_empty">Нет версий для отображения</string>
+    <string-array name="changelog_1_4_1">
+        <item>Нажатие на уведомление-напоминание теперь всегда открывает главный экран. Раньше, если вы открыли детали дня из итога за день, следующее напоминание оставляло приложение на этом экране.</item>
+        <item>Удалено одно неиспользуемое разрешение.</item>
+    </string-array>
+    <string-array name="changelog_1_4_0">
+        <item>Итог в конце дня: уведомление (по умолчанию в 23:00, время настраивается) о том, сколько вы выпили относительно цели. Вибрирует без звука, отключается в разделе Настройки → Итог дня.</item>
+        <item>Новый экран деталей дня: нажмите на день в истории, чтобы увидеть его итог, цель и записи, и удалить любую из них.</item>
+        <item>Новый виджет 2×1 на главном экране: значок приложения с «+» (одно нажатие записывает ваш обычный объём) и прогресс за сегодня, который всегда актуален и обнуляется в полночь.</item>
+        <item>Напоминания теперь надёжно переназначаются после перезагрузки телефона.</item>
+    </string-array>
+    <string-array name="changelog_1_3_1">
+        <item>Напоминания теперь вибрируют, а не издают звук, так что можно оставить телефон в режиме звонка, и они не будут мешать.</item>
+        <item>Новый пункт «Настройки уведомлений» в разделе «Настройки → Разрешения»: он открывает канал напоминаний в системных настройках, где можно снова включить звук.</item>
+    </string-array>
+    <string-array name="changelog_1_3_0">
+        <item>Приложение теперь называется Пей воду!</item>
+        <item>Новый пункт «Отправить отзыв» в разделе «Настройки → О приложении»: он открывает почтовое приложение с адресом автора и установленной версией в теме письма.</item>
+    </string-array>
+    <string-array name="changelog_1_2_1">
+        <item>Исправлено: виджет на главном экране зависал на индикаторе загрузки при добавлении, и нажатия ничего не делали. Теперь он отображается и записывает ваш обычный объём.</item>
+    </string-array>
+    <string-array name="changelog_1_2_0">
+        <item>Новый виджет 1x1 на главном экране: одно нажатие записывает ваш обычный объём без открытия приложения.</item>
+        <item>Новый экран «Что нового» в разделе «Настройки → О приложении»: изменения каждой версии прямо в приложении.</item>
+        <item>В настройках теперь отображается установленная версия.</item>
+        <item>Новые значения по умолчанию для новых установок: цель 2400 мл, интервал с 08:00 до 21:00 и 14 напоминаний в день.</item>
+    </string-array>
+    <string-array name="changelog_1_1_0">
+        <item>Новая опция пропускать напоминание, если вы только что записали порцию, с настраиваемым окном тишины (по умолчанию выключена).</item>
+        <item>Индикатор «Следующее напоминание» на главном экране теперь всегда совпадает с реально запланированным напоминанием.</item>
+    </string-array>
+    <string-array name="changelog_1_0">
+        <item>Первый выпуск, опубликованный в Google Play.</item>
+        <item>Последний записанный объём сохраняется как объём по умолчанию, даже после перезапуска приложения.</item>
+    </string-array>
+    <string-array name="changelog_1_0_3">
+        <item>При первом запуске приложение теперь спрашивает, сколько напоминаний в день вам нужно.</item>
+        <item>Страница настройки при первом запуске прокручивается, поэтому все поля доступны на маленьких экранах.</item>
+        <item>Дневная цель по умолчанию повышена с 1500 мл до 2100 мл (влияет только на новые установки).</item>
+    </string-array>
+    <string-array name="changelog_1_0_2">
+        <item>Первое напоминание дня теперь срабатывает в ваше время начала.</item>
+        <item>Когда на сегодня не остаётся слотов для напоминаний, следующее назначается на завтра.</item>
+        <item>Статус разрешения на точные будильники обновляется каждый раз при возвращении в настройки.</item>
+    </string-array>
+    <string-array name="changelog_1_0_1">
+        <item>Главный экран с кольцом прогресса, записью обычного объёма в одно нажатие и списком сегодняшних записей.</item>
+        <item>История за последние 30 дней с итогами по дням, средним значением, лучшим днём и текущей серией.</item>
+        <item>Точные напоминания в пределах выбранного интервала, которые прекращаются при достижении дневной цели.</item>
+        <item>Быстрые действия в уведомлении: записать порцию или отложить напоминание на 15 минут.</item>
+        <item>Настройки дневной цели, интервала, количества напоминаний в день, объёмов порций и языка.</item>
+        <item>Приветствие при первом запуске для настройки цели, интервала и разрешений.</item>
+        <item>Испанский и английский, применяются сразу при смене языка.</item>
+        <item>Без учётной записи и облака: все данные остаются на устройстве.</item>
+    </string-array>
+
+    <!-- Widget -->
+    <string name="widget_drink_label">Записать воду</string>
+    <string name="widget_drink_description">Одно нажатие записывает ваш обычный объём.</string>
+    <string name="widget_drink_content_description">Записать обычный объём</string>
+    <string name="widget_toast_intake_added">+%1$d мл · %2$d/%3$d мл</string>
+    <string name="widget_drink_wide_label">Прогресс за сегодня</string>
+    <string name="widget_drink_wide_description">Показывает прогресс воды за сегодня. Одно нажатие записывает ваш обычный объём.</string>
+    <string name="widget_wide_progress">%1$d / %2$d мл</string>
+    <string name="widget_wide_percent">%1$d%% от цели</string>
+    <string name="widget_wide_goal_reached">Цель достигнута</string>
+    <string name="widget_wide_no_data">Откройте приложение</string>
+
+    <!-- Common -->
+    <string name="unit_ml">мл</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="add">Добавить</string>
+    <string name="delete">Удалить</string>
+</resources>

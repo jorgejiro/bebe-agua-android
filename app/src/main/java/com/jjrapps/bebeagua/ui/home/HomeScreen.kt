@@ -299,7 +299,7 @@ private fun HomeContent(
                     label = { Text(stringResource(R.string.home_custom_amount_hint)) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    suffix = { Text("ml") }
+                    suffix = { Text(stringResource(R.string.unit_ml)) }
                 )
             },
             confirmButton = {
@@ -474,7 +474,7 @@ private fun NextReminderListItem(
             )
         }
         Text(
-            text = "— ml",
+            text = "— ${stringResource(R.string.unit_ml)}",
             fontFamily = DmMonoFontFamily,
             fontSize = 13.sp,
             color = TextMuted.copy(alpha = 0.5f)
